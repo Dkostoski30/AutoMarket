@@ -1,0 +1,149 @@
+﻿@model IEnumerable<AutoMarket.Models.Listing>
+
+@{
+    ViewBag.Title = "Index";
+    var currentUser = User.Identity.Name;
+}
+
+<style>
+
+    .buttonClass {
+        font-size: 15px;
+        font-family: Arial;
+        width: 40%;
+        height: auto;
+        border-width: 1px;
+        color: #fff;
+        border-color: rgba(131, 131, 131, 1);
+        border-top-left-radius: 28px;
+        border-top-right-radius: 28px;
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+        box-shadow: 6px 8px 12px 1px rgba(8, 0, 0, 0.15);
+        text-shadow: 1px 1px 8px rgba(75, 75, 75, 1);
+        background: rgba(0, 86, 179, 1);
+    }
+
+        .buttonClass:hover {
+            background: rgba(0, 86, 179, 0.63)
+        }
+        label{
+            font: bold
+        }
+</style>
+<!-- Filter Form -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Filter Your Search</h2>
+    <form action="/ApplyFilters" method="GET" >
+        <div class="d-flex flex-xl-wrap">
+            <div class="form-group mx-2">
+                <label for="priceFrom" class="sr-only">Price From</label>
+                <input type="number" name="priceFrom" class="form-control" id="priceFrom" placeholder="$ Min">
+            </div>
+            <div class="form-group mx-2">
+                <label for="priceTo" class="sr-only">Price To</label>
+                <input type="number" name="priceTo" class="form-control" id="priceTo" placeholder="$ Max">
+            </div>
+            <div class="form-group mx-2">
+                <label for="yearFrom" class="sr-only">Year From</label>
+                <input type="number" name="yearFrom" class="form-control" id="yearFrom" placeholder="YYYY">
+            </div>
+            <div class="form-group mx-2">
+                <label for="yearTo" class="sr-only">Year To</label>
+                <input type="number" name="yearTo" class="form-control" id="yearTo" placeholder="YYYY">
+            </div>
+            <div class="form-group mx-2">
+                <label for="kilometersFrom" class="sr-only">Kilometers From</label>
+                <input type="number" name="kilometersFrom" class="form-control" id="kilometersFrom" placeholder="Km">
+            </div>
+            <div class="form-group mx-2">
+                <label for="kilometersTo" class="sr-only">Kilometers To</label>
+                <input type="number" name="kilometersTo" class="form-control" id="kilometersTo" placeholder="Km">
+            </div>
+            <div class="form-group mx-2">
+                <label for="fuelType" class="sr-only">Fuel Type</label>
+                <select name="fuelType" class="form-control" id="fuelType">
+                    <option value="">Fuel Type</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Hydrogen">Hydrogen</option>
+                </select>
+            </div>
+            <div class="form-group mx-2">
+                <label for="bodyType" class="sr-only">Body Type</label>
+                <select name="bodyType" class="form-control" id="bodyType">
+                    <option value="">Body Type</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Coupe">Coupe</option>
+                    <option value="Convertible">Convertible</option>
+                </select>
+            </div>
+            <div class="form-group mx-2">
+                <label for="condition-type" class="sr-only">Condition:</label>
+                <select name="condition-type" class="form-control" id="condition-type">
+                    <option value="">Select condition</option>
+                    <option value="Used">Used</option>
+                    <option value="New">New</option>
+                </select>
+            </div>
+            <div class="form-group mx-2">
+                <label for="transmission" class="sr-only">Transmission</label>
+                <select name="transmission" class="form-control" id="transmission">
+                    <option value="">Transmission</option>
+                    <option value="Automatic">Automatic</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Semi-Automatic">Semi-Automatic</option>
+                </select>
+            </div>
+            <div class="form-group mx-2">
+                <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr />
+@if (Model.Count().Equals(0))
+{
+    <div class="col-md-12 text-center">
+        <h2 class="text-muted">No cars were found..</h2>
+        <a href="/Home/Index/" class="btn buttonClass col-3">Back Home</a>
+    </div>
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        
+            int maxLength = 70; 
+            string description = item.Description;
+            string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "...";
+        
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <a href="/Listings/Details/@item.ID" style="text-decoration: none; color: CaptionText;">
+                    <img src="~/Content/Images/car_images/@item.Images.ElementAt(0).Name" class="card-img-top" style="object-fit: cover; aspect-ratio: 4 / 3;" alt="@item.Title" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text"><strong>Price:</strong> €@Html.DisplayFor(modelItem => item.Price)</p>
+                        <p class="card-text" style="color: #525E54">@truncatedDescription..</p>
+                        <p class="card-text d-inline"><small class="text-muted d-inline">@item.Created.Value.Day/@item.Created.Value.Month/@item.Created.Value.Year</small></p>
+                        @if (item.User.UserName == currentUser)
+                        {
+                            <p class="card-text d-inline"><small class="text-muted small" style="float: right">Your Listing</small></p>
+                        }
+                    </div>
+                </a>
+                @if (User.IsInRole("Admin") || item.User.UserName == currentUser)
+                {
+                    <div class="card-footer d-flex justify-content-sm-evenly">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-sm" })
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

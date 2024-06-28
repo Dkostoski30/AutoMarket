@@ -1,0 +1,142 @@
+﻿@model AutoMarket.Models.Listing
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container mt-4">
+    <!-- Details Card -->
+    <div class="card mb-4">
+        <div class="card-header text-center">
+            <h2>@Model.Title</h2>
+        </div>
+        <div class="card-body">
+            
+            <p class="text-muted small">@Html.DisplayFor(model => model.Created)</p>
+                <div class="row">
+                <!-- Image Carousel -->
+                <div class="col-md-6">
+                    <div id="carImageCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            @for (var i = 0; i < Model.Images.Count; i++)
+                            {
+                                var img = Model.Images.ElementAt(i);
+                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                    <img src="~/Content/Images/car_images/@img.Name" class="d-block w-100" alt="@Model.Title" style="max-height: 400px; object-fit: cover;">
+                                </div>
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#carImageCarousel" role="button" data-slide="prev" style="text-decoration: none">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carImageCarousel" role="button" data-slide="next" style="text-decoration: none">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Listing Details -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.Manufacturer)</dt>
+                                        @Html.DisplayFor(model => model.Car.Manufacturer)
+                                    </div>
+
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.Model)</dt>
+                                        @Html.DisplayFor(model => model.Car.Model)
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.Registration_Year)</dt>
+                                        @Html.DisplayFor(model => model.Car.Registration_Year)
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.Transmition)</dt>
+                                        @Html.DisplayFor(model => model.Car.Transmition)
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.number_seats)</dt>
+                                        @Html.DisplayFor(model => model.Car.number_seats)
+
+                                    </div>
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.number_doors)</dt>
+                                        @Html.DisplayFor(model => model.Car.number_doors)
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.Kilometers)</dt>
+                                        @Html.DisplayFor(model => model.Car.Kilometers)
+
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.Fuel_Type)</dt>
+                                        @Html.DisplayFor(model => model.Car.Fuel_Type)
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <dt>@Html.DisplayNameFor(model => model.Car.Body_Type)</dt>
+                                        @Html.DisplayFor(model => model.Car.Body_Type)
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 p-3">
+                    <dl class="row">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Price)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Price)</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Description)</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+
+
+                    </dl>
+                </div>
+                @if (Model.User != null)
+                {
+                    <div class="card h-100 w-25 text-center">
+                        <img src="~/Content/Images/icons/user_icon.png" class="card-img-top" style="width:24px; height: auto;" />
+                        <div class="card-title"><strong>@Model.User.UserName</strong></div>
+                        <div class="card-text">@Model.User.PhoneNumber</div>
+                        <div class="" card-text">@Model.User.City</div>
+
+                    </div>
+
+                }
+            </div>
+        </div>
+
+    <!-- Action Buttons -->
+    <div class="text-center mb-4">
+        @Html.ActionLink("Edit Listing", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary mx-2" })
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary mx-2" })
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and jQuery for the carousel -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

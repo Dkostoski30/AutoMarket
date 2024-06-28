@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="hero text-center">
+    <h1>Find Your Perfect Car Today</h1>
+    <p>Browse through thousands of cars and find the one that suits you best.</p>
+    <form action="/search" method="GET" class="form">
+        <input type="text" name="SearchQuery" class="form-control d-inline-block m-3" placeholder="Search for cars">
+        <div></div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+<!-- Featured Listings -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Featured Listings</h2>
+    <div class="row">
+        <!-- Example of a single listing -->
+        <div class="col-md-3">
+            <div class="card">
+                <img src="path/to/car-image.jpg" class="card-img-top" alt="Car Title">
+                <div class="card-body">
+                    <h5 class="card-title">Car Title</h5>
+                    <p class="card-text">Price: $20,000</p>
+                    <p class="card-text">A brief description of the car.</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat for other listings -->
+    </div>
+</div>
+
+<!-- Categories and Filters -->
+<div class="container mb-5">
+    <h2 class="text-center mb-4">Browse by Category</h2>
+    <div class="row">
+        <!-- Example of a single category -->
+        <div class="col-md-3">
+            <div class="card">
+                <img src="path/to/category-image.jpg" class="card-img-top" alt="Category Name">
+                <div class="card-body">
+                    <h5 class="card-title">SUVs</h5>
+                    <a href="/Listings/FilterBodyType/1" class="btn btn-primary">Browse SUVs</a>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat for other categories -->
+    </div>
+</div>
+
+<!-- Testimonials -->
+<div class="container mb-5">
+    <h2 class="text-center mb-4">What Our Customers Say</h2>
+    <div class="row">
+        <!-- Example of a single testimonial -->
+        <div class="col-md-4">
+            <div class="testimonial">
+                <p>"I found the perfect car thanks to this site. The search and filter options made it so easy!"</p>
+                <p><strong>- Happy Customer</strong></p>
+            </div>
+        </div>
+        <!-- Repeat for other testimonials -->
+    </div>
+</div>
+
+<!-- Additional Sections -->
+<div class="container mb-5">
+    <h2 class="text-center mb-4">About Us</h2>
+    <p class="text-center">We are dedicated to helping you find the car of your dreams with our extensive listings and user-friendly interface.</p>
+</div>
+
+<div class="container mb-5">
+    <h2 class="text-center mb-4">Latest News & Articles</h2>
+    <div class="row">
+        <!-- Example of a single article -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="path/to/article-image.jpg" class="card-img-top" alt="Article Title">
+                <div class="card-body">
+                    <h5 class="card-title">Article Title</h5>
+                    <p class="card-text">A brief overview of the article content.</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat for other articles -->
+    </div>
+</div>
+

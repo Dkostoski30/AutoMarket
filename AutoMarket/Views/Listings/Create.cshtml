@@ -1,0 +1,163 @@
+﻿@model AutoMarket.Models.Listing
+
+@{
+    ViewBag.Title = "Create a Listing";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="container">
+    <h4 class="my-4">Create a Listing</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                        <div></div>
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Manufacturer, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Manufacturer, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Manufacturer, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Model, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Model, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Model, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Registration_Year, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Registration_Year, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Registration_Year, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.number_seats, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.number_seats, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.number_seats, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.number_doors, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.number_doors, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.number_doors, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Transmition, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Car.Transmition, (SelectList)ViewBag.TransmissionTypes, "Select Transmission Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Car.Transmition, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Kilometers, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Kilometers, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Kilometers, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Fuel_Type, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Car.Fuel_Type, (SelectList)ViewBag.FuelTypes, "Select Fuel Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Car.Fuel_Type, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Body_Type, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Car.Body_Type, (SelectList)ViewBag.BodyTypes, "Select Body Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Car.Body_Type, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Condition", htmlAttributes: new { @class = "control-label" })
+        <div class="form-check">
+            @Html.RadioButtonFor(model => model.Condition, "New", new { @class = "form-check-input" })
+            @Html.Label("New", htmlAttributes: new { @class = "form-check-label" })
+        </div>
+        <div class="form-check">
+            @Html.RadioButtonFor(model => model.Condition, "Used", new { @class = "form-check-input" })
+            @Html.Label("Used", htmlAttributes: new { @class = "form-check-label" })
+        </div>
+        @Html.ValidationMessageFor(model => model.Condition, "", new { @class = "text-danger" })
+    </div>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Upload Images</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mt-3">
+                        @Html.Label("Front Image", htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <input type="file" name="FrontImage" class="form-control-file" required />
+
+                    <div class="form-group mt-3">
+                        @Html.Label("Back Image", htmlAttributes: new { @class = "control-label" })
+
+                    </div>
+                    <input type="file" name="BackImage" class="form-control-file" required />
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group mt-3">
+                        @Html.Label("Side Image", htmlAttributes: new { @class = "control-label" })
+
+                    </div>
+                    <input type="file" name="SideImage" class="form-control-file" required />
+                    <div class="form-group mt-3">
+                        @Html.Label("Interior Image", htmlAttributes: new { @class = "control-label" })
+
+                    </div>
+                    <input type="file" name="InteriorImage" class="form-control-file" required />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.HiddenFor(m => m.Created)
+        <div class="col-md-12 text-center">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="mt-3">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

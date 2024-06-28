@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - AutoMarket</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa; /* Light background color for contrast */
+        }
+        
+.buttonClass {
+  font-size:15px;
+  font-family:Arial;
+  width:140px;
+  height:50px;
+  border-width:1px;
+  color:#fff;
+  border-color:rgba(131, 131, 131, 1);
+  border-top-left-radius:28px;
+  border-top-right-radius:28px;
+  border-bottom-left-radius:28px;
+  border-bottom-right-radius:28px;
+  box-shadow: 6px 8px 12px 1px rgba(8, 0, 0, 0.15);
+  text-shadow: 1px 1px 8px rgba(75, 75, 75, 1);
+  background:rgba(0, 86, 179, 1);
+}
+
+.buttonClass:hover {
+  background: rgba(0, 86, 179, 0.63)
+}
+              
+        .navbar {
+            background-color: #0056b3; /* Darker blue color for the navbar */
+        }
+
+        .navbar-brand, .nav-link, .footer-text {
+            color: #ffffff !important; /* White color for the text */
+        }
+
+            .navbar-brand:hover, .nav-link:hover {
+                color: #cce1ff !important; /* Lighter blue for hover effect */
+            }
+
+        .navbar-nav .nav-item {
+            margin-left: 15px;
+        }
+
+        .body-content {
+            padding: 20px;
+            background-color: #ffffff; /* White background for content area */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #0056b3; /* Darker blue background for the footer */
+            color: #ffffff; /* White text for the footer */
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .footer-text {
+            margin: 0;
+        }
+
+        .navbar-toggler {
+            border: none; /* Remove border from toggle button */
+        }
+
+            .navbar-toggler:focus {
+                outline: none; /* Remove outline on focus */
+            }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
+        <div class="container">
+            @*@Html.ActionLink("AutoMarket", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            <a href="/Home/Index/" class="navbar-brand">Auto <span style="color: #0056b3; background-color: white; padding:5px; border-radius:5px;">Market</span></a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("About Us", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Listings", "Index", "Listings", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Sell a car!", "Create", "Listings", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="container text-center">
+                <p>
+                    Follow us on:
+                    <a href="#" class="text-white">Facebook</a> |
+                    <a href="#" class="text-white">Twitter</a> |
+                    <a href="#" class="text-white">Instagram</a>
+                </p>
+            </div>
+            <p class="footer-text">&copy; @DateTime.Now.Year - Daniel Kostoski</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

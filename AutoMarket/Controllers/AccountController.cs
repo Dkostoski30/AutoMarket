@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AutoMarket.Models;
+using System.Collections.Generic;
 
 namespace AutoMarket.Controllers
 {
@@ -17,6 +18,7 @@ namespace AutoMarket.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -72,10 +74,10 @@ namespace AutoMarket.Controllers
             {
                 return View(model);
             }
-
+            var user = await UserManager.FindByEmailAsync(model.Email) ?? await UserManager.FindByNameAsync(model.Email);
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(user.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,7 +141,10 @@ namespace AutoMarket.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            
+                
+                return View();
+            
         }
 
         //
@@ -151,7 +156,7 @@ namespace AutoMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, PhoneNumber = model.PhoneNumber, City = model.City};
+                var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name, PhoneNumber = model.PhoneNumber, City = model.City};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

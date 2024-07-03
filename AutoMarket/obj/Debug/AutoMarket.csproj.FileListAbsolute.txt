@@ -124,3 +124,5 @@ C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnolo
 C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\obj\Debug\AutoMarket.Migrations._24.resources
 C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\obj\Debug\AutoMarket.Migrations._25.resources
 C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\obj\Debug\AutoMarket.Migrations._26.resources
+C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\obj\Debug\AutoMarket.Migrations._27.resources
+C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\obj\Debug\AutoMarket.Migrations._28.resources

@@ -1,6 +1,26 @@
 ﻿@model AutoMarket.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+
+    var cities = new List<string>
+   {
+       "Skopje", "Bitola", "Kumanovo", "Prilep", "Tetovo",
+       "Veles", "Ohrid", "Gostivar", "Strumica", "Kavadarci",
+       "Kochani", "Kichevo", "Shtip", "Radovish", "Gevgelija",
+       "Struga", "Debar", "Kriva Palanka", "Sveti Nikole", "Negotino",
+       "Delchevo", "Vinica", "Resen", "Berovo", "Probishtip",
+       "Kratovo", "Bogdanci", "Krushchevo", "Demir Hisar",
+       "Makedonski Brod", "Valandovo", "Demir Kapija", "Pehchevo",
+       "Dojran"
+   };
+
+    var cityList = cities.Select(city => new SelectListItem
+    {
+        Text = city,
+        Value = city
+    }).ToList();
+
+    ViewBag.CityList = new SelectList(cityList, "Value", "Text");
 }
 
 <main aria-labelledby="title">
@@ -19,9 +39,9 @@
             </div>
         </div>
         <div class="row">
-            @Html.LabelFor(m => m.Username, new { @class = "col-md-2 col-form-label" })
+            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -33,7 +53,7 @@
         <div class="row">
             @Html.LabelFor(m => m.City, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.City, ViewBag.CityList as SelectList, "Select a city", new { @class = "form-control" })
             </div>
         </div>
         <div class="row">

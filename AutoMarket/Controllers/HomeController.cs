@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMarket.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,13 +9,24 @@ namespace AutoMarket.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         [AllowAnonymous]
         public ActionResult Index()
         {
            
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult HomePage()
+        {
+            var listings = db.Listings.ToList();
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
+            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
 
+            return View(listings);
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

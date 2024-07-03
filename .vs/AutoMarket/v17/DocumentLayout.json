@@ -3,40 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|c:\\users\\daniel laptop\\desktop\\finki materijali\\cetvrt semestar\\internet tehnologii\\proektidaniel\\automarket\\automarket\\views\\listings\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\views\\listings\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|c:\\users\\daniel laptop\\desktop\\finki materijali\\cetvrt semestar\\internet tehnologii\\proektidaniel\\automarket\\automarket\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\views\\shared\\_loginpartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|c:\\users\\daniel laptop\\desktop\\finki materijali\\cetvrt semestar\\internet tehnologii\\proektidaniel\\automarket\\automarket\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\automarket\\controllers\\listingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\controllers\\listingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|c:\\users\\daniel laptop\\desktop\\finki materijali\\cetvrt semestar\\internet tehnologii\\proektidaniel\\automarket\\automarket\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|c:\\users\\daniel laptop\\desktop\\finki materijali\\cetvrt semestar\\internet tehnologii\\proektidaniel\\automarket\\automarket\\views\\listings\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\automarket\\views\\listings\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\views\\listings\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\automarket\\views\\listings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\views\\listings\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|c:\\users\\daniel laptop\\desktop\\finki materijali\\cetvrt semestar\\internet tehnologii\\proektidaniel\\automarket\\automarket\\models\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\models\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|c:\\users\\daniel laptop\\desktop\\finki materijali\\cetvrt semestar\\internet tehnologii\\proektidaniel\\automarket\\automarket\\models\\listing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{500313A0-9F51-4948-B9B0-460430AB08E5}|AutoMarket\\AutoMarket.csproj|solutionrelative:automarket\\models\\listing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,118 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Listings\\Create.cshtml",
-              "RelativeDocumentMoniker": "AutoMarket\\Views\\Listings\\Create.cshtml",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Listings\\Create.cshtml",
-              "RelativeToolTip": "AutoMarket\\Views\\Listings\\Create.cshtml",
-              "ViewState": "AQIAAOcAAAAAAAAAAAAIwPwAAABlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-03T02:29:47.856Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "_LoginPartial.cshtml",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Shared\\_LoginPartial.cshtml",
-              "RelativeDocumentMoniker": "AutoMarket\\Views\\Shared\\_LoginPartial.cshtml",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Shared\\_LoginPartial.cshtml",
-              "RelativeToolTip": "AutoMarket\\Views\\Shared\\_LoginPartial.cshtml",
-              "ViewState": "AQIAAGAAAAAAAAAAAAAAAPIAAACOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-03T02:28:16.67Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "AutoMarket\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "AutoMarket\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-03T01:27:47.575Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "AutoMarket\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "AutoMarket\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAAGUAAAAAAAAAAAAtwMoAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-03T01:18:43.784Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Listing.cs",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Models\\Listing.cs",
-              "RelativeDocumentMoniker": "AutoMarket\\Models\\Listing.cs",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Models\\Listing.cs",
-              "RelativeToolTip": "AutoMarket\\Models\\Listing.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAxwB0AAAA+AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T23:19:08.979Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Image.cs",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Models\\Image.cs",
-              "RelativeDocumentMoniker": "AutoMarket\\Models\\Image.cs",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Models\\Image.cs",
-              "RelativeToolTip": "AutoMarket\\Models\\Image.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T23:18:54.646Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Listings\\Details.cshtml",
               "RelativeDocumentMoniker": "AutoMarket\\Views\\Listings\\Details.cshtml",
               "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Listings\\Details.cshtml",
               "RelativeToolTip": "AutoMarket\\Views\\Listings\\Details.cshtml",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAF0AAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-07-02T22:40:11.543Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ListingsController.cs",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Controllers\\ListingsController.cs",
-              "RelativeDocumentMoniker": "AutoMarket\\Controllers\\ListingsController.cs",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Controllers\\ListingsController.cs",
-              "RelativeToolTip": "AutoMarket\\Controllers\\ListingsController.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAswCYAAABIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-15T16:20:51.169Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Listings\\Index.cshtml",
-              "RelativeDocumentMoniker": "AutoMarket\\Views\\Listings\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Daniel Laptop\\Desktop\\Finki Materijali\\Cetvrt Semestar\\Internet Tehnologii\\ProektiDaniel\\AutoMarket\\AutoMarket\\Views\\Listings\\Index.cshtml",
-              "RelativeToolTip": "AutoMarket\\Views\\Listings\\Index.cshtml",
-              "ViewState": "AQIAAEUBAAAAAAAAAAAAAFABAAA7AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-06-14T23:51:04.465Z",
               "EditorCaption": ""
             }
           ]

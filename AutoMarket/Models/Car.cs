@@ -37,5 +37,10 @@ namespace AutoMarket.Models
         [Display(Name = "Number of seats")]
         [RegularExpression("\\d{1,2}", ErrorMessage = "Enter a valid number!")]
         public string number_seats { get; set; }
+
+        [Required]
+        [Display(Name = "Kilowatts")]
+        [RegularExpression("\\d{1,2,3}", ErrorMessage = "Enter a valid number!")]
+        public string Kilowatts { get; set; }
     }
 }

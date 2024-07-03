@@ -29,6 +29,7 @@ namespace AutoMarket.Controllers
 
             return View(listings);
         }
+       
         [AllowAnonymous]
         public ActionResult FilterBodyType(int id)
         {

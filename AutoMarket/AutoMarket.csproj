@@ -235,6 +235,10 @@
     <Compile Include="Migrations\202406142343174_2.4.Designer.cs">
       <DependentUpon>202406142343174_2.4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407031418418_2.5.cs" />
+    <Compile Include="Migrations\202407031418418_2.5.Designer.cs">
+      <DependentUpon>202407031418418_2.5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Car.cs" />
@@ -559,6 +563,7 @@
     <Content Include="Views\Listings\Details.cshtml" />
     <Content Include="Views\Listings\Edit.cshtml" />
     <Content Include="Views\Listings\Index.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\car_images\" />
@@ -636,6 +641,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202406142343174_2.4.resx">
       <DependentUpon>202406142343174_2.4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407031418418_2.5.resx">
+      <DependentUpon>202407031418418_2.5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

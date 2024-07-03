@@ -22,11 +22,22 @@ namespace AutoMarket.Controllers
         public ActionResult Index()
         {
             var listings = db.Listings.Include(l => l.User).ToList();
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT"};
+            ViewBag.ConditionTypes = new List<string> { "New", "Used"};
+
             return View(listings);
         }
+        [AllowAnonymous]
         public ActionResult FilterBodyType(int id)
         {
-            if(id == 1)
+
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
+            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+            if (id == 1)
             {
                 var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").ToList();
                 return View("Index", listings);
@@ -201,7 +212,14 @@ namespace AutoMarket.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult ApplyFilters()
+        {
+            //TODO: Implementiraj go ovaj del
 
+            return RedirectToAction("/Home/Index");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

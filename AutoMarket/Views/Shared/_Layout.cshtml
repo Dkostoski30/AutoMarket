@@ -10,83 +10,158 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa; /* Light background color for contrast */
+            background-color: #ECF0F1; /* Light Grey Background */
+            margin: 0;
         }
-        
-.buttonClass {
-  font-size:15px;
-  font-family:Arial;
-  width:140px;
-  height:50px;
-  border-width:1px;
-  color:#fff;
-  border-color:rgba(131, 131, 131, 1);
-  border-top-left-radius:28px;
-  border-top-right-radius:28px;
-  border-bottom-left-radius:28px;
-  border-bottom-right-radius:28px;
-  box-shadow: 6px 8px 12px 1px rgba(8, 0, 0, 0.15);
-  text-shadow: 1px 1px 8px rgba(75, 75, 75, 1);
-  background:rgba(0, 86, 179, 1);
-}
 
-.buttonClass:hover {
-  background: rgba(0, 86, 179, 0.63)
-}
-              
+        /* Navbar Styles */
         .navbar {
-            background-color: #0056b3; /* Darker blue color for the navbar */
+            background: linear-gradient(90deg, #2C3E50 0%, #34495E 100%); /* Dark Slate Blue Gradient */
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar-brand, .nav-link, .footer-text {
-            color: #ffffff !important; /* White color for the text */
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
         }
 
-            .navbar-brand:hover, .nav-link:hover {
-                color: #cce1ff !important; /* Lighter blue for hover effect */
-            }
-
-        .navbar-nav .nav-item {
-            margin-left: 15px;
+        .navbar-brand span {
+            color: #2C3E50; /* Dark Slate Blue */
+            background-color: #ECF0F1; /* Light Grey */
+            padding: 0 8px;
+            border-radius: 5px;
         }
 
+        .nav-link {
+            color: #ffffff !important;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #18BC9C !important; /* Emerald Green on Hover */
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://via.placeholder.com/1920x600/2C3E50/ECF0F1') center/cover no-repeat; /* Placeholder with Dark Slate Blue */
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #18BC9C; /* Emerald Green */
+            color: #ffffff;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        .hero .btn:hover {
+            background: #16A085; /* Darker Emerald Green */
+        }
+
+        /* Body Content */
         .body-content {
             padding: 20px;
-            background-color: #ffffff; /* White background for content area */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
         }
 
+        /* Cards for Content */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            margin: 20px 0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img-top {
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2C3E50; /* Dark Slate Blue */
+        }
+
+        .card-text {
+            color: #6c757d;
+        }
+
+        /* Footer Styles */
         footer {
-            background-color: #0056b3; /* Darker blue background for the footer */
-            color: #ffffff; /* White text for the footer */
-            padding: 15px 0;
+            background-color: #2C3E50; /* Dark Slate Blue */
+            color: #ffffff;
+            padding: 30px 0;
             text-align: center;
             margin-top: 20px;
-            border-radius: 8px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #18BC9C; /* Emerald Green on Hover */
         }
 
         .footer-text {
             margin: 0;
         }
-
-        .navbar-toggler {
-            border: none; /* Remove border from toggle button */
-        }
-
-            .navbar-toggler:focus {
-                outline: none; /* Remove outline on focus */
-            }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-sm navbar-dark">
         <div class="container">
-            @*@Html.ActionLink("AutoMarket", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            <a href="/Home/Index/" class="navbar-brand">Auto <span style="color: #0056b3; background-color: white; padding:5px; border-radius:5px;">Market</span></a>
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <a href="/Home/Index/" class="navbar-brand">Auto &nbsp;<span>Market</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
@@ -100,21 +175,34 @@
             </div>
         </div>
     </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>Welcome to AutoMarket</h1>
+            <p>Find the best deals on new and used cars!</p>
+            <a href="/Listings/Index" class="btn">Browse Listings</a>
+        </div>
+    </section>
+
+    <!-- Body Content -->
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <div class="container text-center">
-                <p>
-                    Follow us on:
-                    <a href="#" class="text-white">Facebook</a> |
-                    <a href="#" class="text-white">Twitter</a> |
-                    <a href="#" class="text-white">Instagram</a>
-                </p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Facebook</a> |
+                <a href="#">Twitter</a> |
+                <a href="#">Instagram</a>
             </div>
             <p class="footer-text">&copy; @DateTime.Now.Year - Daniel Kostoski</p>
-        </footer>
-    </div>
+        </div>
+        </div>
+    </footer>
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

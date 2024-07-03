@@ -40,7 +40,7 @@ namespace AutoMarket.Models
 
         [Required]
         [Display(Name = "Kilowatts")]
-        [RegularExpression("\\d{1,2,3}", ErrorMessage = "Enter a valid number!")]
+        [RegularExpression("\\d{1,3}", ErrorMessage = "Enter a valid number!")]
         public string Kilowatts { get; set; }
     }
 }

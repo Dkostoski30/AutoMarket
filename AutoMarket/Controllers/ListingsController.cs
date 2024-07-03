@@ -103,7 +103,7 @@ namespace AutoMarket.Controllers
         {
             if (ModelState.IsValid)
             {
-                HttpPostedFileBase FrontImageBase = Request.Files["FrontImage"];
+                /*HttpPostedFileBase FrontImageBase = Request.Files["FrontImage"];
                 string front_image_name = Path.GetFileName(FrontImageBase.FileName);
                 string front_image_path = Path.Combine(Server.MapPath("~/Content/Images/car_images/"), front_image_name);
                 Image FrontImage = new Image(front_image_name, front_image_path);
@@ -130,9 +130,22 @@ namespace AutoMarket.Controllers
                 Image InteriorImage = new Image(interior_image_name, interior_image_path);
                 InteriorImageBase.SaveAs(interior_image_path);
                 listing.Images.Add(InteriorImage);
-
+*/
                 listing.Created = DateTime.Now;
 
+                var files = Request.Files;
+                for (int i = 0; i < files.Count; i++)
+                {
+                    var file = files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string filename = Path.GetFileName(file.FileName);
+                        string path = Path.Combine(Server.MapPath("~/Content/Images/car_images/"), filename);
+                        Image image = new Image(filename, path);
+                        file.SaveAs(path);
+                        listing.Images.Add(image);
+                    }
+                }
                 var user_id = User.Identity.GetUserId();
                 var user = db.Users.SingleOrDefault(u => u.Id == user_id);
                 if (user != null)

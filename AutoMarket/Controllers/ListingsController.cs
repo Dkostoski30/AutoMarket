@@ -336,6 +336,7 @@ namespace AutoMarket.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
         private int CompareNumericStrings(string numStr1, string numStr2)
         {
             // Remove leading zeros for accurate length comparison
@@ -348,8 +349,17 @@ namespace AutoMarket.Controllers
             if (numStr1.Length < numStr2.Length)
                 return -1; // numStr2 is greater
 
-            // If lengths are equal, compare lexicographically
-            return string.Compare(numStr1, numStr2);
+            // If lengths are equal, compare numerically character by character
+            for (int i = 0; i < numStr1.Length; i++)
+            {
+                if (numStr1[i] > numStr2[i])
+                    return 1; // numStr1 is greater
+                if (numStr1[i] < numStr2[i])
+                    return -1; // numStr2 is greater
+            }
+
+            // If we reach here, the strings are numerically equal
+            return 0;
         }
 
         [AllowAnonymous]
@@ -375,6 +385,12 @@ namespace AutoMarket.Controllers
             string kWFrom = Request.QueryString["kWFrom"];
             string kWTo = Request.QueryString["kWTo"];
 
+            var selectedFuelTypes = (Request.QueryString["fuelTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
+            var selectedBodyTypes = (Request.QueryString["bodyTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
+            var selectedConditionTypes = (Request.QueryString["conditionTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
+            var selectedTransmitionTypes = (Request.QueryString["transmitionTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
+
+
 
             //Default return of listings
             var listings = db.Listings.Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
@@ -393,8 +409,8 @@ namespace AutoMarket.Controllers
                             (string.IsNullOrEmpty(kilometersFrom) || CompareNumericStrings(l.Car.Kilometers, kilometersFrom) >= 0) &&
                             (string.IsNullOrEmpty(kilometersTo) || CompareNumericStrings(l.Car.Kilometers, kilometersTo) <= 0) &&
                             (string.IsNullOrEmpty(kWFrom) || CompareNumericStrings(l.Car.Kilowatts, kWFrom) >= 0) &&
-                            (string.IsNullOrEmpty(kWTo) || CompareNumericStrings(l.Car.Kilowatts, kWTo) <= 0))
-                .ToList(); // Convert to list after filtering
+                            (string.IsNullOrEmpty(kWTo) || CompareNumericStrings(l.Car.Kilowatts, kWTo) <= 0)
+                ).ToList(); // Convert to list after filtering
 
             // Convert the filtered list to a paged list
             var pagedListings = filteredListings.ToPagedList(pageNumber, pageSize);

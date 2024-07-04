@@ -257,6 +257,10 @@
     <Compile Include="Migrations\202407032315019_2.8.Designer.cs">
       <DependentUpon>202407032315019_2.8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407041235144_2.9.cs" />
+    <Compile Include="Migrations\202407041235144_2.9.Designer.cs">
+      <DependentUpon>202407041235144_2.9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Car.cs" />
@@ -269,7 +273,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\icons\user_icon.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -443,6 +446,7 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\icons\user_icon.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -671,6 +675,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407032315019_2.8.resx">
       <DependentUpon>202407032315019_2.8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407041235144_2.9.resx">
+      <DependentUpon>202407041235144_2.9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

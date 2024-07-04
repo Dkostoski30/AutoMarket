@@ -130,3 +130,4 @@ C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnolo
 C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\bin\PagedList.Mvc.dll
 C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\bin\PagedList.xml
 C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\bin\PagedList.Mvc.xml
+C:\Users\Daniel Laptop\Desktop\Finki Materijali\Cetvrt Semestar\Internet Tehnologii\ProektiDaniel\AutoMarket\AutoMarket\obj\Debug\AutoMarket.Migrations._29.resources

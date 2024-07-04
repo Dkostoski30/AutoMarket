@@ -22,7 +22,7 @@ namespace AutoMarket.Models
         [StringLength(100)]
         public string Title { get; set;}
         [Required]
-        [StringLength(300)]
+        [StringLength(1000)]
         public string Description { get; set; }
         public ApplicationUser User { get; set; }
         public DateTime? Created { get; set; }

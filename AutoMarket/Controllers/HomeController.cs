@@ -10,14 +10,9 @@ namespace AutoMarket.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+       
         [AllowAnonymous]
         public ActionResult Index()
-        {
-           
-            return View();
-        }
-        [AllowAnonymous]
-        public ActionResult HomePage()
         {
             var listings = db.Listings.ToList();
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };

@@ -243,7 +243,7 @@
         <div>
             <h1>Find Your Perfect Car Today</h1>
             <p>Browse through thousands of cars and find the one that suits you best.</p>
-            @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "form" }))
+            @using (Html.BeginForm("Search", "Listings", FormMethod.Get, new { @class = "form" }))
             {
                 @Html.TextBox("SearchQuery", null, new { @class = "form-control d-inline-block mt-3", placeholder = "Search for cars" })
                 <button type="submit" class="btn btn-primary">Search</button>
@@ -272,7 +272,7 @@
                         </div>
                     </div>
                 }
-                <!-- Repeat for other listings -->
+                
             </div>
         </div>
 
@@ -280,7 +280,6 @@
         <div class="mb-5">
             <h2 class="section-heading">Browse by Category</h2>
             <div class="row">
-                <!-- Example of a single category -->
                 <div class="col-md-3">
                     <div class="card">
                         <img src="path/to/category-image.jpg" class="card-img-top" alt="Category Name">

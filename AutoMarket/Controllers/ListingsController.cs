@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoMarket.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace AutoMarket.Controllers
@@ -29,7 +30,15 @@ namespace AutoMarket.Controllers
 
             return View(listings);
         }
-       
+     /*   public ActionResult Index(ICollection<Listing> listings)
+        {
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
+            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+
+            return View(listings);
+        }*/
         [AllowAnonymous]
         public ActionResult FilterBodyType(int id)
         {
@@ -233,6 +242,27 @@ namespace AutoMarket.Controllers
             //TODO: Implementiraj go ovaj del
 
             return RedirectToAction("/Home/Index");
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Search(string SearchQuery)
+        {
+            
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
+            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+
+            string query = SearchQuery;
+            if (string.IsNullOrEmpty(query))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                var listings = db.Listings.Where(l => l.Description.Contains(query) || l.Title.Contains(query)).Include(l => l.User).ToList();
+                return View("Index", listings);
+            }
         }
         protected override void Dispose(bool disposing)
         {

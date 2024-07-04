@@ -7,9 +7,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using AutoMarket.Models;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace AutoMarket.Controllers
 {
@@ -20,15 +22,19 @@ namespace AutoMarket.Controllers
 
         // GET: Listings
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var listings = db.Listings.Include(l => l.User).ToList();
+            
+            int pageSize = 8; // Number of items per page
+            int pageNumber = (page ?? 1);
+
+            var listingsPaged = db.Listings.Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT"};
             ViewBag.ConditionTypes = new List<string> { "New", "Used"};
 
-            return View(listings);
+            return View(listingsPaged);
         }
      /*   public ActionResult Index(ICollection<Listing> listings)
         {
@@ -252,7 +258,8 @@ namespace AutoMarket.Controllers
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
-
+            int pageSize = 8;
+            int pageNumber = 1;
             string query = SearchQuery;
             if (string.IsNullOrEmpty(query))
             {
@@ -260,7 +267,7 @@ namespace AutoMarket.Controllers
             }
             else
             {
-                var listings = db.Listings.Where(l => l.Description.Contains(query) || l.Title.Contains(query)).Include(l => l.User).ToList();
+                var listings = db.Listings.Where(l => l.Description.Contains(query) || l.Title.Contains(query)).Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize); ;
                 return View("Index", listings);
             }
         }

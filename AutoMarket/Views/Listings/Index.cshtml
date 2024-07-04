@@ -1,5 +1,6 @@
-﻿@model IEnumerable<AutoMarket.Models.Listing>
-
+﻿@model IPagedList<AutoMarket.Models.Listing>
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Index";
     var currentUser = User.Identity.Name;
@@ -232,6 +233,45 @@
     .footer-text {
         margin: 0;
     }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+        list-style: none;
+        border-radius: .25rem;
+    }
+
+        .pagination li {
+            margin: 0 2px;
+        }
+
+        .pagination a, .pagination span {
+            position: relative;
+            display: block;
+            padding: .5rem .75rem;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #18BC9C; /* Emerald Green */
+            background-color: #2C3E50; /* Dark Blue */
+            border: 1px solid #37474F; /* Dark Grey Border */
+            text-decoration: none;
+            border-radius: .25rem;
+        }
+
+            .pagination a:hover, .pagination a:focus, .pagination span:hover, .pagination span:focus {
+                z-index: 2;
+                color: #ffffff;
+                background-color: #18BC9C; /* Emerald Green */
+                border-color: #18BC9C;
+            }
+
+        .pagination .active span {
+            z-index: 1;
+            color: #ffffff;
+            background-color: #18BC9C; /* Emerald Green */
+            border-color: #18BC9C;
+        }
+
 </style>
 
 <!-- Filter Form -->
@@ -360,4 +400,7 @@
             </div>
         </div>
     }
+</div>
+<div class="text-center mt-3">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 </div>

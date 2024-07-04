@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<AutoMarket.Models.Listing>
+
+@{
     ViewBag.Title = "Home - AutoMarket";
 }
 <!DOCTYPE html>
@@ -116,6 +118,7 @@
             color: #E0E0E0; /* Light Grey Text */
             border-radius: 8px;
         }
+
             .form-control:focus {
                 width: 100%;
                 margin-bottom: 15px;
@@ -125,6 +128,7 @@
                 color: #E0E0E0; /* Light Grey Text */
                 border-radius: 8px;
             }
+
             .form-control.d-inline-block {
                 width: auto;
                 flex-grow: 1;
@@ -255,17 +259,19 @@
             <h2 class="section-heading">Featured Listings</h2>
             <div class="row">
                 <!-- Example of a single listing -->
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="path/to/car-image.jpg" class="card-img-top" alt="Car Title">
-                        <div class="card-body">
-                            <h5 class="card-title">Car Title</h5>
-                            <p class="card-text">Price: $20,000</p>
-                            <p class="card-text">A brief description of the car.</p>
-                            <a href="#" class="btn btn-primary">View Details</a>
+                @foreach (var item in Model.Take(3))
+                {
+                    <div class="col-md-3">
+                        <div class="card">
+                            <img src="~/Content/Images/car_images/@item.Images.ElementAt(0).Name" class="card-img-top" alt="Car Title">
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Title</h5>
+                                <p class="card-text">Price: €@item.Price</p>
+                                @Html.ActionLink("Details", "Details", "Listings", new { id = item.ID }, new { @class = "btn btn-primary btn-sm" })
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
                 <!-- Repeat for other listings -->
             </div>
         </div>
@@ -348,3 +354,4 @@
                 </div>
             </div>
             <hr />
+

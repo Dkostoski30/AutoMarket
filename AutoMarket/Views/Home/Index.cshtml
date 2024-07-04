@@ -259,11 +259,13 @@
             <h2 class="section-heading">Featured Listings</h2>
             <div class="row">
                 <!-- Example of a single listing -->
-                @foreach (var item in Model.Take(3))
+                @foreach (var item in Model.Take(4))
                 {
+                    Random random = new Random();
+                    int randomIndex = random.Next(item.Images.Count);
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="~/Content/Images/car_images/@item.Images.ElementAt(0).Name" class="card-img-top" alt="Car Title">
+                            <img src="~/Content/Images/car_images/@item.Images.ElementAt(randomIndex).Name" class="card-img-top" alt="Car Title">
                             <div class="card-body">
                                 <h5 class="card-title">@item.Title</h5>
                                 <p class="card-text">Price: €@item.Price</p>

@@ -48,16 +48,41 @@ namespace AutoMarket.Controllers
         [AllowAnonymous]
         public ActionResult FilterBodyType(int id)
         {
-
+            int pageSize = 8; // Number of items per page
+            int pageNumber = 1;
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
             if (id == 1)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").ToList();
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
             }
+            else if (id == 2)
+            {
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Sedan").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                return View("Index", listings);
+
+            }
+            else if(id == 3)
+            {
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Hatchback").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                return View("Index", listings);
+
+            }else if(id == 4)
+            {
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Coupe").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                return View("Index", listings);
+
+            }
+            else
+            {
+                var listings = db.Listings.Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                return View("Index", listings);
+
+            }
+
             return RedirectToAction("Index", "Home");
             
         }

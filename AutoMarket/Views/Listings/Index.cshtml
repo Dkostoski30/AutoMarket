@@ -277,42 +277,44 @@
 <!-- Filter Form -->
 <div class="container my-5">
     <h2 class="text-center mb-4">Filter Your Search</h2>
-    <form action="/Listings/ApplyFilters" method="get">
+    @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
+{
+
         <div class="row">
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="priceFrom" class="sr-only">Price From</label>
-                <input type="number" name="priceFrom" class="form-control" id="priceFrom" placeholder="$ Min">
+                @Html.Label("Price From", new { @class = "sr-only", @for = "priceFrom" })
+                @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "$ Min" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="priceTo" class="sr-only">Price To</label>
-                <input type="number" name="priceTo" class="form-control" id="priceTo" placeholder="$ Max">
+                @Html.Label("Price To", new { @class = "sr-only", @for = "priceTo" })
+                @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "$ Max" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="yearFrom" class="sr-only">Year From</label>
-                <input type="number" name="yearFrom" class="form-control" id="yearFrom" placeholder="YYYY">
+                @Html.Label("Year From", new { @class = "sr-only", @for = "yearFrom" })
+                @Html.TextBox("yearFrom", null, new { @class = "form-control", placeholder = "YYYY" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="yearTo" class="sr-only">Year To</label>
-                <input type="number" name="yearTo" class="form-control" id="yearTo" placeholder="YYYY">
+                @Html.Label("Year To", new { @class = "sr-only", @for = "yearTo" })
+                @Html.TextBox("yearTo", null, new { @class = "form-control", placeholder = "YYYY" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="kilometersFrom" class="sr-only">Kilometers From</label>
-                <input type="number" name="kilometersFrom" class="form-control" id="kilometersFrom" placeholder="Km">
+                @Html.Label("Kilometers From", new { @class = "sr-only", @for = "kilometersFrom" })
+                @Html.TextBox("kilometersFrom", null, new { @class = "form-control", placeholder = "Km" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="kilometersTo" class="sr-only">Kilometers To</label>
-                <input type="number" name="kilometersTo" class="form-control" id="kilometersTo" placeholder="Km">
+                @Html.Label("Kilometers To", new { @class = "sr-only", @for = "kilometersTo" })
+                @Html.TextBox("kilometersTo", null, new { @class = "form-control", placeholder = "Km" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="kWFrom" class="sr-only">Kilowatts From</label>
-                <input type="number" name="kWFrom" class="form-control" id="kWFrom" placeholder="kW">
+                @Html.Label("Kilowatts From", new { @class = "sr-only", @for = "kWFrom" })
+                @Html.TextBox("kWFrom", null, new { @class = "form-control", placeholder = "kW" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label for="kWTo" class="sr-only">Kilowatts To</label>
-                <input type="number" name="kWTo" class="form-control" id="kWTo" placeholder="kW">
+                @Html.Label("Kilowatts To", new { @class = "sr-only", @for = "kWTo" })
+                @Html.TextBox("kWTo", null, new { @class = "form-control", placeholder = "kW" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label class="sr-only">Fuel Type</label>
+                @Html.Label("Fuel Type", new { @class = "sr-only" })
                 @foreach (var fuelType in FuelTypes)
                 {
                     <div>
@@ -322,7 +324,7 @@
                 }
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label class="sr-only">Body Type</label>
+                @Html.Label("Body Type", new { @class = "sr-only" })
                 @foreach (var bodyType in BodyTypes)
                 {
                     <div>
@@ -332,7 +334,7 @@
                 }
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label class="sr-only">Condition</label>
+                @Html.Label("Condition", new { @class = "sr-only" })
                 @foreach (var conditionType in ConditionTypes)
                 {
                     <div>
@@ -342,7 +344,7 @@
                 }
             </div>
             <div class="col-md-2 col-sm-6 form-group">
-                <label class="sr-only">Transmission</label>
+                @Html.Label("Transmission", new { @class = "sr-only" })
                 @foreach (var transmitionType in TransmitionTypes)
                 {
                     <div>
@@ -355,7 +357,8 @@
                 <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
             </div>
         </div>
-    </form>
+}
+
 </div>
 
 <hr />

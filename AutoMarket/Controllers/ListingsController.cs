@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -83,7 +84,6 @@ namespace AutoMarket.Controllers
 
             }
 
-            return RedirectToAction("Index", "Home");
             
         }
 
@@ -336,13 +336,70 @@ namespace AutoMarket.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        private int CompareNumericStrings(string numStr1, string numStr2)
+        {
+            // Remove leading zeros for accurate length comparison
+            numStr1 = numStr1.TrimStart('0');
+            numStr2 = numStr2.TrimStart('0');
+
+            // Compare lengths
+            if (numStr1.Length > numStr2.Length)
+                return 1; // numStr1 is greater
+            if (numStr1.Length < numStr2.Length)
+                return -1; // numStr2 is greater
+
+            // If lengths are equal, compare lexicographically
+            return string.Compare(numStr1, numStr2);
+        }
+
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult ApplyFilters()
+        public ActionResult ApplyFilters(int? page)
         {
-            //TODO: Implementiraj go ovaj del
+           
 
-            return RedirectToAction("/Home/Index");
+            int pageSize = 8; // Number of items per page
+            int pageNumber = 1;
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
+            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+
+
+            string priceFrom = Request.QueryString["priceFrom"];
+            string priceTo = Request.QueryString["priceTo"];
+            string yearFrom = Request.QueryString["yearFrom"];
+            string yearTo = Request.QueryString["yearTo"];
+            string kilometersFrom = Request.QueryString ["kilometersFrom"];
+            string kilometersTo = Request.QueryString["kilometersTo"];
+            string kWFrom = Request.QueryString["kWFrom"];
+            string kWTo = Request.QueryString["kWTo"];
+
+
+            //Default return of listings
+            var listings = db.Listings.Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+
+            var listingsQuery = db.Listings.Include(l => l.User).OrderBy(l => l.ID);
+
+            // Retrieve the listings as a list to perform in-memory filtering
+            var listingsList = listingsQuery.ToList();
+
+            // Apply in-memory filtering
+            var filteredListings = listingsList
+                .Where(l => (string.IsNullOrEmpty(priceFrom) || CompareNumericStrings(l.Price, priceFrom) >= 0) &&
+                            (string.IsNullOrEmpty(priceTo) || CompareNumericStrings(l.Price, priceTo) <= 0) &&
+                            (string.IsNullOrEmpty(yearFrom) || CompareNumericStrings(l.Car.Registration_Year, yearFrom) >= 0) &&
+                            (string.IsNullOrEmpty(yearTo) || CompareNumericStrings(l.Car.Registration_Year, yearTo) <= 0) &&
+                            (string.IsNullOrEmpty(kilometersFrom) || CompareNumericStrings(l.Car.Kilometers, kilometersFrom) >= 0) &&
+                            (string.IsNullOrEmpty(kilometersTo) || CompareNumericStrings(l.Car.Kilometers, kilometersTo) <= 0) &&
+                            (string.IsNullOrEmpty(kWFrom) || CompareNumericStrings(l.Car.Kilowatts, kWFrom) >= 0) &&
+                            (string.IsNullOrEmpty(kWTo) || CompareNumericStrings(l.Car.Kilowatts, kWTo) <= 0))
+                .ToList(); // Convert to list after filtering
+
+            // Convert the filtered list to a paged list
+            var pagedListings = filteredListings.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedListings);
         }
         [AllowAnonymous]
         [HttpGet]

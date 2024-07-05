@@ -14,7 +14,7 @@ namespace AutoMarket.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var listings = db.Listings.ToList();
+            var listings = db.Listings.OrderByDescending(l => l.Created).ToList();
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };

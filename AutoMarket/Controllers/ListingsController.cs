@@ -29,7 +29,7 @@ namespace AutoMarket.Controllers
             int pageSize = 8; // Number of items per page
             int pageNumber = (page ?? 1);
 
-            var listingsPaged = db.Listings.Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+            var listingsPaged = db.Listings.Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT"};
@@ -57,29 +57,29 @@ namespace AutoMarket.Controllers
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
             if (id == 1)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
             }
             else if (id == 2)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Sedan").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Sedan").OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }
             else if(id == 3)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Hatchback").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Hatchback").OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }else if(id == 4)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Coupe").OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Coupe").OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }
             else
             {
-                var listings = db.Listings.Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }
@@ -339,26 +339,25 @@ namespace AutoMarket.Controllers
         
         private int CompareNumericStrings(string numStr1, string numStr2)
         {
-            // Remove leading zeros for accurate length comparison
+          
             numStr1 = numStr1.TrimStart('0');
             numStr2 = numStr2.TrimStart('0');
 
-            // Compare lengths
+           
             if (numStr1.Length > numStr2.Length)
-                return 1; // numStr1 is greater
+                return 1;
             if (numStr1.Length < numStr2.Length)
-                return -1; // numStr2 is greater
+                return -1; 
 
-            // If lengths are equal, compare numerically character by character
             for (int i = 0; i < numStr1.Length; i++)
             {
                 if (numStr1[i] > numStr2[i])
-                    return 1; // numStr1 is greater
+                    return 1; 
                 if (numStr1[i] < numStr2[i])
-                    return -1; // numStr2 is greater
+                    return -1; 
             }
 
-            // If we reach here, the strings are numerically equal
+            
             return 0;
         }
 
@@ -368,7 +367,7 @@ namespace AutoMarket.Controllers
         {
            
 
-            int pageSize = 8; // Number of items per page
+            int pageSize = 8; 
             int pageNumber = 1;
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
@@ -385,22 +384,23 @@ namespace AutoMarket.Controllers
             string kWFrom = Request.QueryString["kWFrom"];
             string kWTo = Request.QueryString["kWTo"];
 
-            var selectedFuelTypes = (Request.QueryString["fuelTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
-            var selectedBodyTypes = (Request.QueryString["bodyTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
-            var selectedConditionTypes = (Request.QueryString["conditionTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
-            var selectedTransmitionTypes = (Request.QueryString["transmitionTypes"] ?? "").Split(',').Where(x => !string.IsNullOrEmpty(x)).ToList();
+            string[] fuelTypes = Request.QueryString.GetValues("fuelTypes");
+            string[] bodyTypes = Request.QueryString.GetValues("bodyTypes");
+            string[] conditionTypes = Request.QueryString.GetValues("conditionTypes");
+            string[] transmitionTypes = Request.QueryString.GetValues("transmitionTypes");
 
 
 
-            //Default return of listings
-            var listings = db.Listings.Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize);
 
-            var listingsQuery = db.Listings.Include(l => l.User).OrderBy(l => l.ID);
+            var listings = db.Listings.Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
 
-            // Retrieve the listings as a list to perform in-memory filtering
+            var listingsQuery = db.Listings.Include(l => l.User).OrderByDescending(l => l.Created).AsQueryable();
+
+          
             var listingsList = listingsQuery.ToList();
 
-            // Apply in-memory filtering
+            
+
             var filteredListings = listingsList
                 .Where(l => (string.IsNullOrEmpty(priceFrom) || CompareNumericStrings(l.Price, priceFrom) >= 0) &&
                             (string.IsNullOrEmpty(priceTo) || CompareNumericStrings(l.Price, priceTo) <= 0) &&
@@ -409,12 +409,11 @@ namespace AutoMarket.Controllers
                             (string.IsNullOrEmpty(kilometersFrom) || CompareNumericStrings(l.Car.Kilometers, kilometersFrom) >= 0) &&
                             (string.IsNullOrEmpty(kilometersTo) || CompareNumericStrings(l.Car.Kilometers, kilometersTo) <= 0) &&
                             (string.IsNullOrEmpty(kWFrom) || CompareNumericStrings(l.Car.Kilowatts, kWFrom) >= 0) &&
-                            (string.IsNullOrEmpty(kWTo) || CompareNumericStrings(l.Car.Kilowatts, kWTo) <= 0)
-                ).ToList(); // Convert to list after filtering
-
-            // Convert the filtered list to a paged list
+                            (string.IsNullOrEmpty(kWTo) || CompareNumericStrings(l.Car.Kilowatts, kWTo) <= 0) 
+                            ).ToList(); 
+                            
             var pagedListings = filteredListings.ToPagedList(pageNumber, pageSize);
-
+            ViewBag.Selected = bodyTypes;
             return View("Index", pagedListings);
         }
         [AllowAnonymous]
@@ -435,7 +434,7 @@ namespace AutoMarket.Controllers
             }
             else
             {
-                var listings = db.Listings.Where(l => l.Description.Contains(query) || l.Title.Contains(query)).Include(l => l.User).OrderBy(l => l.ID).ToPagedList(pageNumber, pageSize); ;
+                var listings = db.Listings.Where(l => l.Description.Contains(query) || l.Title.Contains(query)).Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize); ;
                 return View("Index", listings);
             }
         }

@@ -8,6 +8,8 @@
     var TransmitionTypes = ViewBag.TransmitionTypes;
     var BodyTypes = ViewBag.BodyTypes;
     var ConditionTypes = ViewBag.ConditionTypes;
+
+  
 }
 
 <style>
@@ -273,7 +275,6 @@
         }
 
 </style>
-
 <!-- Filter Form -->
 <div class="container my-5">
     <h2 class="text-center mb-4">Filter Your Search</h2>
@@ -283,11 +284,11 @@
         <div class="row">
             <div class="col-md-2 col-sm-6 form-group">
                 @Html.Label("Price From", new { @class = "sr-only", @for = "priceFrom" })
-                @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "$ Min" })
+                @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "€" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
                 @Html.Label("Price To", new { @class = "sr-only", @for = "priceTo" })
-                @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "$ Max" })
+                @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "€" })
             </div>
             <div class="col-md-2 col-sm-6 form-group">
                 @Html.Label("Year From", new { @class = "sr-only", @for = "yearFrom" })
@@ -325,31 +326,34 @@
             </div>
             <div class="col-md-2 col-sm-6 form-group">
                 @Html.Label("Body Type", new { @class = "sr-only" })
-                @foreach (var bodyType in BodyTypes)
+                @for (int i = 0; i < BodyTypes.Count; i++)
                 {
+                    var bodyType = BodyTypes[i];
                     <div>
-                        @Html.CheckBox("bodyTypes", false, new { id = bodyType, value = bodyType })
-                        <label for="@bodyType">@bodyType</label>
+                        @Html.CheckBox("bodyTypes", false, new { id = $"bodyType_{i}", value = bodyType })
+                        <label for="bodyType_@i">@bodyType</label>
                     </div>
                 }
             </div>
             <div class="col-md-2 col-sm-6 form-group">
                 @Html.Label("Condition", new { @class = "sr-only" })
-                @foreach (var conditionType in ConditionTypes)
+                @for (int i = 0; i < ConditionTypes.Count; i++)
                 {
+                    var conditionType = ConditionTypes[i];
                     <div>
-                        @Html.CheckBox("conditionTypes", false, new { id = conditionType, value = conditionType })
-                        <label for="@conditionType">@conditionType</label>
+                        @Html.CheckBox("conditionTypes", false, new { id = $"conditionType_{i}", value = conditionType })
+                        <label for="conditionType_@i">@conditionType</label>
                     </div>
                 }
             </div>
             <div class="col-md-2 col-sm-6 form-group">
                 @Html.Label("Transmission", new { @class = "sr-only" })
-                @foreach (var transmitionType in TransmitionTypes)
+                @for (int i = 0; i < TransmitionTypes.Count; i++)
                 {
+                    var transmitionType = TransmitionTypes[i];
                     <div>
-                        @Html.CheckBox("transmitionTypes", false, new { id = transmitionType, value = transmitionType })
-                        <label for="@transmitionType">@transmitionType</label>
+                        @Html.CheckBox("transmitionTypes", false, new { id = $"transmitionType_{i}", value = transmitionType })
+                        <label for="transmitionType_@i">@transmitionType</label>
                     </div>
                 }
             </div>
@@ -376,7 +380,7 @@
     {
         int maxLength = 70;
         string description = item.Description;
-        string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "...";
+        string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
        
             
         Random random = new Random();
@@ -389,7 +393,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@item.Title</h5>
                         <p class="card-text"><strong>Price:</strong> €@Html.DisplayFor(modelItem => item.Price)</p>
-                        <p class="card-text" style="color: #B0BEC5">@truncatedDescription..</p>
+                        <p class="card-text" style="color: #B0BEC5">@truncatedDescription</p>
                         <p class="card-text d-inline"><small class="text-muted d-inline">@item.Created.Value.Day/@item.Created.Value.Month/@item.Created.Value.Year</small></p>
                         @if (item.User.UserName == currentUser)
                         {

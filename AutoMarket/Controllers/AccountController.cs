@@ -76,6 +76,11 @@ namespace AutoMarket.Controllers
             }
             var user = await UserManager.FindByEmailAsync(model.Email) ?? await UserManager.FindByNameAsync(model.Email);
             // This doesn't count login failures towards account lockout
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(user.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)

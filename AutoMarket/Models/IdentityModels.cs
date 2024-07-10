@@ -36,5 +36,9 @@ namespace AutoMarket.Models
 
         public System.Data.Entity.DbSet<AutoMarket.Models.Listing> Listings { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Condition_Type> Condition_Types { get; set; }
+        public DbSet<Body_Type> Body_Types { get; set; }
+        public DbSet<Fuel_Type> Fuel_Types { get; set;}
+        public DbSet<Transmission_Type> Transmission_Types { get; set; }
     }
 }

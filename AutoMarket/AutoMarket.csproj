@@ -261,15 +261,23 @@
     <Compile Include="Migrations\202407041235144_2.9.Designer.cs">
       <DependentUpon>202407041235144_2.9.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407102228346_3.0.cs" />
+    <Compile Include="Migrations\202407102228346_3.0.Designer.cs">
+      <DependentUpon>202407102228346_3.0.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Body_Type.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\CarListingViewModel.cs" />
+    <Compile Include="Models\Condition_Type.cs" />
     <Compile Include="Models\FilterModel.cs" />
+    <Compile Include="Models\Fuel_Type.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Transmission_Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -681,6 +689,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407041235144_2.9.resx">
       <DependentUpon>202407041235144_2.9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407102228346_3.0.resx">
+      <DependentUpon>202407102228346_3.0.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

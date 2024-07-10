@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.UI;
 using AutoMarket.Models;
@@ -16,11 +18,24 @@ using PagedList;
 
 namespace AutoMarket.Controllers
 {
-   
+    public class NumericStringComparer : IComparer<string>
+    {
+        private readonly Func<string, string, int> _compareFunction;
+
+        public NumericStringComparer(Func<string, string, int> compareFunction)
+        {
+            _compareFunction = compareFunction;
+        }
+
+        public int Compare(string x, string y)
+        {
+            return _compareFunction(x, y);
+        }
+    }
     public class ListingsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: Listings
         [AllowAnonymous]
         public ActionResult Index(int? page)
@@ -28,13 +43,16 @@ namespace AutoMarket.Controllers
             
             int pageSize = 8; // Number of items per page
             int pageNumber = (page ?? 1);
+            List<string> fuel_types = db.Fuel_Types.Select(ft => ft.Name).ToList();
+            List<string> body_types = db.Body_Types.Select(bt =>  bt.Name).ToList();
+            List<string> condition_types = db.Condition_Types.Select(ct => ct.Name).ToList();
+            List<string> transmission_types = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            ViewBag.FuelTypes = fuel_types;
+            ViewBag.BodyTypes = body_types;
+            ViewBag.TransmitionTypes = transmission_types;
+            ViewBag.ConditionTypes = condition_types;
 
             var listingsPaged = db.Listings.Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
-            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT"};
-            ViewBag.ConditionTypes = new List<string> { "New", "Used"};
-
             return View(listingsPaged);
         }
      /*   public ActionResult Index(ICollection<Listing> listings)
@@ -483,12 +501,6 @@ namespace AutoMarket.Controllers
             string kWFrom = Request.QueryString["kWFrom"];
             string kWTo = Request.QueryString["kWTo"];
 
-            /*var selectedFuelTypes = Request.QueryString["fuelTypes"].Split(',') ?? new string[0];
-            var selectedBodyTypes = Request.QueryString["bodyTypes"].Split(',') ?? new string[0];
-            var selectedConditionTypes = Request.QueryString["conditionTypes"].Split(',') ?? new string[0];
-            var selectedTransmissionTypes = Request.QueryString["transmitionTypes"].Split(',') ?? new string[0];
-*/
-
             var selectedFuelTypes = (Request.QueryString["fuelTypes"]?.Split(',') ?? new string[0])
                             .Where(s => !string.Equals(s, "false", StringComparison.OrdinalIgnoreCase))
                             .ToArray();
@@ -528,10 +540,25 @@ namespace AutoMarket.Controllers
                             (selectedBodyTypes == null || selectedBodyTypes.Contains(l.Car.Body_Type)) &&
                             (selectedConditionTypes == null || selectedConditionTypes.Contains(l.Condition)) &&
                             (selectedTransmissionTypes == null || selectedTransmissionTypes.Contains(l.Car.Transmition))*/
-                            ).ToList(); 
-                            
-            var pagedListings = filteredListings.ToPagedList(pageNumber, pageSize);
-            ViewBag.Selected = selectedBodyTypes;
+                            ).ToList();
+            var comparer = new NumericStringComparer(CompareNumericStrings);
+            var pagedListings = filteredListings.OrderBy(l => l.Created).ToPagedList(pageNumber, pageSize);
+            string sort = Request.QueryString["sortBy"];
+            if (sort.Equals("date_asc"))
+            {
+                //var pagedListings = filteredListings.OrderBy(l => l.Created).ToPagedList(pageNumber, pageSize);
+            }
+            else if (sort.Equals("date_desc"))
+            {
+                 pagedListings = filteredListings.OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
+            }else if (sort.Equals("price_asc"))
+            {
+                 pagedListings = filteredListings.OrderBy(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
+            }
+            else
+            {
+                 pagedListings = filteredListings.OrderByDescending(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
+            }
             return View("Index", pagedListings);
         }
         [AllowAnonymous]
@@ -539,8 +566,8 @@ namespace AutoMarket.Controllers
         public ActionResult Search(string SearchQuery)
         {
             
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Wagon", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
             int pageSize = 8;

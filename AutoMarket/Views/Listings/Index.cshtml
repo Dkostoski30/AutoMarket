@@ -11,13 +11,7 @@
     var test = ViewBag.Selected;
 
 }
-@if(test != null)
-            {
-                foreach(var item in test)
-                {
-                    <h6>@item</h6>
-                }
-            }
+
 <style>
     body {
         font-family: 'Roboto', sans-serif;
@@ -320,8 +314,104 @@
         }
 
 </style>
+<div class="container my-5">
+    <h2 class="text-center mb-4">Filter Your Search</h2>
+    @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
+    {
+        <div class="row g-3">
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Price From", new { @class = "form-label", @for = "priceFrom" })
+                @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "€" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Price To", new { @class = "form-label", @for = "priceTo" })
+                @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "€" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Year From", new { @class = "form-label", @for = "yearFrom" })
+                @Html.TextBox("yearFrom", null, new { @class = "form-control", placeholder = "YYYY" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Year To", new { @class = "form-label", @for = "yearTo" })
+                @Html.TextBox("yearTo", null, new { @class = "form-control", placeholder = "YYYY" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilometers From", new { @class = "form-label", @for = "kilometersFrom" })
+                @Html.TextBox("kilometersFrom", null, new { @class = "form-control", placeholder = "Km" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilometers To", new { @class = "form-label", @for = "kilometersTo" })
+                @Html.TextBox("kilometersTo", null, new { @class = "form-control", placeholder = "Km" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilowatts From", new { @class = "form-label", @for = "kWFrom" })
+                @Html.TextBox("kWFrom", null, new { @class = "form-control", placeholder = "kW" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilowatts To", new { @class = "form-label", @for = "kWTo" })
+                @Html.TextBox("kWTo", null, new { @class = "form-control", placeholder = "kW" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Fuel Type", new { @class = "form-label", style = "font-weight: bold;" })
+                @foreach (var fuelType in FuelTypes)
+                {
+                    <div class="form-check">
+                        @Html.CheckBox("fuelTypes", false, new { id = fuelType, @class = "form-check-input", value = fuelType })
+                        <label for="@fuelType" class="form-check-label">@fuelType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Body Type", new { @class = "form-label", style = "font-weight: bold;" })
+                @for (int i = 0; i < BodyTypes.Count; i++)
+                {
+                    var bodyType = BodyTypes[i];
+                    <div class="form-check">
+                        @Html.CheckBox("bodyTypes", false, new { id = $"bodyType_{i}", @class = "form-check-input", value = bodyType })
+                        <label for="bodyType_@i" class="form-check-label">@bodyType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Condition", new { @class = "form-label", style = "font-weight: bold;" })
+                @for (int i = 0; i < ConditionTypes.Count; i++)
+                {
+                    var conditionType = ConditionTypes[i];
+                    <div class="form-check">
+                        @Html.CheckBox("conditionTypes", false, new { id = $"conditionType_{i}", @class = "form-check-input", value = conditionType })
+                        <label for="conditionType_@i" class="form-check-label">@conditionType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Transmission", new { @class = "form-label", style = "font-weight: bold;" })
+                @for (int i = 0; i < TransmitionTypes.Count; i++)
+                {
+                    var transmitionType = TransmitionTypes[i];
+                    <div class="form-check">
+                        @Html.CheckBox("transmitionTypes", false, new { id = $"transmitionType_{i}", @class = "form-check-input", value = transmitionType })
+                        <label for="transmitionType_@i" class="form-check-label">@transmitionType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group text-right">
+                @Html.Label("Sort By", new { @class = "form-label" })
+                @Html.DropDownList("sortBy", new SelectList(new[]
+                {
+                    new SelectListItem { Text = "Price - Low to High", Value = "price_asc" },
+                    new SelectListItem { Text = "Price - High to Low", Value = "price_desc" },
+                    new SelectListItem { Text = "Date - Old to New", Value = "date_asc" },
+                    new SelectListItem { Text = "Date - New to Old", Value = "date_desc" }
+                }, "Value", "Text"), "Sort By", new { @class = "form-control" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                <button type="submit" class="btn btn-primary w-100 mt-4">Apply Filters</button>
+            </div>
+        </div>
+    }
+</div>
 <!-- Filter Form -->
-
+@*
 <div class="container my-5">
     <h2 class="text-center mb-4">Filter Your Search</h2>
     @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
@@ -403,13 +493,24 @@
                     </div>
                 }
             </div>
+
             <div class="col-md-2 col-sm-6 form-group">
                 <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
+            </div>
+            <div class="col-md-2 col-sm-6 form-group text-right">
+                @Html.Label("Sort By", new { @class = "sr-only" })
+                @Html.DropDownList("sortBy", new SelectList(new[]
+                {
+                    new SelectListItem { Text = "Price - Low to High", Value = "price_asc" },
+                    new SelectListItem { Text = "Price - High to Low", Value = "price_desc" },
+                    new SelectListItem { Text = "Date - Old to New", Value = "date_asc" },
+                    new SelectListItem { Text = "Date - New to Old", Value = "date_desc" }
+                }, "Value", "Text"), "Sort By", new { @class = "form-control" })
             </div>
         </div>
 }
 
-</div>
+</div>*@
 
 <hr />
 
@@ -449,10 +550,10 @@
                 </a>
                 @if (User.IsInRole("Admin") || item.User.UserName == currentUser)
                 {
-                    <div class="card-footer d-flex justify-content-sm-around align-content-between">
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary btn-sm mr-2 ml-2" })
+                    <div class="card-footer text-center">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary btn-sm mx-3" })
                         @*@Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-sm mr-2 ml-2" })*@
-                        <button data-listing-id="@item.ID" class="btn btn-danger btn-sm js-delete">Delete</button>
+                        <button data-listing-id="@item.ID" class="btn btn-danger btn-sm js-delete mx-3">Delete</button>
                     </div>
                 }
             </div>

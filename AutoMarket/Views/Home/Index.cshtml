@@ -235,6 +235,22 @@
         .footer-text {
             margin: 0;
         }
+        .card-img-top-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; /* 4:3 Aspect Ratio (adjust as needed) */
+            overflow: hidden;
+            background-color: #37474F; /* Fallback background color */
+        }
+
+            .card-img-top-wrapper img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
     </style>
 </head>
 <body>
@@ -265,7 +281,9 @@
                     int randomIndex = random.Next(item.Images.Count);
                     <div class="col-md-3">
                         <div class="card">
-                            <img src="~/Content/Images/car_images/@item.Images.ElementAt(randomIndex).Name" class="card-img-top" alt="Car Title">
+                            <div class="card-img-top-wrapper">
+                                <img src="~/Content/Images/car_images/@item.Images.ElementAt(randomIndex).Name" class="card-img-top" alt="Car Title">
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">@item.Title</h5>
                                 <p class="card-text">Price: €@item.Price</p>

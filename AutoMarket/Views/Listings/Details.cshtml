@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    var currentUser = User.Identity.Name;
 }
 
 <style>
@@ -128,9 +129,12 @@
 
         <!-- Action Buttons -->
         <div class="text-center mb-4">
-            @Html.ActionLink("Edit Listing", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary mx-2" })
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary mx-2" })
-        </div>
+            @if (User.IsInRole("Admin") || Model.User.UserName == currentUser)
+            {
+                @Html.ActionLink("Edit Listing", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary mx-2" })
+            }
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary mx-2" })
+            </div>
     </div>
 </div>
 

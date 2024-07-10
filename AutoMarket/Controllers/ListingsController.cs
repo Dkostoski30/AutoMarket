@@ -420,7 +420,17 @@ namespace AutoMarket.Controllers
         public ActionResult Delete(int id)
         {
             Listing listing = db.Listings.Find(id);
-            db.Images.Where(i => i.Listing_ID == id).ToList();
+            var images = db.Images.Where(i => i.Listing_ID == id).ToList();
+            foreach (var image in images)
+            {
+                string filePath = image.Path;
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                db.Images.Remove(image);
+               
+            }
             db.Listings.Remove(listing);
             db.SaveChanges();
             return RedirectToAction("Index");

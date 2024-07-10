@@ -16,7 +16,7 @@ namespace AutoMarket.Controllers
         {
             var listings = db.Listings.OrderByDescending(l => l.Created).ToList();
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
 

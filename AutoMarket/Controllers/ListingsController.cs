@@ -52,7 +52,7 @@ namespace AutoMarket.Controllers
             int pageSize = 8; // Number of items per page
             int pageNumber = 1;
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
             if (id == 1)
@@ -195,6 +195,7 @@ namespace AutoMarket.Controllers
             ViewBag.BodyTypes = new SelectList(new[]
               {
                   new { Value = "Sedan", Text = "Sedan" },
+                  new { Value = "Wagon", Text = "Wagon" },
                   new { Value = "SUV", Text = "SUV" },
                   new { Value = "Hatchback", Text = "Hatchback" },
                   new { Value = "Coupe", Text = "Coupe" },
@@ -365,12 +366,12 @@ namespace AutoMarket.Controllers
         [HttpGet]
         public ActionResult ApplyFilters(int? page)
         {
-           
 
-            int pageSize = 8; 
+
+            int pageSize = 8;
             int pageNumber = 1;
             ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
+            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
 
@@ -379,28 +380,43 @@ namespace AutoMarket.Controllers
             string priceTo = Request.QueryString["priceTo"];
             string yearFrom = Request.QueryString["yearFrom"];
             string yearTo = Request.QueryString["yearTo"];
-            string kilometersFrom = Request.QueryString ["kilometersFrom"];
+            string kilometersFrom = Request.QueryString["kilometersFrom"];
             string kilometersTo = Request.QueryString["kilometersTo"];
             string kWFrom = Request.QueryString["kWFrom"];
             string kWTo = Request.QueryString["kWTo"];
 
-            string[] fuelTypes = Request.QueryString.GetValues("fuelTypes");
-            string[] bodyTypes = Request.QueryString.GetValues("bodyTypes");
-            string[] conditionTypes = Request.QueryString.GetValues("conditionTypes");
-            string[] transmitionTypes = Request.QueryString.GetValues("transmitionTypes");
+            /*var selectedFuelTypes = Request.QueryString["fuelTypes"].Split(',') ?? new string[0];
+            var selectedBodyTypes = Request.QueryString["bodyTypes"].Split(',') ?? new string[0];
+            var selectedConditionTypes = Request.QueryString["conditionTypes"].Split(',') ?? new string[0];
+            var selectedTransmissionTypes = Request.QueryString["transmitionTypes"].Split(',') ?? new string[0];
+*/
 
+            var selectedFuelTypes = (Request.QueryString["fuelTypes"]?.Split(',') ?? new string[0])
+                            .Where(s => !string.Equals(s, "false", StringComparison.OrdinalIgnoreCase))
+                            .ToArray();
+            var selectedBodyTypes = (Request.QueryString["bodyTypes"]?.Split(',') ?? new string[0])
+                                    .Where(s => !string.Equals(s, "false", StringComparison.OrdinalIgnoreCase))
+                                    .ToArray();
+            var selectedConditionTypes = (Request.QueryString["conditionTypes"]?.Split(',') ?? new string[0])
+                                        .Where(s => !string.Equals(s, "false", StringComparison.OrdinalIgnoreCase))
+                                        .ToArray();
+            var selectedTransmissionTypes = (Request.QueryString["transmitionTypes"]?.Split(',') ?? new string[0])
+                                            .Where(s => !string.Equals(s, "false", StringComparison.OrdinalIgnoreCase))
+                                            .ToArray();
 
-
-
-            var listings = db.Listings.Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
 
             var listingsQuery = db.Listings.Include(l => l.User).OrderByDescending(l => l.Created).AsQueryable();
+            listingsQuery = listingsQuery
+                .Where(l =>
+                    (!selectedFuelTypes.Any() || selectedFuelTypes.Contains(l.Car.Fuel_Type)) &&
+                    (!selectedBodyTypes.Any() || selectedBodyTypes.Contains(l.Car.Body_Type)) &&
+                    (!selectedConditionTypes.Any() || selectedConditionTypes.Contains(l.Condition)) &&
+                    (!selectedTransmissionTypes.Any() || selectedTransmissionTypes.Contains(l.Car.Transmition))
+                );
 
-          
             var listingsList = listingsQuery.ToList();
 
             
-
             var filteredListings = listingsList
                 .Where(l => (string.IsNullOrEmpty(priceFrom) || CompareNumericStrings(l.Price, priceFrom) >= 0) &&
                             (string.IsNullOrEmpty(priceTo) || CompareNumericStrings(l.Price, priceTo) <= 0) &&
@@ -409,11 +425,15 @@ namespace AutoMarket.Controllers
                             (string.IsNullOrEmpty(kilometersFrom) || CompareNumericStrings(l.Car.Kilometers, kilometersFrom) >= 0) &&
                             (string.IsNullOrEmpty(kilometersTo) || CompareNumericStrings(l.Car.Kilometers, kilometersTo) <= 0) &&
                             (string.IsNullOrEmpty(kWFrom) || CompareNumericStrings(l.Car.Kilowatts, kWFrom) >= 0) &&
-                            (string.IsNullOrEmpty(kWTo) || CompareNumericStrings(l.Car.Kilowatts, kWTo) <= 0) 
+                            (string.IsNullOrEmpty(kWTo) || CompareNumericStrings(l.Car.Kilowatts, kWTo) <= 0) /*&& 
+                            (selectedFuelTypes == null || selectedFuelTypes.Contains(l.Car.Fuel_Type)) &&
+                            (selectedBodyTypes == null || selectedBodyTypes.Contains(l.Car.Body_Type)) &&
+                            (selectedConditionTypes == null || selectedConditionTypes.Contains(l.Condition)) &&
+                            (selectedTransmissionTypes == null || selectedTransmissionTypes.Contains(l.Car.Transmition))*/
                             ).ToList(); 
                             
             var pagedListings = filteredListings.ToPagedList(pageNumber, pageSize);
-            ViewBag.Selected = bodyTypes;
+            ViewBag.Selected = selectedBodyTypes;
             return View("Index", pagedListings);
         }
         [AllowAnonymous]
@@ -421,7 +441,7 @@ namespace AutoMarket.Controllers
         public ActionResult Search(string SearchQuery)
         {
             
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.FuelTypes = new List<string> { "Petrol", "Wagon", "Diesel", "Electric", "Hybrid", "Hydrogen" };
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };

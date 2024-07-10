@@ -8,10 +8,16 @@
     var TransmitionTypes = ViewBag.TransmitionTypes;
     var BodyTypes = ViewBag.BodyTypes;
     var ConditionTypes = ViewBag.ConditionTypes;
+    var test = ViewBag.Selected;
 
-  
 }
-
+@if(test != null)
+            {
+                foreach(var item in test)
+                {
+                    <h6>@item</h6>
+                }
+            }
 <style>
     body {
         font-family: 'Roboto', sans-serif;
@@ -276,6 +282,7 @@
 
 </style>
 <!-- Filter Form -->
+
 <div class="container my-5">
     <h2 class="text-center mb-4">Filter Your Search</h2>
     @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))

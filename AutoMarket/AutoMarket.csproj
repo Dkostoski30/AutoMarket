@@ -265,6 +265,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\CarListingViewModel.cs" />
+    <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Listing.cs" />

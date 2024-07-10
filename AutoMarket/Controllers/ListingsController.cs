@@ -399,7 +399,7 @@ namespace AutoMarket.Controllers
         }
 
         // GET: Listings/Delete/5
-        public ActionResult Delete(int? id)
+        /*public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -412,11 +412,12 @@ namespace AutoMarket.Controllers
             }
             return View(listing);
         }
-
+*/
         // POST: Listings/Delete/5
-        [HttpPost, ActionName("Delete")]
+  /*      [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+  */      
+        public ActionResult Delete(int id)
         {
             Listing listing = db.Listings.Find(id);
             db.Images.Where(i => i.Listing_ID == id).ToList();

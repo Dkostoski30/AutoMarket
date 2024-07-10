@@ -115,7 +115,6 @@ namespace AutoMarket.Controllers
                 new { Value = "Electric", Text = "Electric" },
                 new { Value = "Hydrogen", Text = "Hydrogen" }
                },          "Value", "Text");
-
             ViewBag.CarBrands = new SelectList(new[]
             {
     new { Value = "Abarth", Text = "Abarth" },
@@ -183,8 +182,6 @@ namespace AutoMarket.Controllers
     new { Value = "Volkswagen", Text = "Volkswagen" },
     new { Value = "Volvo", Text = "Volvo" }
 }, "Value", "Text");
-
-
             ViewBag.TransmissionTypes = new SelectList(new[]
              {
                     new { Value = "Manual", Text = "Manual" },
@@ -275,6 +272,96 @@ namespace AutoMarket.Controllers
         // GET: Listings/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.FuelTypes = new SelectList(new[] {
+                new { Value = "Diesel", Text = "Diesel" },
+                new { Value = "Petrol", Text = "Petrol" },
+                new { Value = "Hybrid", Text = "Hybrid" },
+                new { Value = "Electric", Text = "Electric" },
+                new { Value = "Hydrogen", Text = "Hydrogen" }
+               }, "Value", "Text");
+            ViewBag.CarBrands = new SelectList(new[]
+            {
+    new { Value = "Abarth", Text = "Abarth" },
+    new { Value = "Alfa Romeo", Text = "Alfa Romeo" },
+    new { Value = "Aston Martin", Text = "Aston Martin" },
+    new { Value = "Audi", Text = "Audi" },
+    new { Value = "Bentley", Text = "Bentley" },
+    new { Value = "BMW", Text = "BMW" },
+    new { Value = "Bugatti", Text = "Bugatti" },
+    new { Value = "Cadillac", Text = "Cadillac" },
+    new { Value = "Chevrolet", Text = "Chevrolet" },
+    new { Value = "Chrysler", Text = "Chrysler" },
+    new { Value = "Citroën", Text = "Citroën" },
+    new { Value = "Dacia", Text = "Dacia" },
+    new { Value = "Daewoo", Text = "Daewoo" },
+    new { Value = "Daihatsu", Text = "Daihatsu" },
+    new { Value = "Dodge", Text = "Dodge" },
+    new { Value = "Donkervoort", Text = "Donkervoort" },
+    new { Value = "DS", Text = "DS" },
+    new { Value = "Ferrari", Text = "Ferrari" },
+    new { Value = "Fiat", Text = "Fiat" },
+    new { Value = "Fisker", Text = "Fisker" },
+    new { Value = "Ford", Text = "Ford" },
+    new { Value = "Honda", Text = "Honda" },
+    new { Value = "Hummer", Text = "Hummer" },
+    new { Value = "Hyundai", Text = "Hyundai" },
+    new { Value = "Infiniti", Text = "Infiniti" },
+    new { Value = "Iveco", Text = "Iveco" },
+    new { Value = "Jaguar", Text = "Jaguar" },
+    new { Value = "Jeep", Text = "Jeep" },
+    new { Value = "Kia", Text = "Kia" },
+    new { Value = "KTM", Text = "KTM" },
+    new { Value = "Lada", Text = "Lada" },
+    new { Value = "Lamborghini", Text = "Lamborghini" },
+    new { Value = "Lancia", Text = "Lancia" },
+    new { Value = "Land Rover", Text = "Land Rover" },
+    new { Value = "Landwind", Text = "Landwind" },
+    new { Value = "Lexus", Text = "Lexus" },
+    new { Value = "Lotus", Text = "Lotus" },
+    new { Value = "Maserati", Text = "Maserati" },
+    new { Value = "Maybach", Text = "Maybach" },
+    new { Value = "Mazda", Text = "Mazda" },
+    new { Value = "McLaren", Text = "McLaren" },
+    new { Value = "Mercedes-Benz", Text = "Mercedes-Benz" },
+    new { Value = "MG", Text = "MG" },
+    new { Value = "Mini", Text = "Mini" },
+    new { Value = "Mitsubishi", Text = "Mitsubishi" },
+    new { Value = "Morgan", Text = "Morgan" },
+    new { Value = "Nissan", Text = "Nissan" },
+    new { Value = "Opel", Text = "Opel" },
+    new { Value = "Peugeot", Text = "Peugeot" },
+    new { Value = "Porsche", Text = "Porsche" },
+    new { Value = "Renault", Text = "Renault" },
+    new { Value = "Rolls-Royce", Text = "Rolls-Royce" },
+    new { Value = "Rover", Text = "Rover" },
+    new { Value = "Saab", Text = "Saab" },
+    new { Value = "Seat", Text = "Seat" },
+    new { Value = "Skoda", Text = "Skoda" },
+    new { Value = "Smart", Text = "Smart" },
+    new { Value = "SsangYong", Text = "SsangYong" },
+    new { Value = "Subaru", Text = "Subaru" },
+    new { Value = "Suzuki", Text = "Suzuki" },
+    new { Value = "Tesla", Text = "Tesla" },
+    new { Value = "Toyota", Text = "Toyota" },
+    new { Value = "Volkswagen", Text = "Volkswagen" },
+    new { Value = "Volvo", Text = "Volvo" }
+}, "Value", "Text");
+            ViewBag.TransmissionTypes = new SelectList(new[]
+             {
+                    new { Value = "Manual", Text = "Manual" },
+                    new { Value = "Automatic", Text = "Automatic" },
+                    new { Value = "Semi-Automatic", Text = "Semi-Automatic" },
+                    new { Value = "CVT", Text = "CVT" }
+                }, "Value", "Text");
+            ViewBag.BodyTypes = new SelectList(new[]
+              {
+                  new { Value = "Sedan", Text = "Sedan" },
+                  new { Value = "Wagon", Text = "Wagon" },
+                  new { Value = "SUV", Text = "SUV" },
+                  new { Value = "Hatchback", Text = "Hatchback" },
+                  new { Value = "Coupe", Text = "Coupe" },
+                  new { Value = "Convertible", Text = "Convertible" }
+              }, "Value", "Text");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

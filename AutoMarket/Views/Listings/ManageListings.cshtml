@@ -1,0 +1,191 @@
+﻿@model IEnumerable<AutoMarket.Models.Listing>
+
+@{
+    ViewBag.Title = "Manage Listings";
+}
+<style>
+    <style >
+    /* Table container */
+    div.dataTables_wrapper {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #263238; /* Darker Grey Background */
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    /* Table Header */
+    table.dataTable thead {
+        background-color: #1F2C38; /* Dark Blue Background */
+        color: #E0E0E0; /* Light Grey Text */
+    }
+
+        /* Table Header Cells */
+        table.dataTable thead th {
+            padding: 10px;
+            border-bottom: 1px solid #37474F; /* Dark Grey Border */
+        }
+
+    /* Table Body */
+    table.dataTable tbody {
+        background-color: #263238; /* Darker Grey Background */
+    }
+
+        /* Table Rows */
+        table.dataTable tbody tr {
+            border-bottom: 1px solid #37474F; /* Dark Grey Border */
+        }
+
+        /* Table Cells */
+        table.dataTable tbody td {
+            padding: 10px;
+            color: #E0E0E0; /* Light Grey Text */
+        }
+
+        /* Hover Effects */
+        table.dataTable tbody tr:hover {
+            background-color: #37474F; /* Dark Grey Background */
+            color: #18BC9C; /* Emerald Green Text */
+        }
+
+    /* Pagination Controls */
+    .dataTables_paginate .paginate_button {
+        background-color: #18BC9C; /* Emerald Green */
+        color: #ffffff;
+        padding: 5px 10px;
+        margin: 0 2px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+        .dataTables_paginate .paginate_button:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+
+    /* Search Input */
+    .dataTables_filter input {
+        background-color: #263238; /* Darker Grey Background */
+        border: 1px solid #37474F; /* Dark Grey Border */
+        color: #E0E0E0; /* Light Grey Text */
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+
+    /* Length Menu */
+    .dataTables_length select {
+        background-color: #263238; /* Darker Grey Background */
+        border: 1px solid #37474F; /* Dark Grey Border */
+        color: #E0E0E0; /* Light Grey Text */
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+    .dataTables_paginate .paginate_button {
+        background-color: #18BC9C; /* Emerald Green */
+        color: white;
+        padding: 5px 10px;
+        margin: 0 2px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+        text-decoration:none;
+
+    }
+    a{
+        text-decoration:none;
+        color:white;
+    }
+    a:hover {
+        text-decoration: none;
+        color: dimgrey;
+    }
+   .btn-delete{
+       background-color: crimson;
+   }
+</style>
+<h2>Manage Listings</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Car)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Condition)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            int maxLength = 370;
+            string description = item.Description;
+            string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Car.Manufacturer)&nbsp;@Html.DisplayFor(modelItem => item.Car.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @truncatedDescription
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Condition)
+                </td>
+                <td style="display: flex; flex-direction: column; align-items: center; justify-content:space-between">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-action btn-edit my-2" })
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-action btn-details my-2" })
+                    <button data-listing-id="@item.ID" class="js-delete btn btn-action btn-delete my-2">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+        <script>
+            $(document).ready(() => {
+                var table = $("#table").DataTable();
+            $("#ListingsContainer .js-delete").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this listing?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/Listings/Delete/" + button.attr("data-listing-id"),
+                            method: "GET",
+                            success: function () {
+                                button.parents(".listing").remove();
+                            },
+                            error: function (err) {
+                                console.log(err)
+                            }
+                        });
+                    }
+                });
+            });
+});
+        </script>
+    }

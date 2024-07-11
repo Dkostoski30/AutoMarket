@@ -8,7 +8,7 @@
     var TransmitionTypes = ViewBag.TransmitionTypes;
     var BodyTypes = ViewBag.BodyTypes;
     var ConditionTypes = ViewBag.ConditionTypes;
-    var test = ViewBag.Selected;
+  
 
 }
 
@@ -528,11 +528,13 @@
         int maxLength = 70;
         string description = item.Description;
         string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
-       
-            
+
+
         Random random = new Random();
-        int randomIndex = random.Next(item.Images.Count);
-        
+        int randomIndex = 0;
+        if (item.Images.Count > 0) { 
+            randomIndex = random.Next(item.Images.Count);
+        }
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4 listing">
             <div class="card h-100">
                 <a href="/Listings/Details/@item.ID" style="text-decoration: none; color: CaptionText;">

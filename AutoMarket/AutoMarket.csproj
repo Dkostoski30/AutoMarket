@@ -455,7 +455,10 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\icons\favicon2.png" />
+    <Content Include="Content\Images\icons\banner2.png" />
     <Content Include="Content\Images\icons\user_icon.png" />
+    <Content Include="Content\Images\other\mk.svg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -598,6 +601,8 @@
     <Content Include="Views\Listings\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Home\Managment.cshtml" />
+    <Content Include="Views\Listings\ManageListings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\car_images\" />

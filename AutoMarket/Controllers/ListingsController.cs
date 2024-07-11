@@ -225,7 +225,7 @@ namespace AutoMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Car,Price,Title,Description,Created")] Listing listing)
+        public ActionResult Create([Bind(Include = "ID,Car,Price,Title,Description,Created,Condition")] Listing listing)
         {
             if (ModelState.IsValid)
             {
@@ -405,7 +405,7 @@ namespace AutoMarket.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Car,Price,Title,Description,Created")] Listing listing)
+        public ActionResult Edit([Bind(Include = "ID,Car,Price,Title,Description,Created,Condition")] Listing listing)
         {
             if (ModelState.IsValid)
             {
@@ -476,6 +476,12 @@ namespace AutoMarket.Controllers
 
             
             return 0;
+        }
+        [Authorize(Roles="Admin,Moderator")]
+        public ActionResult ManageListings()
+        {
+            var listings = db.Listings.Include(l => l.User).ToList();
+            return View(listings);
         }
 
         [AllowAnonymous]

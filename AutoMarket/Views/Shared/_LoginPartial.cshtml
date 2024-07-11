@@ -231,12 +231,21 @@
 
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
-       
-    <ul class="navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class="nav-link" })
-        </li>
+    @Html.AntiForgeryToken()<ul class="navbar-nav navbar-right">
+                                <li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        @Html.ActionLink("Hello Admin!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                    }
+                                    else if (User.IsInRole("Moderator"))
+                                    {
+                                        @Html.ActionLink("Hello Moderator " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Hello " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                    }
+                                </li>
         <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }

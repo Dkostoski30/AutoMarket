@@ -356,6 +356,18 @@ namespace AutoMarket.Controllers
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
+        public ActionResult Details(string id)
+        {
+            if(id == null)
+            {
+                var user = UserManager.FindById(id);
+                return View(user);   
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
         //
         // POST: /Account/ExternalLoginConfirmation
@@ -461,7 +473,7 @@ namespace AutoMarket.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
+        
         internal class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri)

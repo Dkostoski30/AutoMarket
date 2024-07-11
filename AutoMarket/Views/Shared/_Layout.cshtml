@@ -170,6 +170,10 @@
                     <li class="nav-item">@Html.ActionLink("About Us", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Listings", "Index", "Listings", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Sell a car!", "Create", "Listings", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                    {
+                        <li class="nav-item">@Html.ActionLink("Managment", "", "", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

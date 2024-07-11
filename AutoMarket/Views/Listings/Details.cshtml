@@ -113,7 +113,7 @@
                 <!-- User Info -->
                 @if (Model.User != null)
                 {
-                    <div class="col-md-5 col-12 text-center mb-4">
+                    <a href="/User/Details/@Model.User.Id"class="col-md-5 col-12 text-center mb-4" style="text-decoration:none">
                         <div class="card h-100">
                             <img src="~/Content/Images/icons/user_icon.png" class="card-img-top mx-auto mt-3" style="width: 60px; height: auto;" />
                             <div class="card-body">
@@ -122,7 +122,7 @@
                                 <p class="card-text">@Model.User.City</p>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 }
             </div>
         </div>

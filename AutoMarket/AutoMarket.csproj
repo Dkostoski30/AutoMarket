@@ -604,14 +604,13 @@
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Home\Managment.cshtml" />
     <Content Include="Views\Listings\ManageListings.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\car_images\" />
+    <Folder Include="App_Data\" />
     <Folder Include="Content\Images\car_images\" />
   </ItemGroup>
   <ItemGroup>

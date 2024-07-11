@@ -221,16 +221,16 @@
             string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
 
             <tr>
-                <td>
+                <td style="max-width:80px;">
                     @Html.DisplayFor(modelItem => item.Car.Manufacturer)&nbsp;@Html.DisplayFor(modelItem => item.Car.Model)
                 </td>
-                <td>
+                <td style="max-width:80px;">
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
-                <td>
+                <td style="max-width:200px;">
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-                <td>
+                <td style="max-width:300px;">
                     @truncatedDescription
                 </td>
                 <td>

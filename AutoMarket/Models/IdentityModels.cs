@@ -41,6 +41,6 @@ namespace AutoMarket.Models
         public DbSet<Fuel_Type> Fuel_Types { get; set;}
         public DbSet<Transmission_Type> Transmission_Types { get; set; }
 
-       
+        public DbSet<Car_Brand> Car_Brands{ get; set; }
     }
 }

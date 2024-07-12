@@ -36,7 +36,7 @@ namespace AutoMarket.Controllers
 
             return View();
         }
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Managment()
         {
             return View();

@@ -57,10 +57,10 @@ namespace AutoMarket.Controllers
         }
      /*   public ActionResult Index(ICollection<Listing> listings)
         {
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
+            ViewBag.FuelTypes =  db.Fuel_Types.Select(ft => ft.Name).ToList();
             ViewBag.BodyTypes = new List<string> { "Sedan", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
-            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
-            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+            ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
 
             return View(listings);
         }*/
@@ -69,10 +69,10 @@ namespace AutoMarket.Controllers
         {
             int pageSize = 8; // Number of items per page
             int pageNumber = 1;
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
-            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
-            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+            ViewBag.FuelTypes = db.Fuel_Types.Select(ft => ft.Name).ToList();
+            ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
+            ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
             if (id == 1)
             {
                 var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
@@ -126,137 +126,29 @@ namespace AutoMarket.Controllers
       
         public ActionResult Create()
         {
-            ViewBag.FuelTypes = new SelectList(new[] {
-                new { Value = "Diesel", Text = "Diesel" },
-                new { Value = "Petrol", Text = "Petrol" },
-                new { Value = "Hybrid", Text = "Hybrid" },
-                new { Value = "Electric", Text = "Electric" },
-                new { Value = "Hydrogen", Text = "Hydrogen" }
-               },          "Value", "Text");
-            ViewBag.CarBrands = new SelectList(new[]
-            {
-    new { Value = "Abarth", Text = "Abarth" },
-    new { Value = "Alfa Romeo", Text = "Alfa Romeo" },
-    new { Value = "Aston Martin", Text = "Aston Martin" },
-    new { Value = "Audi", Text = "Audi" },
-    new { Value = "Bentley", Text = "Bentley" },
-    new { Value = "BMW", Text = "BMW" },
-    new { Value = "Bugatti", Text = "Bugatti" },
-    new { Value = "Cadillac", Text = "Cadillac" },
-    new { Value = "Chevrolet", Text = "Chevrolet" },
-    new { Value = "Chrysler", Text = "Chrysler" },
-    new { Value = "Citroën", Text = "Citroën" },
-    new { Value = "Dacia", Text = "Dacia" },
-    new { Value = "Daewoo", Text = "Daewoo" },
-    new { Value = "Daihatsu", Text = "Daihatsu" },
-    new { Value = "Dodge", Text = "Dodge" },
-    new { Value = "Donkervoort", Text = "Donkervoort" },
-    new { Value = "DS", Text = "DS" },
-    new { Value = "Ferrari", Text = "Ferrari" },
-    new { Value = "Fiat", Text = "Fiat" },
-    new { Value = "Fisker", Text = "Fisker" },
-    new { Value = "Ford", Text = "Ford" },
-    new { Value = "Honda", Text = "Honda" },
-    new { Value = "Hummer", Text = "Hummer" },
-    new { Value = "Hyundai", Text = "Hyundai" },
-    new { Value = "Infiniti", Text = "Infiniti" },
-    new { Value = "Iveco", Text = "Iveco" },
-    new { Value = "Jaguar", Text = "Jaguar" },
-    new { Value = "Jeep", Text = "Jeep" },
-    new { Value = "Kia", Text = "Kia" },
-    new { Value = "KTM", Text = "KTM" },
-    new { Value = "Lada", Text = "Lada" },
-    new { Value = "Lamborghini", Text = "Lamborghini" },
-    new { Value = "Lancia", Text = "Lancia" },
-    new { Value = "Land Rover", Text = "Land Rover" },
-    new { Value = "Landwind", Text = "Landwind" },
-    new { Value = "Lexus", Text = "Lexus" },
-    new { Value = "Lotus", Text = "Lotus" },
-    new { Value = "Maserati", Text = "Maserati" },
-    new { Value = "Maybach", Text = "Maybach" },
-    new { Value = "Mazda", Text = "Mazda" },
-    new { Value = "McLaren", Text = "McLaren" },
-    new { Value = "Mercedes-Benz", Text = "Mercedes-Benz" },
-    new { Value = "MG", Text = "MG" },
-    new { Value = "Mini", Text = "Mini" },
-    new { Value = "Mitsubishi", Text = "Mitsubishi" },
-    new { Value = "Morgan", Text = "Morgan" },
-    new { Value = "Nissan", Text = "Nissan" },
-    new { Value = "Opel", Text = "Opel" },
-    new { Value = "Peugeot", Text = "Peugeot" },
-    new { Value = "Porsche", Text = "Porsche" },
-    new { Value = "Renault", Text = "Renault" },
-    new { Value = "Rolls-Royce", Text = "Rolls-Royce" },
-    new { Value = "Rover", Text = "Rover" },
-    new { Value = "Saab", Text = "Saab" },
-    new { Value = "Seat", Text = "Seat" },
-    new { Value = "Skoda", Text = "Skoda" },
-    new { Value = "Smart", Text = "Smart" },
-    new { Value = "SsangYong", Text = "SsangYong" },
-    new { Value = "Subaru", Text = "Subaru" },
-    new { Value = "Suzuki", Text = "Suzuki" },
-    new { Value = "Tesla", Text = "Tesla" },
-    new { Value = "Toyota", Text = "Toyota" },
-    new { Value = "Volkswagen", Text = "Volkswagen" },
-    new { Value = "Volvo", Text = "Volvo" }
-}, "Value", "Text");
-            ViewBag.TransmissionTypes = new SelectList(new[]
-             {
-                    new { Value = "Manual", Text = "Manual" },
-                    new { Value = "Automatic", Text = "Automatic" },
-                    new { Value = "Semi-Automatic", Text = "Semi-Automatic" },
-                    new { Value = "CVT", Text = "CVT" }
-                }, "Value", "Text");
-            ViewBag.BodyTypes = new SelectList(new[]
-              {
-                  new { Value = "Sedan", Text = "Sedan" },
-                  new { Value = "Wagon", Text = "Wagon" },
-                  new { Value = "SUV", Text = "SUV" },
-                  new { Value = "Hatchback", Text = "Hatchback" },
-                  new { Value = "Coupe", Text = "Coupe" },
-                  new { Value = "Convertible", Text = "Convertible" }
-              }, "Value", "Text");
-            
+            List<string> fuel_types = db.Fuel_Types.Select(ft => ft.Name).ToList();
+            List<string> body_types = db.Body_Types.Select(bt => bt.Name).ToList();
+            List<string> condition_types = db.Condition_Types.Select(ct => ct.Name).ToList();
+            List<string> transmission_types = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            List<string> car_brands = db.Car_Brands.Select(cb => cb.Name).ToList();
+
+            ViewBag.FuelTypes = new SelectList(fuel_types);
+            ViewBag.CarBrands = new SelectList(car_brands);
+            ViewBag.TransmissionTypes = new SelectList(transmission_types);
+            ViewBag.BodyTypes = new SelectList(body_types);
+            ViewBag.ConditionTypes = condition_types;
+
             return View();
         }
 
         // POST: Listings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Car,Price,Title,Description,Created,Condition")] Listing listing)
         {
             if (ModelState.IsValid)
             {
-                /*HttpPostedFileBase FrontImageBase = Request.Files["FrontImage"];
-                string front_image_name = Path.GetFileName(FrontImageBase.FileName);
-                string front_image_path = Path.Combine(Server.MapPath("~/Content/Images/car_images/"), front_image_name);
-                Image FrontImage = new Image(front_image_name, front_image_path);
-                FrontImageBase.SaveAs(front_image_path);
-                listing.Images.Add(FrontImage);
-                //
-                HttpPostedFileBase BackImageBase = Request.Files["BackImage"];
-                string back_image_name = Path.GetFileName(BackImageBase.FileName);
-                string back_image_path = Path.Combine(Server.MapPath("~/Content/Images/car_images/"), back_image_name);
-                Image BackImage = new Image(back_image_name, back_image_path);
-                BackImageBase.SaveAs(back_image_path);
-                listing.Images.Add(BackImage);
-
-                HttpPostedFileBase SideImageBase = Request.Files["SideImage"];
-                string side_image_name = Path.GetFileName(SideImageBase.FileName);
-                string side_image_path = Path.Combine(Server.MapPath("~/Content/Images/car_images/"), side_image_name);
-                Image SideImage = new Image(side_image_name, side_image_path);
-                SideImageBase.SaveAs(side_image_path);
-                listing.Images.Add(SideImage);
-
-                HttpPostedFileBase InteriorImageBase = Request.Files["InteriorImage"];
-                string interior_image_name = Path.GetFileName(InteriorImageBase.FileName);
-                string interior_image_path = Path.Combine(Server.MapPath("~/Content/Images/car_images/"), interior_image_name);
-                Image InteriorImage = new Image(interior_image_name, interior_image_path);
-                InteriorImageBase.SaveAs(interior_image_path);
-                listing.Images.Add(InteriorImage);
-*/
                 listing.Created = DateTime.Now;
 
                 var files = Request.Files;
@@ -276,7 +168,7 @@ namespace AutoMarket.Controllers
                 var user = db.Users.SingleOrDefault(u => u.Id == user_id);
                 if (user != null)
                 {
-                    // Set the listing's user to the current user
+                    
                     listing.User = user;
                 }
                 db.Listings.Add(listing);
@@ -290,96 +182,18 @@ namespace AutoMarket.Controllers
         // GET: Listings/Edit/5
         public ActionResult Edit(int? id)
         {
-            ViewBag.FuelTypes = new SelectList(new[] {
-                new { Value = "Diesel", Text = "Diesel" },
-                new { Value = "Petrol", Text = "Petrol" },
-                new { Value = "Hybrid", Text = "Hybrid" },
-                new { Value = "Electric", Text = "Electric" },
-                new { Value = "Hydrogen", Text = "Hydrogen" }
-               }, "Value", "Text");
-            ViewBag.CarBrands = new SelectList(new[]
-            {
-    new { Value = "Abarth", Text = "Abarth" },
-    new { Value = "Alfa Romeo", Text = "Alfa Romeo" },
-    new { Value = "Aston Martin", Text = "Aston Martin" },
-    new { Value = "Audi", Text = "Audi" },
-    new { Value = "Bentley", Text = "Bentley" },
-    new { Value = "BMW", Text = "BMW" },
-    new { Value = "Bugatti", Text = "Bugatti" },
-    new { Value = "Cadillac", Text = "Cadillac" },
-    new { Value = "Chevrolet", Text = "Chevrolet" },
-    new { Value = "Chrysler", Text = "Chrysler" },
-    new { Value = "Citroën", Text = "Citroën" },
-    new { Value = "Dacia", Text = "Dacia" },
-    new { Value = "Daewoo", Text = "Daewoo" },
-    new { Value = "Daihatsu", Text = "Daihatsu" },
-    new { Value = "Dodge", Text = "Dodge" },
-    new { Value = "Donkervoort", Text = "Donkervoort" },
-    new { Value = "DS", Text = "DS" },
-    new { Value = "Ferrari", Text = "Ferrari" },
-    new { Value = "Fiat", Text = "Fiat" },
-    new { Value = "Fisker", Text = "Fisker" },
-    new { Value = "Ford", Text = "Ford" },
-    new { Value = "Honda", Text = "Honda" },
-    new { Value = "Hummer", Text = "Hummer" },
-    new { Value = "Hyundai", Text = "Hyundai" },
-    new { Value = "Infiniti", Text = "Infiniti" },
-    new { Value = "Iveco", Text = "Iveco" },
-    new { Value = "Jaguar", Text = "Jaguar" },
-    new { Value = "Jeep", Text = "Jeep" },
-    new { Value = "Kia", Text = "Kia" },
-    new { Value = "KTM", Text = "KTM" },
-    new { Value = "Lada", Text = "Lada" },
-    new { Value = "Lamborghini", Text = "Lamborghini" },
-    new { Value = "Lancia", Text = "Lancia" },
-    new { Value = "Land Rover", Text = "Land Rover" },
-    new { Value = "Landwind", Text = "Landwind" },
-    new { Value = "Lexus", Text = "Lexus" },
-    new { Value = "Lotus", Text = "Lotus" },
-    new { Value = "Maserati", Text = "Maserati" },
-    new { Value = "Maybach", Text = "Maybach" },
-    new { Value = "Mazda", Text = "Mazda" },
-    new { Value = "McLaren", Text = "McLaren" },
-    new { Value = "Mercedes-Benz", Text = "Mercedes-Benz" },
-    new { Value = "MG", Text = "MG" },
-    new { Value = "Mini", Text = "Mini" },
-    new { Value = "Mitsubishi", Text = "Mitsubishi" },
-    new { Value = "Morgan", Text = "Morgan" },
-    new { Value = "Nissan", Text = "Nissan" },
-    new { Value = "Opel", Text = "Opel" },
-    new { Value = "Peugeot", Text = "Peugeot" },
-    new { Value = "Porsche", Text = "Porsche" },
-    new { Value = "Renault", Text = "Renault" },
-    new { Value = "Rolls-Royce", Text = "Rolls-Royce" },
-    new { Value = "Rover", Text = "Rover" },
-    new { Value = "Saab", Text = "Saab" },
-    new { Value = "Seat", Text = "Seat" },
-    new { Value = "Skoda", Text = "Skoda" },
-    new { Value = "Smart", Text = "Smart" },
-    new { Value = "SsangYong", Text = "SsangYong" },
-    new { Value = "Subaru", Text = "Subaru" },
-    new { Value = "Suzuki", Text = "Suzuki" },
-    new { Value = "Tesla", Text = "Tesla" },
-    new { Value = "Toyota", Text = "Toyota" },
-    new { Value = "Volkswagen", Text = "Volkswagen" },
-    new { Value = "Volvo", Text = "Volvo" }
-}, "Value", "Text");
-            ViewBag.TransmissionTypes = new SelectList(new[]
-             {
-                    new { Value = "Manual", Text = "Manual" },
-                    new { Value = "Automatic", Text = "Automatic" },
-                    new { Value = "Semi-Automatic", Text = "Semi-Automatic" },
-                    new { Value = "CVT", Text = "CVT" }
-                }, "Value", "Text");
-            ViewBag.BodyTypes = new SelectList(new[]
-              {
-                  new { Value = "Sedan", Text = "Sedan" },
-                  new { Value = "Wagon", Text = "Wagon" },
-                  new { Value = "SUV", Text = "SUV" },
-                  new { Value = "Hatchback", Text = "Hatchback" },
-                  new { Value = "Coupe", Text = "Coupe" },
-                  new { Value = "Convertible", Text = "Convertible" }
-              }, "Value", "Text");
+            List<string> fuel_types = db.Fuel_Types.Select(ft => ft.Name).ToList();
+            List<string> body_types = db.Body_Types.Select(bt => bt.Name).ToList();
+            List<string> condition_types = db.Condition_Types.Select(ct => ct.Name).ToList();
+            List<string> transmission_types = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            List<string> car_brands = db.Car_Brands.Select(cb => cb.Name).ToList();
+
+            ViewBag.FuelTypes = new SelectList(fuel_types);
+            ViewBag.CarBrands = new SelectList(car_brands);
+            ViewBag.TransmissionTypes = new SelectList(transmission_types);
+            ViewBag.BodyTypes = new SelectList(body_types);
+            ViewBag.ConditionTypes = condition_types;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -492,10 +306,10 @@ namespace AutoMarket.Controllers
 
             int pageSize = 8;
             int pageNumber = 1;
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
-            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
-            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+            ViewBag.FuelTypes =  db.Fuel_Types.Select(ft => ft.Name).ToList();
+            ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
+            ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
 
 
             string priceFrom = Request.QueryString["priceFrom"];
@@ -572,10 +386,10 @@ namespace AutoMarket.Controllers
         public ActionResult Search(string SearchQuery)
         {
             
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
-            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
-            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+            ViewBag.FuelTypes =  db.Fuel_Types.Select(ft => ft.Name).ToList();
+            ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
+            ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
             int pageSize = 8;
             int pageNumber = 1;
             string query = SearchQuery;

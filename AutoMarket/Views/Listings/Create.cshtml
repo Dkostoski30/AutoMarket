@@ -377,14 +377,13 @@
             <div class="card-body">
                 <div class="form-group">
                     @Html.Label("Condition", htmlAttributes: new { @class = "control-label" })
-                    <div class="form-check">
-                        @Html.RadioButtonFor(model => model.Condition, "New", new { @class = "form-check-input" })
-                        @Html.Label("New", htmlAttributes: new { @class = "form-check-label" })
-                    </div>
-                    <div class="form-check">
-                        @Html.RadioButtonFor(model => model.Condition, "Used", new { @class = "form-check-input" })
-                        @Html.Label("Used", htmlAttributes: new { @class = "form-check-label" })
-                    </div>
+                    @foreach (var condition in (List<string>)ViewBag.ConditionTypes)
+                    {
+                        <div class="form-check">
+                            @Html.RadioButtonFor(model => model.Condition, condition, new { @class = "form-check-input" })
+                            @Html.Label(condition, condition, htmlAttributes: new { @class = "form-check-label" })
+                        </div>
+                    }
                     @Html.ValidationMessageFor(model => model.Condition, "", new { @class = "text-danger" })
                 </div>
             </div>

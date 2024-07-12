@@ -254,6 +254,7 @@
                 height: 100%;
                 object-fit: cover;
             }
+
         .map-container {
             width: 100%;
             max-width: 100%;
@@ -267,9 +268,10 @@
 
         .map-svg {
             width: fit-content;
-            height: auto; 
-            object-fit: contain; 
+            height: auto;
+            object-fit: contain;
         }
+
         @@media-phone {
             .map-container {
                 width: 100%;
@@ -331,8 +333,8 @@
         <!--<div class="map-container">
             <h2 class="section-heading">Our Locations</h2>
             <div class="map-svg" >-->
-                <!-- Insert your SVG map code here -->
-                <!--<embed src="~/Content/Images/other/mk.svg" type="image/svg+xml"/>
+        <!-- Insert your SVG map code here -->
+        <!--<embed src="~/Content/Images/other/mk.svg" type="image/svg+xml"/>
             </div>
         </div>-->
         <!-- Categories and Filters -->
@@ -385,31 +387,39 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="Card Image">
+                        <div class="card-img-top-wrapper">
+                            <img src="~/Content/Images/other/businessman-posing-standing-with-his-arms-crossed.jpg" style="object-fit: cover" class="card-img-top" alt="Card Image">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">Feature 1</h5>
-                            <p class="card-text">Brief description of the feature or content.</p>
+                            <h5 class="card-title">Leonid Dzajkoski - 4/5</h5>
+                            <p class="card-text">"An excellent website with a modern design and useful features; a few minor improvements could make it perfect."</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="Card Image">
+                        <div class="card-img-top-wrapper">
+                            <img src="~/Content/Images/other/31732.jpg" class="card-img-top" alt="Card Image" style="object-fit: cover">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">Feature 2</h5>
-                            <p class="card-text">Brief description of the feature or content.</p>
+                            <h5 class="card-title">Bojana Kostoska - 5/5</h5>
+                            <p class="card-text">"I found my dream car effortlessly thanks to this website's intuitive interface and comprehensive listings—an extremely helpful and satisfying experience!"</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card">
-                        <img src="https://via.placeholder.com/350x150" class="card-img-top" alt="Card Image">
+                        <div class="card-img-top-wrapper">
+                            <img src="~/Content/Images/other/man1.jpg" class="card-img-top" alt="Card Image" style="object-fit: cover">
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">Feature 3</h5>
-                            <p class="card-text">Brief description of the feature or content.</p>
+                            <h5 class="card-title">Martin Stojan - 5/5</h5>
+                            <p class="card-text">"An exceptionally user-friendly and visually appealing website, offering seamless navigation and a modern, cohesive design."</p>
                         </div>
                     </div>
                 </div>
             </div>
             <hr />
 
+</body>
+</html>

@@ -459,6 +459,9 @@
     <Content Include="Content\Images\icons\favicon2.png" />
     <Content Include="Content\Images\icons\banner2.png" />
     <Content Include="Content\Images\icons\user_icon.png" />
+    <Content Include="Content\Images\other\31732.jpg" />
+    <Content Include="Content\Images\other\businessman-posing-standing-with-his-arms-crossed.jpg" />
+    <Content Include="Content\Images\other\man1.jpg" />
     <Content Include="Content\Images\other\mk.svg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />

@@ -291,16 +291,11 @@
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
     <section class="hero">
         <div>
-            <h1>Find Your Perfect Car Today</h1>
-            <p>Browse through thousands of cars and find the one that suits you best.</p>
-            @using (Html.BeginForm("Search", "Listings", FormMethod.Get, new { @class = "form" }))
-            {
-                @Html.TextBox("SearchQuery", null, new { @class = "form-control d-inline-block mt-3", placeholder = "Search for cars" })
-                <button type="submit" class="btn btn-primary">Search</button>
-            }
+            <h1>Welcome to AutoMarket</h1>
+            <p>Find the best deals on new and used cars!</p>
+            <a href="/Listings/Index" class="btn">Browse Listings</a>
         </div>
     </section>
 

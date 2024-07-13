@@ -18,7 +18,7 @@ namespace AutoMarket.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Index()
         {
-            
+            ViewBag.Roles = db.Roles.ToList();
             return View(db.Users.ToList());
         }
 

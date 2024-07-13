@@ -63,6 +63,36 @@ namespace AutoMarket.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddRole(string id)
+        {
+            ViewBag.Roles = db.Roles.Select(r => r.Name).ToList();
+            
+            var user = UserManager.FindById(id);
+            if(user != null)
+            {
+                return View(new UserRoleViewModel(user));
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+        [HttpPost]
+        public ActionResult AddRole(UserRoleViewModel model)
+        {
+            string userId = model.user.Id;
+            ApplicationUser user = UserManager.FindById(userId);
+            if (user != null)
+            {
+                UserManager.AddToRole(userId, model.role);
+                return RedirectToAction("Index", "User");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
         //
         // POST: /Account/Login
         [HttpPost]

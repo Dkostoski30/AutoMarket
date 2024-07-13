@@ -8,6 +8,8 @@ namespace AutoMarket.Models
 {
     public class Car_Brand
     {
+        public Car_Brand()
+        {}
         public Car_Brand(string name) {
             Name = name;
         }

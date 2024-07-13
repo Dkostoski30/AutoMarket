@@ -1,0 +1,106 @@
+﻿@model AutoMarket.Models.UserRoleViewModel
+
+@{
+    ViewBag.Title = "Add Role";
+    var roles_selectlist = new SelectList(ViewBag.Roles);
+}
+
+<head>
+    <style>
+        .add-role-container {
+            width: 50%;
+            margin: 20px auto;
+            background-color: #263238; /* Darker Grey Background */
+            padding: 20px;
+            border-radius: 10px;
+            color: #E0E0E0; /* Light Grey Text */
+        }
+
+            .add-role-container h2 {
+                color: #18BC9C; /* Emerald Green */
+                margin-bottom: 20px;
+            }
+
+            .add-role-container .form-group {
+                margin-bottom: 20px;
+            }
+
+            .add-role-container select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #37474F; /* Dark Grey Border */
+                border-radius: 4px;
+                background-color: #37474F; /* Dark Grey Background */
+                color: #E0E0E0; /* Light Grey Text */
+            }
+
+            .add-role-container .btn-submit {
+                background-color: #18BC9C; /* Emerald Green */
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .add-role-container .btn-submit:hover {
+                    background-color: #16A085; /* Darker Emerald Green */
+                }
+
+            .add-role-container .btn-link {
+                color: white;
+                text-decoration: none;
+                margin-top: 10px;
+                display: inline-block;
+            }
+
+                .add-role-container .btn-link:hover {
+                    color: dimgray;
+                }
+    </style>
+</head>
+
+<div class="add-role-container">
+    <h2>Add Role</h2>
+
+    @using (Html.BeginForm("AddRole", "Account", FormMethod.Post))
+    {
+        <div>
+            <hr />
+            <div class="form-group">
+                <label>Name:</label>
+                @Html.DisplayFor(model => model.user.Name)
+            </div>
+
+            <div class="form-group">
+                <label>Email:</label>
+                @Html.DisplayFor(model => model.user.Email)
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number:</label>
+                @Html.DisplayFor(model => model.user.PhoneNumber)
+            </div>
+
+            <div class="form-group">
+                <label>City:</label>
+                @Html.DisplayFor(model => model.user.City)
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.user.Id)
+        @Html.HiddenFor(m => m.user.Name)
+        @Html.HiddenFor(m => m.user.Email)
+        @Html.HiddenFor(m => m.user.PhoneNumber)
+        @Html.HiddenFor(m => m.user.City)
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.role, roles_selectlist, "Select a Role", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-submit">Submit</button>
+        </div>
+    }
+
+    @Html.ActionLink("Back to List", "Managment", "Home", null, new { @class = "btn btn-link" })
+</div>

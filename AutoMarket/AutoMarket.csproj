@@ -177,6 +177,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Body_TypeController.cs" />
     <Compile Include="Controllers\Car_BrandController.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\Fuel_TypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />
@@ -278,12 +279,21 @@
     <Compile Include="Migrations\202407121557296_3.2.Designer.cs">
       <DependentUpon>202407121557296_3.2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407131657198_3.3.cs" />
+    <Compile Include="Migrations\202407131657198_3.3.Designer.cs">
+      <DependentUpon>202407131657198_3.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202407131701193_3.4.cs" />
+    <Compile Include="Migrations\202407131701193_3.4.Designer.cs">
+      <DependentUpon>202407131701193_3.4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Body_Type.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\CarListingViewModel.cs" />
     <Compile Include="Models\Car_Brand.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\Condition_Type.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\Fuel_Type.cs" />
@@ -641,6 +651,11 @@
     <Content Include="Views\Fuel_Type\Create.cshtml" />
     <Content Include="Views\Fuel_Type\Edit.cshtml" />
     <Content Include="Views\Fuel_Type\Index.cshtml" />
+    <Content Include="Views\Cities\Create.cshtml" />
+    <Content Include="Views\Cities\Delete.cshtml" />
+    <Content Include="Views\Cities\Details.cshtml" />
+    <Content Include="Views\Cities\Edit.cshtml" />
+    <Content Include="Views\Cities\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -742,6 +757,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407121557296_3.2.resx">
       <DependentUpon>202407121557296_3.2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407131657198_3.3.resx">
+      <DependentUpon>202407131657198_3.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407131701193_3.4.resx">
+      <DependentUpon>202407131701193_3.4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

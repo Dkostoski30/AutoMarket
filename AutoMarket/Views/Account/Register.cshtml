@@ -2,25 +2,7 @@
 @{
     ViewBag.Title = "Register";
 
-    var cities = new List<string>
-   {
-       "Skopje", "Bitola", "Kumanovo", "Prilep", "Tetovo",
-       "Veles", "Ohrid", "Gostivar", "Strumica", "Kavadarci",
-       "Kochani", "Kichevo", "Shtip", "Radovish", "Gevgelija",
-       "Struga", "Debar", "Kriva Palanka", "Sveti Nikole", "Negotino",
-       "Delchevo", "Vinica", "Resen", "Berovo", "Probishtip",
-       "Kratovo", "Bogdanci", "Krushchevo", "Demir Hisar",
-       "Makedonski Brod", "Valandovo", "Demir Kapija", "Pehchevo",
-       "Dojran"
-   };
-
-    var cityList = cities.Select(city => new SelectListItem
-    {
-        Text = city,
-        Value = city
-    }).ToList();
-
-    ViewBag.CityList = new SelectList(cityList, "Value", "Text");
+    
 }
 
 <main aria-labelledby="title">

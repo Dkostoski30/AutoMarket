@@ -176,8 +176,8 @@ namespace AutoMarket.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            
-                
+            var cities = db.Cities.Select(c => c.Name).ToList();
+            ViewBag.CityList = new SelectList(cities);
                 return View();
             
         }

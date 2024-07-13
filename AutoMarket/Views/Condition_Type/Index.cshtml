@@ -214,28 +214,39 @@
         }
     </tbody>
 </table>
-
 @section scripts{
     <script>
         $(document).ready(() => {
             var table = $("#conditionTypeTable").DataTable();
-            $("#conditionTypeTable .js-delete").on("click", function () {
-                var button = $(this);
-                bootbox.confirm("Are you sure you want to delete this condition type?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/Condition_Type/Delete/" + button.attr("data-conditiontype-id"),
-                            method: "GET",
-                            success: function () {
-                                table.row(button.parents("tr")).remove().draw();
-                            },
-                            error: function (err) {
-                                console.log(err)
-                            }
-                        });
-                    }
+
+            function bindDeleteButtons() {
+                $(".js-delete").off("click").on("click", function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this condition type?", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/Condition_Type/Delete/" + button.attr("data-conditiontype-id"),
+                                method: "GET",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    });
                 });
+            }
+
+            // Bind delete buttons initially
+            bindDeleteButtons();
+
+            // Rebind delete buttons every time the table is redrawn
+            table.on('draw', function () {
+                bindDeleteButtons();
             });
         });
     </script>
 }
+

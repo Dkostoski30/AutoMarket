@@ -225,23 +225,35 @@
     <script>
         $(document).ready(() => {
             var table = $("#cityTable").DataTable();
-            $("#cityTable .js-delete").on("click", function () {
-                var button = $(this);
-                bootbox.confirm("Are you sure you want to delete this city?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/Cities/Delete/" + button.attr("data-city-id"),
-                            method: "GET",
-                            success: function () {
-                                table.row(button.parents("tr")).remove().draw();
-                            },
-                            error: function (err) {
-                                console.log(err)
-                            }
-                        });
-                    }
+
+            function bindDeleteButtons() {
+                $(".js-delete").off("click").on("click", function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this city?", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/Cities/Delete/" + button.attr("data-city-id"),
+                                method: "GET",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    });
                 });
+            }
+
+            // Bind delete buttons initially
+            bindDeleteButtons();
+
+            // Rebind delete buttons every time the table is redrawn
+            table.on('draw', function () {
+                bindDeleteButtons();
             });
         });
     </script>
 }
+

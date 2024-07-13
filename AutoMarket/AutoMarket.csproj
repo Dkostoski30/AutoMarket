@@ -178,6 +178,7 @@
     <Compile Include="Controllers\Body_TypeController.cs" />
     <Compile Include="Controllers\Car_BrandController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
+    <Compile Include="Controllers\Condition_TypeController.cs" />
     <Compile Include="Controllers\Fuel_TypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListingsController.cs" />

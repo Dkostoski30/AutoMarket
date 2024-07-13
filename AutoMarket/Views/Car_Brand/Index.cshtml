@@ -20,33 +20,33 @@
             color: #E0E0E0; /* Light Grey Text */
         }
 
-        /* Table Header Cells */
-        table.dataTable thead th {
-            padding: 10px;
-            border-bottom: 1px solid #37474F; /* Dark Grey Border */
-        }
+            /* Table Header Cells */
+            table.dataTable thead th {
+                padding: 10px;
+                border-bottom: 1px solid #37474F; /* Dark Grey Border */
+            }
 
         /* Table Body */
         table.dataTable tbody {
             background-color: #263238; /* Darker Grey Background */
         }
 
-        /* Table Rows */
-        table.dataTable tbody tr {
-            border-bottom: 1px solid #37474F; /* Dark Grey Border */
-        }
+            /* Table Rows */
+            table.dataTable tbody tr {
+                border-bottom: 1px solid #37474F; /* Dark Grey Border */
+            }
 
-        /* Table Cells */
-        table.dataTable tbody td {
-            padding: 10px;
-            color: #E0E0E0; /* Light Grey Text */
-        }
+            /* Table Cells */
+            table.dataTable tbody td {
+                padding: 10px;
+                color: #E0E0E0; /* Light Grey Text */
+            }
 
-        /* Hover Effects */
-        table.dataTable tbody tr:hover {
-            background-color: #37474F; /* Dark Grey Background */
-            color: #18BC9C; /* Emerald Green Text */
-        }
+            /* Hover Effects */
+            table.dataTable tbody tr:hover {
+                background-color: #37474F; /* Dark Grey Background */
+                color: #18BC9C; /* Emerald Green Text */
+            }
 
         /* Pagination Controls */
         .dataTables_paginate .paginate_button {
@@ -58,9 +58,9 @@
             transition: background-color 0.3s ease;
         }
 
-        .dataTables_paginate .paginate_button:hover {
-            background-color: #16A085; /* Darker Emerald Green */
-        }
+            .dataTables_paginate .paginate_button:hover {
+                background-color: #16A085; /* Darker Emerald Green */
+            }
 
         /* Search Input */
         .dataTables_filter input {
@@ -95,10 +95,10 @@
             color: white;
         }
 
-        a:hover {
-            text-decoration: none;
-            color: dimgrey;
-        }
+            a:hover {
+                text-decoration: none;
+                color: dimgrey;
+            }
 
         .btn-delete {
             background-color: crimson;
@@ -124,12 +124,12 @@
             text-shadow: none;
         }
 
-        div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:hover,
-        div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:focus {
-            color: #FF035C; /* Red */
-            background-color: #37474F;
-            opacity: 1;
-        }
+            div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:hover,
+            div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:focus {
+                color: #FF035C; /* Red */
+                background-color: #37474F;
+                opacity: 1;
+            }
 
         .bootbox.modal .btn {
             background-color: #18BC9C; /* Emerald Green */
@@ -139,9 +139,9 @@
             transition: background 0.3s ease;
         }
 
-        .bootbox.modal .btn:hover {
-            background-color: #16A085; /* Darker Emerald Green */
-        }
+            .bootbox.modal .btn:hover {
+                background-color: #16A085; /* Darker Emerald Green */
+            }
 
         /* Responsive adjustments */
         @@media (max-width: 600px) {
@@ -181,9 +181,9 @@
                 border: none;
             }
 
-            table.dataTable tbody td:last-child {
-                border-bottom: 1px solid #37474F;
-            }
+                table.dataTable tbody td:last-child {
+                    border-bottom: 1px solid #37474F;
+                }
         }
     </style>
 </head>
@@ -220,23 +220,35 @@
     <script>
         $(document).ready(() => {
             var table = $("#carBrandTable").DataTable();
-            $("#carBrandTable .js-delete").on("click", function () {
-                var button = $(this);
-                bootbox.confirm("Are you sure you want to delete this car brand?", function (result) {
-                    if (result) {
-                        $.ajax({
-                            url: "/Car_Brand/Delete/" + button.attr("data-carbrand-id"),
-                            method: "GET",
-                            success: function () {
-                                table.row(button.parents("tr")).remove().draw();
-                            },
-                            error: function (err) {
-                                console.log(err)
-                            }
-                        });
-                    }
+
+            function bindDeleteButtons() {
+                $(".js-delete").off("click").on("click", function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete this car brand?", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/Car_Brand/Delete/" + button.attr("data-carbrand-id"),
+                                method: "GET",
+                                success: function () {
+                                    table.row(button.parents("tr")).remove().draw();
+                                },
+                                error: function (err) {
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    });
                 });
+            }
+
+            // Bind delete buttons initially
+            bindDeleteButtons();
+
+            // Rebind delete buttons every time the table is redrawn
+            table.on('draw', function () {
+                bindDeleteButtons();
             });
         });
     </script>
 }
+

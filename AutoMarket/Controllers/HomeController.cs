@@ -19,7 +19,7 @@ namespace AutoMarket.Controllers
             ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
             ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
             ViewBag.ConditionTypes = new List<string> { "New", "Used" };
-
+            ViewBag.Cities = db.Cities.ToList();
             return View(listings);
         }
         [AllowAnonymous]

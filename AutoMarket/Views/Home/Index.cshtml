@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Home";
+    var cities = ViewBag.Cities;
 }
 <!DOCTYPE html>
 
@@ -290,6 +291,44 @@
                 object-fit: contain;
             }
         }
+        .city-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: transform 0.2s ease, background-color 0.3s ease; /* Added background-color transition */
+            margin: 20px 0;
+            background-color: #263238; /* Darker Grey Background */
+            text-align: center;
+            color: #E0E0E0; /* Light Grey */
+        }
+
+            .city-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .city-checkbox {
+            display: none;
+        }
+
+            .city-checkbox:checked + .city-label + .city-card {
+                background-color: #18BC9C; /* Emerald Green */
+                color: #ffffff; /* White Text */
+            }
+
+        .city-label {
+            display: block;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: background 0.3s ease;
+        }
+
+        .city-checkbox:checked + .city-label {
+            background-color: #18BC9C; /* Emerald Green */
+            color: #ffffff; /* White Text */
+            border-radius: 5px;
+        }
+
     </style>
 </head>
 <body>
@@ -329,21 +368,47 @@
 
             </div>
         </div>
+        <!-- Browse by City -->
+        <div class="my-5">
+        <h2 class="section-heading">Browse by City</h2>
+        @using (Html.BeginForm("BrowseByCities", "Listings", FormMethod.Get))
+        {
+            <div class="row">
+                @foreach (var city in cities)
+                {
+                    <div class="col-md-3">
+                        <input type="checkbox" id="city-@city.Id" class="city-checkbox" value="@city.Id" name="selectedCities">
+                        <label for="city-@city.Id" class="city-label">
+                            <div class="card city-card">
+                                <div class="card-body">
+                                    @city.Name
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="text-center my-3">
+                <button type="submit" class="btn btn-primary btn-lg">Browse Selected Cities</button>
+            </div>
+        }
+         </div>
+
         <!-- Map -->
         <!--<div class="map-container">
-            <h2 class="section-heading">Our Locations</h2>
-            <div class="map-svg" >-->
+    <h2 class="section-heading">Our Locations</h2>
+    <div class="map-svg" >-->
         <!-- Insert your SVG map code here -->
         <!--<embed src="~/Content/Images/other/mk.svg" type="image/svg+xml"/>
-            </div>
-        </div>-->
+        </div>
+    </div>-->
         <!-- Categories and Filters -->
         <div class="mb-5">
             <h2 class="section-heading">Browse by Category</h2>
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
-                        
+
                         <div class="card-body">
                             <h5 class="card-title">SUVs</h5>
                             <a href="/Listings/FilterBodyType/1" class="btn btn-primary">Browse SUVs</a>
@@ -352,7 +417,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        
+
                         <div class="card-body">
                             <h5 class="card-title">Sedans</h5>
                             <a href="/Listings/FilterBodyType/2" class="btn btn-primary">Browse Sedans</a>
@@ -361,7 +426,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                     
+
                         <div class="card-body">
                             <h5 class="card-title">Hatchbacks</h5>
                             <a href="/Listings/FilterBodyType/3" class="btn btn-primary">Browse Hatchbacks</a>
@@ -370,7 +435,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="card">
-                        
+
                         <div class="card-body">
                             <h5 class="card-title">Coupes</h5>
                             <a href="/Listings/FilterBodyType/4" class="btn btn-primary">Browse Coupes</a>

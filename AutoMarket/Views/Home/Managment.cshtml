@@ -1,6 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "Managment";
+﻿@{
+    ViewBag.Title = "Management";
 }
 <!DOCTYPE html>
 
@@ -21,122 +20,53 @@
             margin: 0;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
-            padding: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5em;
-            color: #E0E0E0 !important; /* Light Grey */
-            display: flex;
-            align-items: center;
-        }
-
-            .navbar-brand span {
-                color: #1F2C38; /* Dark Blue */
-                background-color: #E0E0E0; /* Light Grey */
-                padding: 0 8px;
-                border-radius: 5px;
-            }
-
-        .nav-link {
-            color: #E0E0E0 !important;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-            .nav-link:hover {
-                color: #18BC9C !important; /* Emerald Green on Hover */
-            }
-
-        .navbar-toggler {
-            border: none;
-            color: #E0E0E0;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 60vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #E0E0E0;
+        .section-heading {
+            font-size: 2.5em;
+            font-weight: 500;
             text-align: center;
-            padding: 0 20px;
-            background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+            margin-top: 30px;
+            margin-bottom: 50px;
+            color: #E0E0E0; /* Light Grey */
         }
 
-            .hero h1 {
-                font-size: 3em;
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
-
-            .hero .btn {
-                font-size: 1.2em;
-                padding: 10px 20px;
-                border-radius: 30px;
-                background: #18BC9C; /* Emerald Green */
-                color: #ffffff;
-                border: none;
-                transition: background 0.3s ease;
-            }
-
-                .hero .btn:hover {
-                    background: #16A085; /* Darker Emerald Green */
-                }
-
-        /* Body Content */
-        .body-content {
-            padding: 20px;
-            background-color: #1F2C38; /* Dark Blue */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            margin-top: -50px;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Form */
-        .form {
-            max-width: 600px;
-            margin: 20px auto;
+        .card-container {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 20px;
         }
 
-        .form-control {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #37474F; /* Dark Grey Border */
-            background-color: #263238; /* Darker Grey Background */
-            color: #E0E0E0; /* Light Grey Text */
-            border-radius: 8px;
+        .card {
+            background: #1F2C38; /* Dark Blue */
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 280px;
+            text-align: center;
+            padding: 20px;
         }
 
-            .form-control:focus {
-                width: 100%;
-                margin-bottom: 15px;
-                padding: 10px;
-                border: 1px solid #16A085; /* Dark Grey Border */
-                background-color: #263238; /* Darker Grey Background */
-                color: #E0E0E0; /* Light Grey Text */
-                border-radius: 8px;
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
             }
 
-            .form-control.d-inline-block {
-                width: auto;
-                flex-grow: 1;
-                margin-right: 10px;
-            }
+        .card-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #E0E0E0; /* Light Grey */
+        }
 
-        .btn {
+        .card-text {
+            color: #B0BEC5; /* Light Grey */
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
             background-color: #18BC9C; /* Emerald Green */
             color: #ffffff;
             border: none;
@@ -146,181 +76,54 @@
             transition: background 0.3s ease;
         }
 
-            .btn:hover {
+            .btn-primary:hover {
                 background-color: #16A085; /* Darker Emerald Green */
             }
-
-        .btn-primary {
-            background-color: #18BC9C; /* Emerald Green */
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        /* Section Headings */
-        .section-heading {
-            font-size: 2em;
-            font-weight: 500;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #E0E0E0; /* Light Grey */
-        }
-
-        /* Cards for Content */
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            transition: transform 0.2s ease;
-            margin: 20px 0;
-            background-color: #263238; /* Darker Grey Background */
-        }
-
-            .card:hover {
-                transform: translateY(-5px);
-            }
-
-        .card-img-top {
-            border-bottom: 1px solid #37474F; /* Dark Grey Border */
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-title {
-            font-size: 1.25em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #E0E0E0; /* Light Grey */
-        }
-
-        .card-text {
-            color: #B0BEC5; /* Light Grey */
-        }
-
-        /* Testimonials */
-        .testimonial {
-            padding: 20px;
-            background: #263238; /* Darker Grey */
-            border-left: 5px solid #18BC9C; /* Emerald Green */
-            margin: 20px 0;
-        }
-
-            .testimonial strong {
-                color: #E0E0E0; /* Light Grey */
-            }
-
-        /* Footer Styles */
-        footer {
-            background-color: #1F2C38; /* Dark Blue */
-            color: #E0E0E0;
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 20px;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .footer-links {
-            margin-bottom: 20px;
-        }
-
-            .footer-links a {
-                color: #E0E0E0;
-                margin: 0 10px;
-                transition: color 0.3s ease;
-            }
-
-                .footer-links a:hover {
-                    color: #18BC9C; /* Emerald Green on Hover */
-                }
-
-        .footer-text {
-            margin: 0;
-        }
-
-        .card-img-top-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 75%; /* 4:3 Aspect Ratio (adjust as needed) */
-            overflow: hidden;
-            background-color: #37474F; /* Fallback background color */
-        }
-
-            .card-img-top-wrapper img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+            a:hover {
+                color: darkgray; /* Darker Emerald Green on Hover */
             }
     </style>
 </head>
 <body>
-        <div class="mb-5">
+    <div class="container">
         <h2 class="section-heading">@ViewBag.Title</h2>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Listings</h5>
-                        <p class="text-muted small">Moderator, Admin</p>
-                        <a href="/Listings/ManageListings" class="btn btn-primary">Manage Listings</a>
-                    </div>
-                </div>
+        <div class="card-container">
+            <div class="card">
+                <h5 class="card-title">Listings</h5>
+                <p class="card-text">Moderator, Admin</p>
+                <a href="/Listings/ManageListings" class="btn-primary">Manage Listings</a>
             </div>
-            <div class="col-md-3">
-                <div class="card">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Users</h5>
-                        <p class="text-muted small">Admin</p>
-                        <a href="/User/Index" class="btn btn-primary">Manage Users</a>
-                    </div>
-                </div>
+            <div class="card">
+                <h5 class="card-title">Users</h5>
+                <p class="card-text">Admin</p>
+                <a href="/User/Index" class="btn-primary">Manage Users</a>
             </div>
-            <div class="col-md-3">
-                <div class="card">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Car Brands</h5>
-                        <p class="text-muted small">Moderator, Admin</p>
-                        <a href="/Car_Brand/Index" class="btn btn-primary">Manage Brands</a>
-                    </div>
-                </div>
+            <div class="card">
+                <h5 class="card-title">Car Brands</h5>
+                <p class="card-text">Moderator, Admin</p>
+                <a href="/Car_Brand/Index" class="btn-primary">Manage Brands</a>
             </div>
-            <div class="col-md-3">
-                <div class="card">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Condition Types</h5>
-                        <p class="text-muted small">Moderator, Admin</p>
-                        <a href="/Condition_Type/Index" class="btn btn-primary">Manage Conditions</a>
-                    </div>
-                </div>
+            <div class="card">
+                <h5 class="card-title">Condition Types</h5>
+                <p class="card-text">Moderator, Admin</p>
+                <a href="/Condition_Type/Index" class="btn-primary">Manage Conditions</a>
             </div>
-            <div class="col-md-3">
-                <div class="card">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Transmission Types</h5>
-                        <p class="text-muted small">Moderator, Admin</p>
-                        <a href="/Transmission_Type/Index" class="btn btn-primary">Manage Transmissions</a>
-                    </div>
-                </div>
+            <div class="card">
+                <h5 class="card-title">Transmission Types</h5>
+                <p class="card-text">Moderator, Admin</p>
+                <a href="/Transmission_Type/Index" class="btn-primary">Manage Transmissions</a>
             </div>
-            <div class="col-md-3">
-                <div class="card">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Cities</h5>
-                        <p class="text-muted small">Moderator, Admin</p>
-                        <a href="/Cities/Index" class="btn btn-primary">Manage Cities</a>
-                    </div>
-                </div>
+            <div class="card">
+                <h5 class="card-title">Cities</h5>
+                <p class="card-text">Moderator, Admin</p>
+                <a href="/Cities/Index" class="btn-primary">Manage Cities</a>
             </div>
         </div>
-    </div>        
+    </div>
 </body>
-
-
+</html>

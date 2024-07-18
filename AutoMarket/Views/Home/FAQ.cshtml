@@ -1,0 +1,513 @@
+﻿@{
+    ViewBag.Title = "FAQ";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - AutoMarket</title>
+    <link rel="icon" href="~/Content/Images/icons/favicon2.png" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+           body {
+               font-family: 'Roboto', sans-serif;
+               background-color: #121212; /* Very Dark Grey Background */
+               color: #E0E0E0; /* Light Grey Text */
+               margin: 0;
+           }
+
+           /* Navbar Styles */
+           .navbar {
+               background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+               padding: 15px;
+               box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+           }
+
+           .navbar-brand {
+               font-weight: bold;
+               font-size: 1.5em;
+               color: #E0E0E0 !important; /* Light Grey */
+               display: flex;
+               align-items: center;
+           }
+
+               .navbar-brand span {
+                   color: #1F2C38; /* Dark Blue */
+                   background-color: #E0E0E0; /* Light Grey */
+                   padding: 0 8px;
+                   border-radius: 5px;
+               }
+
+           .nav-link {
+               color: #E0E0E0 !important;
+               margin: 0 10px;
+               transition: color 0.3s ease;
+           }
+
+               .nav-link:hover {
+                   color: #18BC9C !important; /* Emerald Green on Hover */
+               }
+
+           .navbar-toggler {
+               border: none;
+               color: #E0E0E0;
+           }
+
+           /* Hero Section */
+           .hero {
+               height: 60vh;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               color: #E0E0E0;
+               text-align: center;
+               padding: 0 20px;
+               background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+           }
+
+               .hero h1 {
+                   font-size: 3em;
+                   font-weight: bold;
+                   margin-bottom: 20px;
+               }
+
+               .hero .btn {
+                   font-size: 1.2em;
+                   padding: 10px 20px;
+                   border-radius: 30px;
+                   background: #18BC9C; /* Emerald Green */
+                   color: #ffffff;
+                   border: none;
+                   transition: background 0.3s ease;
+               }
+
+                   .hero .btn:hover {
+                       background: #16A085; /* Darker Emerald Green */
+                   }
+
+           /* Body Content */
+           .body-content {
+               padding: 20px;
+               background-color: #1F2C38; /* Dark Blue */
+               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+               border-radius: 8px;
+               margin-top: -50px;
+               position: relative;
+               z-index: 10;
+           }
+
+           /* Form */
+           .form {
+               max-width: 600px;
+               margin: 20px auto;
+               display: flex;
+               justify-content: center;
+               flex-wrap: wrap;
+           }
+
+           .form-control {
+               width: 100%;
+               margin-bottom: 15px;
+               padding: 10px;
+               border: 1px solid #37474F; /* Dark Grey Border */
+               background-color: #263238; /* Darker Grey Background */
+               color: #E0E0E0; /* Light Grey Text */
+               border-radius: 8px;
+           }
+
+               .form-control:focus {
+                   width: 100%;
+                   margin-bottom: 15px;
+                   padding: 10px;
+                   border: 1px solid #16A085; /* Dark Grey Border */
+                   background-color: #263238; /* Darker Grey Background */
+                   color: #E0E0E0; /* Light Grey Text */
+                   border-radius: 8px;
+               }
+
+               .form-control.d-inline-block {
+                   width: auto;
+                   flex-grow: 1;
+                   margin-right: 10px;
+               }
+
+           .btn {
+               background-color: #18BC9C; /* Emerald Green */
+               color: #ffffff;
+               border: none;
+               padding: 10px 20px;
+               border-radius: 8px;
+               cursor: pointer;
+               transition: background 0.3s ease;
+           }
+
+               .btn:hover {
+                   background-color: #16A085; /* Darker Emerald Green */
+               }
+
+           .btn-primary {
+               background-color: #18BC9C; /* Emerald Green */
+           }
+
+           /* Section Headings */
+           .section-heading {
+               font-size: 2em;
+               font-weight: 500;
+               text-align: center;
+               margin-bottom: 20px;
+               color: #E0E0E0; /* Light Grey */
+           }
+
+           /* Cards for Content */
+           .card {
+               border: none;
+               border-radius: 10px;
+               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+               overflow: hidden;
+               transition: transform 0.2s ease;
+               margin: 20px 0;
+               background-color: #263238; /* Darker Grey Background */
+           }
+
+               .card:hover {
+                   transform: translateY(-5px);
+               }
+
+           .card-img-top {
+               border-bottom: 1px solid #37474F; /* Dark Grey Border */
+           }
+
+           .card-body {
+               padding: 20px;
+           }
+
+           .card-title {
+               font-size: 1.25em;
+               font-weight: bold;
+               margin-bottom: 10px;
+               color: #E0E0E0; /* Light Grey */
+           }
+
+           .card-text {
+               color: #B0BEC5; /* Light Grey */
+           }
+
+           /* Testimonials */
+           .testimonial {
+               padding: 20px;
+               background: #263238; /* Darker Grey */
+               border-left: 5px solid #18BC9C; /* Emerald Green */
+               margin: 20px 0;
+           }
+
+               .testimonial strong {
+                   color: #E0E0E0; /* Light Grey */
+               }
+
+           /* Footer Styles */
+           footer {
+               background-color: #1F2C38; /* Dark Blue */
+               color: #E0E0E0;
+               padding: 30px 0;
+               text-align: center;
+               margin-top: 20px;
+               border-radius: 8px 8px 0 0;
+           }
+
+           .footer-links {
+               margin-bottom: 20px;
+           }
+
+               .footer-links a {
+                   color: #E0E0E0;
+                   margin: 0 10px;
+                   transition: color 0.3s ease;
+               }
+
+                   .footer-links a:hover {
+                       color: #18BC9C; /* Emerald Green on Hover */
+                   }
+
+           .footer-text {
+               margin: 0;
+           }
+
+           .card-img-top-wrapper {
+               position: relative;
+               width: 100%;
+               padding-top: 75%; /* 4:3 Aspect Ratio (adjust as needed) */
+               overflow: hidden;
+               background-color: #37474F; /* Fallback background color */
+           }
+
+               .card-img-top-wrapper img {
+                   position: absolute;
+                   top: 0;
+                   left: 0;
+                   width: 100%;
+                   height: 100%;
+                   object-fit: cover;
+               }
+
+           .map-container {
+               width: 100%;
+               max-width: 100%;
+               background-color: #263238; /* Darker Grey Background */
+               border-radius: 8px;
+               padding: 20px;
+               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+               margin-bottom: 20px;
+               overflow: hidden;
+           }
+
+           .map-svg {
+               width: fit-content;
+               height: auto;
+               object-fit: contain;
+           }
+
+           @@media-phone {
+               .map-container {
+                   width: 100%;
+                   max-width: 100%;
+                   background-color: #263238; /* Darker Grey Background */
+                   border-radius: 8px;
+                   padding: 20px;
+                   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+                   margin-bottom: 20px;
+                   overflow: hidden;
+               }
+
+               .map-svg {
+                   width: fit-content;
+                   height: auto;
+                   object-fit: contain;
+               }
+           }
+
+           .city-card {
+               border: none;
+               border-radius: 10px;
+               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+               overflow: hidden;
+               transition: transform 0.2s ease, background-color 0.3s ease; /* Added background-color transition */
+               margin: 20px 0;
+               background-color: #263238; /* Darker Grey Background */
+               text-align: center;
+               color: #E0E0E0; /* Light Grey */
+           }
+
+               .city-card:hover {
+                   transform: translateY(-5px);
+               }
+
+           .city-checkbox {
+               display: none;
+           }
+
+           .city-label {
+               display: block;
+               cursor: pointer;
+               margin: 5px 10px;
+               transition: background 0.3s ease;
+           }
+
+           .city-checkbox:checked + .city-label .city-card {
+               background-color: #18BC9C; /* Emerald Green */
+               color: #ffffff; /* White text */
+               transform: translateY(-5px); /* Optional: Keep the hover effect */
+           }
+           /*.city-checkbox:checked + .city-label {
+            color: #ffffff;*/ /* White Text */
+           /*background-color: #18BC9C;
+        }*/
+           /* Modal Styles */
+           .modal-content {
+               background-color: #263238; /* Darker Grey Background */
+               color: #E0E0E0; /* Light Grey Text */
+               border-radius: 8px;
+               box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+           }
+
+           .modal-header, .modal-footer {
+               border: none;
+           }
+
+               .modal-header .modal-title {
+                   font-weight: bold;
+                   font-size: 1.5em;
+               }
+
+               .modal-footer .btn {
+                   background-color: #18BC9C; /* Emerald Green */
+                   color: #ffffff; /* White Text */
+                   border: none;
+                   padding: 10px 20px;
+                   border-radius: 8px;
+                   cursor: pointer;
+                   transition: background 0.3s ease;
+               }
+
+                   .modal-footer .btn:hover {
+                       background-color: #16A085; /* Darker Emerald Green */
+                   }
+           /* Your existing styles */
+           .modal {
+               z-index: 1050; /* Bootstrap default */
+           }
+
+           .modal-backdrop {
+               z-index: 1040; /* Bootstrap default */
+           }
+    </style>
+    <style>
+
+        .faq-section {
+            margin-top: 20px;
+        }
+
+        .faq-header {
+            font-size: 2em;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .faq-item {
+            background-color: #263238; /* Darker Grey Background */
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            .faq-item:hover {
+                background-color: #37474F; /* Slightly Lighter Grey Background */
+            }
+
+        .faq-question {
+            font-size: 1.25em;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .faq-answer {
+            margin-top: 10px;
+            display: none;
+        }
+        .form-section {
+            margin-top: 40px;
+            background-color: #263238; /* Darker Grey Background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: #E0E0E0; /* Light Grey Text */
+        }
+
+            .form-section h2 {
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #18BC9C; /* Emerald Green */
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #37474F; /* Dark Grey Border */
+            background-color: #37474F; /* Dark Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+            .form-control:focus {
+                border-color: #18BC9C; /* Emerald Green on Focus */
+            }
+
+        .btn-submit {
+            background-color: #18BC9C; /* Emerald Green */
+            color: #ffffff; /* White Text */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            .btn-submit:hover {
+                background-color: #16A085; /* Darker Emerald Green on Hover */
+            }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var faqItems = document.querySelectorAll(".faq-item");
+            faqItems.forEach(function (item) {
+                item.addEventListener("click", function () {
+                    var answer = this.querySelector(".faq-answer");
+                    if (answer.style.display === "none" || answer.style.display === "") {
+                        answer.style.display = "block";
+                    } else {
+                        answer.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="faq-header">Frequently Asked Questions</div>
+        <div class="faq-section">
+            <div class="faq-item">
+                <div class="faq-question">Q1: How do I list my car on AutoMarket?</div>
+                <div class="faq-answer">To list your car on AutoMarket, click on the 'Sell Car' button at the top of the page, fill out the required details, and submit the form. Our team will review your listing and publish it within 24 hours.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q2: How can I contact a seller?</div>
+                <div class="faq-answer">To contact a seller, visit the listing page of the car you are interested in and click on the 'Contact Seller' button. You can send a message directly to the seller from there.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q3: Are there any fees for buying a car on AutoMarket?</div>
+                <div class="faq-answer">No, there are no fees for buyers on AutoMarket. The platform is free to use for anyone looking to purchase a vehicle.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q4: Can I edit my listing after it has been published?</div>
+                <div class="faq-answer">Yes, you can edit your listing at any time. Go to your account dashboard, find the listing you want to edit, and make the necessary changes. The changes will be updated immediately.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q5: How do I delete my listing?</div>
+                <div class="faq-answer">To delete your listing, go to your account dashboard, find the listing you want to delete, and click on the 'Delete' button. The listing will be removed from the platform immediately.</div>
+            </div>
+        </div>
+        <div class="form-section">
+            <h2>Didn't find your question? Ask us!</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="question">Question</label>
+                    <textarea id="question" name="question" class="form-control" placeholder="Your Question" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Submit Question</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

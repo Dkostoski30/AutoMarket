@@ -32,6 +32,13 @@ namespace AutoMarket.Controllers
             return View();
         }
         [AllowAnonymous]
+        public ActionResult FAQ()
+        {
+            
+
+            return View();
+        }
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -39,7 +46,7 @@ namespace AutoMarket.Controllers
             return View();
         }
         [Authorize(Roles = "Admin,Moderator")]
-        public ActionResult Managment()
+        public ActionResult Management()
         {
             return View();
         }

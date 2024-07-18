@@ -15,6 +15,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -291,6 +293,7 @@
                 object-fit: contain;
             }
         }
+
         .city-card {
             border: none;
             border-radius: 10px;
@@ -317,6 +320,7 @@
             margin: 5px 10px;
             transition: background 0.3s ease;
         }
+
         .city-checkbox:checked + .city-label .city-card {
             background-color: #18BC9C; /* Emerald Green */
             color: #ffffff; /* White text */
@@ -324,7 +328,7 @@
         }
         /*.city-checkbox:checked + .city-label {
             color: #ffffff;*/ /* White Text */
-            /*background-color: #18BC9C;
+        /*background-color: #18BC9C;
         }*/
         /* Modal Styles */
         .modal-content {
@@ -365,29 +369,7 @@
             z-index: 1040; /* Bootstrap default */
         }
     </style>
-        <script>
-        $(document).ready(function() {
-            // Check if the user is not logged in and hasn't accepted terms yet
-            var isUserLoggedIn = @Html.Raw(Json.Encode(User.Identity.IsAuthenticated));
-            var hasAcceptedTerms = localStorage.getItem('acceptedTerms');
 
-            if (!isUserLoggedIn && !hasAcceptedTerms) {
-                $('#termsModal').modal('show');
-            }
-
-            // Handle the acceptance of terms
-            $('#acceptTerms').click(function() {
-                localStorage.setItem('acceptedTerms', true);
-                $('#termsModal').modal('hide');
-            });
-
-            // Handle the decline of terms (optional)
-            $('.btn-secondary').click(function() {
-                // Optional: redirect or perform some action on decline
-                alert('You must accept the terms and conditions to proceed.');
-            });
-        });
-    </script>
 
 </head>
 <body>
@@ -430,9 +412,15 @@
         <!-- Browse by City -->
         <div class="my-5">
             <h2 class="section-heading">Browse by City</h2>
+            <!-- Toggle button to hide/show city checkboxes -->
+            <div class="text-right mb-3">
+                <button id="toggleCities" class="btn btn-sm btn-secondary">
+                    <i id="toggleIcon" class="fas fa-chevron-right"></i>
+                </button>
+            </div>
             @using (Html.BeginForm("BrowseByCities", "Listings", FormMethod.Get))
             {
-                <div class="row">
+                <div class="row" id="citySection">
                     @foreach (var city in cities)
                     {
                         <div class="col-md-3">
@@ -545,42 +533,18 @@
             </div>
             <hr />
         </div>
-        <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p>Please read and accept our terms and conditions to proceed.</p>
-                        <!-- Insert your terms and conditions content here -->
-                    </div>
-                    <div class="modal-footer">
-                        <button style="cursor:pointer" type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
-                        <button style="cursor:pointer" type="button" id="acceptTerms" class="btn btn-primary">Accept</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @*<script>
-        $(document).ready(function() {
-            // Check if the user is not logged in and hasn't accepted terms yet
-            var isUserLoggedIn = @Html.Raw(Json.Encode(User.Identity.IsAuthenticated));
-            var hasAcceptedTerms = localStorage.getItem('acceptedTerms');
-
-            if (!isUserLoggedIn && !hasAcceptedTerms) {
-                $('#termsModal').modal('show');
-            }
-
-            // Handle the acceptance of terms
-            $('#acceptTerms').click(function() {
-                localStorage.setItem('acceptedTerms', true);
-                $('#termsModal').modal('hide');
-            });
+<script>
+    $(document).ready(function () {
+        $('#toggleCities').click(function () {
+            $('#citySection').toggle();
+            $('#toggleIcon').toggleClass('fa-chevron-right fa-chevron-down');
         });
-    </script>*@
+    });
+</script>
 </body>
 </html>

@@ -311,25 +311,84 @@
             display: none;
         }
 
-            .city-checkbox:checked + .city-label + .city-card {
-                background-color: #18BC9C; /* Emerald Green */
-                color: #ffffff; /* White Text */
-            }
-
         .city-label {
             display: block;
             cursor: pointer;
-            padding: 5px 10px;
+            margin: 5px 10px;
             transition: background 0.3s ease;
         }
-
-        .city-checkbox:checked + .city-label {
+        .city-checkbox:checked + .city-label .city-card {
             background-color: #18BC9C; /* Emerald Green */
-            color: #ffffff; /* White Text */
-            border-radius: 5px;
+            color: #ffffff; /* White text */
+            transform: translateY(-5px); /* Optional: Keep the hover effect */
+        }
+        /*.city-checkbox:checked + .city-label {
+            color: #ffffff;*/ /* White Text */
+            /*background-color: #18BC9C;
+        }*/
+        /* Modal Styles */
+        .modal-content {
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
+        .modal-header, .modal-footer {
+            border: none;
+        }
+
+            .modal-header .modal-title {
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+
+            .modal-footer .btn {
+                background-color: #18BC9C; /* Emerald Green */
+                color: #ffffff; /* White Text */
+                border: none;
+                padding: 10px 20px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+                .modal-footer .btn:hover {
+                    background-color: #16A085; /* Darker Emerald Green */
+                }
+        /* Your existing styles */
+        .modal {
+            z-index: 1050; /* Bootstrap default */
+        }
+
+        .modal-backdrop {
+            z-index: 1040; /* Bootstrap default */
+        }
     </style>
+        <script>
+        $(document).ready(function() {
+            // Check if the user is not logged in and hasn't accepted terms yet
+            var isUserLoggedIn = @Html.Raw(Json.Encode(User.Identity.IsAuthenticated));
+            var hasAcceptedTerms = localStorage.getItem('acceptedTerms');
+
+            if (!isUserLoggedIn && !hasAcceptedTerms) {
+                $('#termsModal').modal('show');
+            }
+
+            // Handle the acceptance of terms
+            $('#acceptTerms').click(function() {
+                localStorage.setItem('acceptedTerms', true);
+                $('#termsModal').modal('hide');
+            });
+
+            // Handle the decline of terms (optional)
+            $('.btn-secondary').click(function() {
+                // Optional: redirect or perform some action on decline
+                alert('You must accept the terms and conditions to proceed.');
+            });
+        });
+    </script>
+
 </head>
 <body>
     <section class="hero">
@@ -370,38 +429,38 @@
         </div>
         <!-- Browse by City -->
         <div class="my-5">
-        <h2 class="section-heading">Browse by City</h2>
-        @using (Html.BeginForm("BrowseByCities", "Listings", FormMethod.Get))
-        {
-            <div class="row">
-                @foreach (var city in cities)
-                {
-                    <div class="col-md-3">
-                        <input type="checkbox" id="city-@city.Id" class="city-checkbox" value="@city.Id" name="selectedCities">
-                        <label for="city-@city.Id" class="city-label">
-                            <div class="card city-card">
-                                <div class="card-body">
-                                    @city.Name
+            <h2 class="section-heading">Browse by City</h2>
+            @using (Html.BeginForm("BrowseByCities", "Listings", FormMethod.Get))
+            {
+                <div class="row">
+                    @foreach (var city in cities)
+                    {
+                        <div class="col-md-3">
+                            <input type="checkbox" id="city-@city.Id" class="city-checkbox" value="@city.Id" name="selectedCities">
+                            <label for="city-@city.Id" class="city-label">
+                                <div class="card city-card">
+                                    <div class="card-body">
+                                        @city.Name
+                                    </div>
                                 </div>
-                            </div>
-                        </label>
-                    </div>
-                }
-            </div>
-            <div class="text-center my-3">
-                <button type="submit" class="btn btn-primary btn-lg">Browse Selected Cities</button>
-            </div>
-        }
-         </div>
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="text-center my-3">
+                    <button type="submit" class="btn btn-primary btn-lg">Browse Selected Cities</button>
+                </div>
+            }
+        </div>
 
         <!-- Map -->
         <!--<div class="map-container">
-    <h2 class="section-heading">Our Locations</h2>
-    <div class="map-svg" >-->
+        <h2 class="section-heading">Our Locations</h2>
+        <div class="map-svg" >-->
         <!-- Insert your SVG map code here -->
         <!--<embed src="~/Content/Images/other/mk.svg" type="image/svg+xml"/>
-        </div>
-    </div>-->
+            </div>
+        </div>-->
         <!-- Categories and Filters -->
         <div class="mb-5">
             <h2 class="section-heading">Browse by Category</h2>
@@ -485,6 +544,43 @@
                 </div>
             </div>
             <hr />
+        </div>
+        <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please read and accept our terms and conditions to proceed.</p>
+                        <!-- Insert your terms and conditions content here -->
+                    </div>
+                    <div class="modal-footer">
+                        <button style="cursor:pointer" type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
+                        <button style="cursor:pointer" type="button" id="acceptTerms" class="btn btn-primary">Accept</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*<script>
+        $(document).ready(function() {
+            // Check if the user is not logged in and hasn't accepted terms yet
+            var isUserLoggedIn = @Html.Raw(Json.Encode(User.Identity.IsAuthenticated));
+            var hasAcceptedTerms = localStorage.getItem('acceptedTerms');
 
+            if (!isUserLoggedIn && !hasAcceptedTerms) {
+                $('#termsModal').modal('show');
+            }
+
+            // Handle the acceptance of terms
+            $('#acceptTerms').click(function() {
+                localStorage.setItem('acceptedTerms', true);
+                $('#termsModal').modal('hide');
+            });
+        });
+    </script>*@
 </body>
 </html>

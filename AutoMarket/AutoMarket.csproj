@@ -295,6 +295,7 @@
     <Compile Include="Models\CarListingViewModel.cs" />
     <Compile Include="Models\Car_Brand.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\CitySelectionViewModel.cs" />
     <Compile Include="Models\Condition_Type.cs" />
     <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\Fuel_Type.cs" />

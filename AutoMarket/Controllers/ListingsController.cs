@@ -104,7 +104,25 @@ namespace AutoMarket.Controllers
 
             
         }
-
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult BrowseByCities(CitySelectionViewModel model)
+        {
+            ViewBag.FuelTypes = db.Fuel_Types.Select(ft => ft.Name).ToList();
+            ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
+            ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
+            if (model.SelectedCities != null && model.SelectedCities.Any())
+            {
+                List<string> cities = db.Cities.Where(c => model.SelectedCities.Contains(c.Id)).Select(c => c.Name).ToList();
+                var listings = db.Listings.Include(l => l.User).Where(l => cities.Contains(l.User.City)).OrderByDescending(l => l.Created).ToPagedList(1, 8);
+                return View("Index", listings);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
         // GET: Listings/Details/5
         [AllowAnonymous]
         public ActionResult Details(int? id)

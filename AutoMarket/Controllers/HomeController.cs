@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace AutoMarket.Controllers
 {
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-       
+
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -22,6 +23,7 @@ namespace AutoMarket.Controllers
             ViewBag.Cities = db.Cities.ToList();
             return View(listings);
         }
+
         [AllowAnonymous]
         public ActionResult About()
         {

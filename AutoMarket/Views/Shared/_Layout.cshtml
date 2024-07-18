@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="~/Content/Images/icons/favicon2.png" />
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -29,12 +30,12 @@
             align-items: center;
         }
 
-        .navbar-brand span {
-            color: #2C3E50; /* Dark Slate Blue */
-            background-color: #ECF0F1; /* Light Grey */
-            padding: 0 8px;
-            border-radius: 5px;
-        }
+            .navbar-brand span {
+                color: #2C3E50; /* Dark Slate Blue */
+                background-color: #ECF0F1; /* Light Grey */
+                padding: 0 8px;
+                border-radius: 5px;
+            }
 
         .nav-link {
             color: #ffffff !important;
@@ -42,9 +43,9 @@
             transition: color 0.3s ease;
         }
 
-        .nav-link:hover {
-            color: #18BC9C !important; /* Emerald Green on Hover */
-        }
+            .nav-link:hover {
+                color: #18BC9C !important; /* Emerald Green on Hover */
+            }
 
         .navbar-toggler {
             border: none;
@@ -63,25 +64,25 @@
             padding: 0 20px;
         }
 
-        .hero h1 {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+            .hero h1 {
+                font-size: 3em;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
 
-        .hero .btn {
-            font-size: 1.2em;
-            padding: 10px 37px;
-            border-radius: 30px;
-            background: #18BC9C; /* Emerald Green */
-            color: #ffffff;
-            border: none;
-            transition: background 0.3s ease;
-        }
+            .hero .btn {
+                font-size: 1.2em;
+                padding: 10px 37px;
+                border-radius: 30px;
+                background: #18BC9C; /* Emerald Green */
+                color: #ffffff;
+                border: none;
+                transition: background 0.3s ease;
+            }
 
-        .hero .btn:hover {
-            background: #16A085; /* Darker Emerald Green */
-        }
+                .hero .btn:hover {
+                    background: #16A085; /* Darker Emerald Green */
+                }
 
         /* Body Content */
         .body-content {
@@ -104,9 +105,9 @@
             margin: 20px 0;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+            .card:hover {
+                transform: translateY(-5px);
+            }
 
         .card-img-top {
             border-bottom: 1px solid #e9ecef;
@@ -137,23 +138,66 @@
             border-radius: 8px 8px 0 0;
         }
 
-        .footer-links {
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px 0;
+        }
+
+            .footer-section h3 {
+                font-size: 1.2em;
+                margin-bottom: 10px;
+                color: #18BC9C; /* Emerald Green */
+            }
+
+        .footer-links, .footer-contact {
+            list-style: none;
+            padding: 0;
+        }
+
+            .footer-links a, .footer-contact a {
+                color: #ffffff;
+                margin: 0 10px;
+                transition: color 0.3s ease;
+                text-decoration: none;
+            }
+
+                .footer-links a:hover, .footer-contact a:hover {
+                    color: #18BC9C; /* Emerald Green on Hover */
+                }
+
+            .footer-contact li {
+                margin-bottom: 10px;
+            }
+
+        .footer-text {
+            margin: 20px 0 0;
+        }
+
+        .footer-logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 20px;
         }
 
-        .footer-links a {
-            color: #ffffff;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #18BC9C; /* Emerald Green on Hover */
-        }
-
-        .footer-text {
-            margin: 0;
-        }
+            .footer-logo span {
+                color: #2C3E50; /* Dark Slate Blue */
+                background-color: #ECF0F1; /* Light Grey */
+                padding: 0 8px;
+                border-radius: 5px;
+            }
     </style>
 </head>
 <body>
@@ -170,9 +214,10 @@
                     <li class="nav-item">@Html.ActionLink("About Us", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Listings", "Index", "Listings", new { area = "" }, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Sell a car!", "Create", "Listings", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("FAQ", "FAQ", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                     {
-                        <li class="nav-item">@Html.ActionLink("Managment", "Managment", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Management", "Management", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -181,7 +226,7 @@
     </nav>
 
     <!-- Hero Section -->
-   
+
     <section class="hero">
         <div>
             <h1>Find Your Perfect Car Today</h1>
@@ -193,7 +238,7 @@
             }
         </div>
     </section>
-    
+
 
     <!-- Body Content -->
     <div class="container body-content">
@@ -202,14 +247,46 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-links">
-                <a href="#">Facebook</a> |
-                <a href="#">Twitter</a> |
-                <a href="#">Instagram</a>
+        <div class="footer-container">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    Auto &nbsp;<span>Market</span>
+                </div>
+                <p>Connecting car buyers and sellers with ease and efficiency.</p>
             </div>
-            <p class="footer-text">&copy; @DateTime.Now.Year - Daniel Kostoski</p>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/Home/Index/">Home</a></li>
+                    <li><a href="/Home/About/">About Us</a></li>
+                    <li><a href="/Listings/Index/">Listings</a></li>
+                    <li><a href="/Listings/Create/">Sell a Car</a></li>
+                    <li><a href="/Home/FAQ/">FAQ</a></li>
+                    <li><a href="/Home/ReportBug/">Report a Bug</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                    {
+                        <li><a href="/Home/Management/">Management</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="footer-contact">
+                    <li>Email: <a href="mailto:info@automarket.com">info@automarket.com</a></li>
+                    <li>Phone: <a href="tel:+38978896322">+38978896322</a></li>
+                    <li>Address: Ohrid, North Macedonia</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="footer-links">
+                    <a href="#">Facebook</a> <br />
+                    <a href="#">Twitter</a> <br />
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
         </div>
+        <p class="footer-text">&copy; @DateTime.Now.Year - Daniel Kostoski</p>
     </footer>
 
 

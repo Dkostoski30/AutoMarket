@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Manage Users";
- 
+
 }
 <head>
     <style>
@@ -25,7 +25,6 @@
             /* Table Header Cells */
             table.dataTable thead th {
                 padding: 10px;
-                
                 border-bottom: 1px solid #37474F; /* Dark Grey Border */
             }
 
@@ -42,7 +41,6 @@
             /* Table Cells */
             table.dataTable tbody td {
                 padding: 10px;
-               
                 color: #E0E0E0; /* Light Grey Text */
             }
 
@@ -234,7 +232,7 @@
                 <td>
                     @foreach (var roleId in item.Roles)
                     {
-              
+
                         if (roleId != null)
                         {
                             <span>@roleId.RoleId</span><br />
@@ -243,7 +241,7 @@
                 </td>
                 <td style="display: flex; flex-direction: row; align-items: center; justify-content:space-between">
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-action btn-edit my-2" })
-                    @Html.ActionLink("Manage", "AddRole", "Account", new { id = item.Id }, new { @class = "btn btn-action btn-details my-2" })
+                    @Html.ActionLink("Manage Role", "AddRole", "Account", new { id = item.Id }, new { @class = "btn btn-action btn-details my-2" })
                     <button data-user-id="@item.Id" class="js-delete btn btn-action btn-delete my-2">Delete</button>
                 </td>
             </tr>
@@ -276,4 +274,6 @@
             });
         });
     </script>
+
+
 }

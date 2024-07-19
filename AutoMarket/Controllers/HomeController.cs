@@ -74,6 +74,14 @@ namespace AutoMarket.Controllers
         [Authorize(Roles = "Admin,Moderator")]
         public ActionResult Management()
         {
+            ViewBag.PendingListings = db.Listings.Where(l => l.Approved == false).Count();
+            ViewBag.Listings = db.Listings.Where(l => l.Approved).Count();
+            ViewBag.Users = db.Users.Count();
+            ViewBag.CarBrands = db.Car_Brands.Count();
+            ViewBag.Conditions = db.Condition_Types.Count();
+            ViewBag.Transmissions = db.Transmission_Types.Count();
+            ViewBag.Cities = db.Cities.Count();
+
             return View();
         }
     }

@@ -369,6 +369,61 @@
         .modal-backdrop {
             z-index: 1040; /* Bootstrap default */
         }
+        /* News Card */
+        .news-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 20px 0;
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey */
+        }
+
+            .news-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            }
+
+        .news-card-img {
+            width: 100%;
+            height: 180px; /* Fixed height for images */
+            object-fit: cover;
+            border-bottom: 1px solid #37474F; /* Dark Grey Border */
+        }
+
+        /* News Card Body */
+        .news-card-body {
+            padding: 15px;
+        }
+
+        .news-card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #E0E0E0; /* Light Grey */
+        }
+
+        .news-card-text {
+            font-size: 0.95em;
+            color: #B0BEC5; /* Light Grey */
+            margin-bottom: 10px;
+        }
+
+        .news-card-link {
+            display: inline-block;
+            color: #18BC9C; /* Emerald Green */
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+            .news-card-link:hover {
+                color: #16A085; /* Darker Emerald Green */
+            }
+
+
     </style>
 
 
@@ -409,26 +464,32 @@
                 }
 
             </div>
-        </div>  
+        </div>
         <!-- News Section -->
-       @* <div class="my-5">
-            <h2 class="section-heading">Latest Car News</h2>
-            <div class="row">
-                @foreach (var news in news_articles)
-                {
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="@news.ImageUrl" class="card-img-top" alt="News Image">
-                            <div class="card-body">
-                                <h5 class="card-title">@news.Title</h5>
-                                <p class="card-text">@news.Description</p>
-                                <a href="@news.Url" class="btn btn-primary" target="_blank">Read More</a>
+        @* <div class="my-5">
+                <h2 class="section-heading">Latest Car News</h2>
+                <div class="row">
+                    @foreach (var news in news_articles)
+                    {
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="@news.ImageUrl" class="card-img-top" alt="News Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">@news.Title</h5>
+                                    <p class="card-text">@news.Description</p>
+                                    <a href="@news.Url" class="btn btn-primary" target="_blank">Read More</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
-        </div>*@
+                    }
+                </div>
+            </div>*@
+        <!-- News Section -->
+        <div class="news-section">
+            <h2 class="section-heading">Latest Car News</h2>
+            <div id="newsContainer"></div>
+        </div>
+
         <!-- Browse by City -->
         <div class="my-5">
             <h2 class="section-heading">Browse by City</h2>
@@ -463,12 +524,12 @@
 
         <!-- Map -->
         <!--<div class="map-container">
-    <h2 class="section-heading">Our Locations</h2>
-    <div class="map-svg" >-->
+        <h2 class="section-heading">Our Locations</h2>
+        <div class="map-svg" >-->
         <!-- Insert your SVG map code here -->
         <!--<embed src="~/Content/Images/other/mk.svg" type="image/svg+xml"/>
-        </div>
-    </div>-->
+            </div>
+        </div>-->
         <!-- Categories and Filters -->
         <div class="mb-5">
             <h2 class="section-heading">Browse by Category</h2>
@@ -558,13 +619,61 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-<script>
-    $(document).ready(function () {
-        $('#toggleCities').click(function () {
-            $('#citySection').toggle();
-            $('#toggleIcon').toggleClass('fa-chevron-down fa-chevron-right');
+    <script>
+        $(document).ready(function () {
+            $('#toggleCities').click(function () {
+                $('#citySection').toggle();
+                $('#toggleIcon').toggleClass('fa-chevron-down fa-chevron-right');
+            });
         });
-    });
-</script>
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const apiKey = 'b540f019d6be48fb9e9d1aaf75668678';
+            const newsContainer = document.getElementById('newsContainer');
+
+            fetch(`https://newsapi.org/v2/everything?q=car&apiKey=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    const articles = data.articles.slice(0, 5);
+                    articles.forEach(article => {
+                        const newsCard = document.createElement('div');
+                        newsCard.className = 'news-card';
+
+                        const newsCardBody = document.createElement('div');
+                        newsCardBody.className = 'news-card-body';
+
+                        const newsCardTitle = document.createElement('h5');
+                        newsCardTitle.className = 'news-card-title';
+                        newsCardTitle.textContent = article.title;
+
+                        const newsCardText = document.createElement('p');
+                        newsCardText.className = 'news-card-text';
+                        newsCardText.textContent = article.description;
+
+                        const img = document.createElement('img');
+                        img.className = 'card-img-top';
+                        img.src = article.urlToImage || 'default-image-url.jpg'; // Use a default image if none provided
+                        img.alt = 'News Image';
+
+                        const newsCardLink = document.createElement('a');
+                        newsCardLink.href = article.url;
+                        newsCardLink.textContent = 'Read more';
+                        newsCardLink.target = '_blank';
+
+                        newsCardBody.appendChild(newsCardTitle);
+                        newsCardBody.appendChild(newsCardText);
+                        newsCardBody.appendChild(newsCardLink);
+                        newsCardBody.appendChild(img);
+                        newsCard.appendChild(newsCardBody);
+                        newsContainer.appendChild(newsCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching news:', error);
+                });
+        });
+    </script>
+
 </body>
 </html>

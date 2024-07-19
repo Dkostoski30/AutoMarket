@@ -1,14 +1,7 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - AutoMarket</title>
-    <link rel="icon" href="~/Content/Images/icons/favicon2.png" />
-    @Styles.Render("~/Content/css")
+
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -212,9 +205,35 @@
             height: auto;
             object-fit: contain;
         }
+        /* Your existing styles */
+        .modal {
+            z-index: 1050; /* Bootstrap default */
+        }
+
+        .modal-backdrop {
+            z-index: 1040; /* Bootstrap default */
+        }
+        /* Custom Scrollbar */
+        #termsModal .modal-body {
+            scrollbar-width: thin;
+            scrollbar-color: #18BC9C #2C3E50; /* Dark Slate Blue on Dark Gray */
+        }
+
+            #termsModal .modal-body::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            #termsModal .modal-body::-webkit-scrollbar-track {
+                background-color: #2C3E50; /* Dark Slate Blue */
+            }
+
+            #termsModal .modal-body::-webkit-scrollbar-thumb {
+                background-color: #2C3E50;
+                border: 2px solid #2C3E50; /* Dark Slate Blue */
+            }
+
     </style>
-</head>
-<body>
+
     <!-- Hero Section -->
     <section class="hero">
         <div>
@@ -303,5 +322,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+

@@ -138,7 +138,7 @@
                         <div class="card h-100">
                             <img src="~/Content/Images/icons/user_icon.png" class="card-img-top mx-auto mt-3" style="width: 60px; height: auto;" />
                             <div class="card-body">
-                                <h5 class="card-title"><strong>@Model.User.Name</strong></h5>
+                                <a href="/User/Details/@Model.User.Id" style="text-decoration:none"><h5 class="card-title"><strong>@Model.User.Name</strong></h5></a>
                                 <p class="card-text">@Model.User.PhoneNumber</p>
                                 <p class="card-text">@Model.User.City</p>
                                 <a href="tel:@Model.User.PhoneNumber" class="btn btn-primary">Contact Seller</a>

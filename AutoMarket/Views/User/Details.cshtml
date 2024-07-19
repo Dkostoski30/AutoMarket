@@ -5,6 +5,7 @@
     var listings = ViewBag.Listings as IEnumerable<AutoMarket.Models.Listing>;
     var currentUser = User.Identity.Name;
 }
+
 <head>
     <style>
         .user-info-card {
@@ -25,12 +26,13 @@
             .user-info-card .info-item {
                 margin-bottom: 15px;
             }
-        
+
                 .user-info-card .info-item strong {
                     display: block;
                     font-weight: bold;
                     margin-bottom: 5px;
                 }
+
         /* Custom styles for the dl-horizontal */
         .dl-horizontal-custom {
             font-size: 1.2em; /* Increase font size */
@@ -51,383 +53,93 @@
                 margin-bottom: 20px; /* Space between different definition entries */
             }
     </style>
-
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #121212; /* Very Dark Grey Background */
-            color: #E0E0E0; /* Light Grey Text */
-            margin: 0;
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
-            padding: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5em;
-            color: #E0E0E0 !important; /* Light Grey */
-            display: flex;
-            align-items: center;
-        }
-
-            .navbar-brand span {
-                color: #1F2C38; /* Dark Blue */
-                background-color: #E0E0E0; /* Light Grey */
-                padding: 0 8px;
-                border-radius: 5px;
-            }
-
-        .nav-link {
-            color: #E0E0E0 !important;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
-
-            .nav-link:hover {
-                color: #18BC9C !important; /* Emerald Green on Hover */
-            }
-
-        .navbar-toggler {
-            border: none;
-            color: #E0E0E0;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 60vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #E0E0E0;
-            text-align: center;
-            padding: 0 20px;
-            background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
-        }
-
-            .hero h1 {
-                font-size: 3em;
-                font-weight: bold;
-                margin-bottom: 20px;
-            }
-
-            .hero .btn {
-                font-size: 1.2em;
-                padding: 10px 20px;
-                border-radius: 30px;
-                background: #18BC9C; /* Emerald Green */
-                color: #ffffff;
-                border: none;
-                transition: background 0.3s ease;
-            }
-
-                .hero .btn:hover {
-                    background: #16A085; /* Darker Emerald Green */
-                }
-
-        /* Body Content */
-        .body-content {
-            padding: 20px;
-            background-color: #1F2C38; /* Dark Blue */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            margin-top: -50px;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Form */
-        .form {
-            max-width: 600px;
-            margin: 20px auto;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .form-control {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #37474F; /* Dark Grey Border */
-            background-color: #263238; /* Darker Grey Background */
-            color: #E0E0E0; /* Light Grey Text */
-            border-radius: 8px;
-        }
-
-            .form-control:focus {
-                width: 100%;
-                margin-bottom: 15px;
-                padding: 10px;
-                border: 1px solid #16A085; /* Dark Grey Border */
-                background-color: #263238; /* Darker Grey Background */
-                color: #E0E0E0; /* Light Grey Text */
-                border-radius: 8px;
-            }
-
-            .form-control.d-inline-block {
-                width: auto;
-                flex-grow: 1;
-                margin-right: 10px;
-            }
-
-        .btn {
-            background-color: #18BC9C; /* Emerald Green */
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-            .btn:hover {
-                background-color: #16A085; /* Darker Emerald Green */
-            }
-
-        .btn-primary {
-            background-color: #18BC9C; /* Emerald Green */
-        }
-
-        /* Section Headings */
-        .section-heading {
-            font-size: 2em;
-            font-weight: 500;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #E0E0E0; /* Light Grey */
-        }
-
-        /* Cards for Content */
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            transition: transform 0.2s ease;
-            margin: 20px 0;
-            background-color: #263238; /* Darker Grey Background */
-        }
-
-            .card:hover {
-                transform: translateY(-5px);
-            }
-
-        .card-img-top {
-            border-bottom: 1px solid #37474F; /* Dark Grey Border */
-        }
-
-        .card-body {
-            padding: 20px;
-        }
-
-        .card-title {
-            font-size: 1.25em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #E0E0E0; /* Light Grey */
-        }
-
-        .card-text {
-            color: #B0BEC5; /* Light Grey */
-        }
-
-        /* Testimonials */
-        .testimonial {
-            padding: 20px;
-            background: #263238; /* Darker Grey */
-            border-left: 5px solid #18BC9C; /* Emerald Green */
-            margin: 20px 0;
-        }
-
-            .testimonial strong {
-                color: #E0E0E0; /* Light Grey */
-            }
-
-        /* Footer Styles */
-        footer {
-            background-color: #1F2C38; /* Dark Blue */
-            color: #E0E0E0;
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 20px;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .footer-links {
-            margin-bottom: 20px;
-        }
-
-            .footer-links a {
-                color: #E0E0E0;
-                margin: 0 10px;
-                transition: color 0.3s ease;
-            }
-
-                .footer-links a:hover {
-                    color: #18BC9C; /* Emerald Green on Hover */
-                }
-
-        .footer-text {
-            margin: 0;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            padding-left: 0;
-            list-style: none;
-            border-radius: .25rem;
-        }
-
-            .pagination li {
-                margin: 0 2px;
-            }
-
-            .pagination a, .pagination span {
-                position: relative;
-                display: block;
-                padding: .5rem .75rem;
-                margin-left: -1px;
-                line-height: 1.25;
-                color: #18BC9C; /* Emerald Green */
-                background-color: #2C3E50; /* Dark Blue */
-                border: 1px solid #37474F; /* Dark Grey Border */
-                text-decoration: none;
-                border-radius: .25rem;
-            }
-
-                .pagination a:hover, .pagination a:focus, .pagination span:hover, .pagination span:focus {
-                    z-index: 2;
-                    color: #ffffff;
-                    background-color: #18BC9C; /* Emerald Green */
-                    border-color: #18BC9C;
-                }
-
-            .pagination .active span {
-                z-index: 1;
-                color: #ffffff;
-                background-color: #18BC9C; /* Emerald Green */
-                border-color: #18BC9C;
-            }
-
-        .bootbox.modal .modal-body {
-            background-color: #263238; /* Darker Grey Background */
-            color: #E0E0E0; /* Light Grey Text */
-        }
-
-        .bootbox.modal .modal-footer {
-            border-top: 1px solid #37474F; /* Dark Grey Border */
-            background-color: #1F2C38; /* Dark Blue Background */
-            color: #E0E0E0; /* Light Grey Text */
-        }
-
-        {
-        }
-
-        div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button {
-            background-color: #37474F;
-            color: #E0E0E0; /* Light Grey */
-            border: 1px solid #263238;
-            border-radius: .25rem;
-            opacity: 1;
-            text-shadow: none;
-        }
-
-            div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:hover,
-            div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:focus {
-                color: #FF035C; /* Red */
-                background-color: #37474F;
-                opacity: 1;
-            }
-
-        .bootbox.modal .btn {
-            background-color: #18BC9C; /* Emerald Green */
-            color: #ffffff; /* White Text */
-            border: none;
-            border-radius: 4px;
-            transition: background 0.3s ease;
-        }
-
-            .bootbox.modal .btn:hover {
-                background-color: #16A085; /* Darker Emerald Green */
-            }
-    </style>
-
+ 
 </head>
+
 <h2>Details</h2>
 
-<div class="user-info-card">
-    <h4>@Model.Name</h4>
-    <div class="info-item">
-        <strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong>
-        <span>@Html.DisplayFor(model => model.PhoneNumber)</span>
-    </div>
-    <div class="info-item">
-        <strong>@Html.DisplayNameFor(model => model.City):</strong>
-        <span>@Html.DisplayFor(model => model.City)</span>
-    </div>
-    <div class="info-item">
-        <strong>@Html.DisplayNameFor(model => model.Email):</strong>
-        <span>@Html.DisplayFor(model => model.Email)</span>
-    </div>
-</div>
-
-
-@if (listings != null && listings.Any())
-{
-    <h3>Listings</h3>
+<div class="container">
     <div class="row">
-        @foreach (var listing in listings)
-        {
-            int maxLength = 70;
-            string description = listing.Description;
-            string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
-
-
-            Random random = new Random();
-            int randomIndex = 0;
-            if (listing.Images.Count > 0)
-            {
-                randomIndex = random.Next(listing.Images.Count);
-            }
-            <div class="col-lg-3 col-md-4 col-sm-6 mb-4 listing">
-                <div class="card h-100">
-                    <a href="/Listings/Details/@listing.ID" style="text-decoration: none; color: CaptionText;">
-                        <img src="~/Content/Images/car_images/@listing.Images.ElementAt(randomIndex).Name" class="card-img-top" style="object-fit: cover; aspect-ratio: 4 / 3;" alt="@listing.Title" />
-                        <div class="card-body">
-                            <h5 class="card-title">@listing.Title</h5>
-                            <p class="card-text"><strong>Price:</strong> €@Html.DisplayFor(modelItem => listing.Price)</p>
-                            <p class="card-text" style="color: #B0BEC5">@truncatedDescription</p>
-                            <p class="card-text d-inline"><small class="text-muted d-inline">@listing.Created.Value.Day/@listing.Created.Value.Month/@listing.Created.Value.Year</small></p>
-                            @if (listing.User.UserName == currentUser)
-                            {
-                                <p class="card-text d-inline"><small class="text-muted small" style="float: right">Your Listing</small></p>
-                            }
-                        </div>
-                    </a>
-                    @if (User.IsInRole("Admin") || listing.User.UserName == currentUser)
-                    {
-                        <div class="card-footer text-center">
-                            @Html.ActionLink("Edit", "Edit", new { id = listing.ID }, new { @class = "btn btn-primary btn-sm mx-3" })
-                            @*@Html.ActionLink("Delete", "Delete", new { id = listing.ID }, new { @class = "btn btn-danger btn-sm mr-2 ml-2" })*@
-                            <button data-listing-id="@listing.ID" class="btn btn-danger btn-sm js-delete mx-3">Delete</button>
-                        </div>
-                    }
+        <div class="col-md-6 offset-md-3">
+            <div class="card user-info-card">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.Name</h4>
+                    <div class="info-item">
+                        <strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong>
+                        <span>@Html.DisplayFor(model => model.PhoneNumber)</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>@Html.DisplayNameFor(model => model.City):</strong>
+                        <span>@Html.DisplayFor(model => model.City)</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>@Html.DisplayNameFor(model => model.Email):</strong>
+                        <span>@Html.DisplayFor(model => model.Email)</span>
+                    </div>
+                    <div class="info-item">
+                        <a href="tel:@Model.PhoneNumber" class="btn btn-secondary">Contact Seller</a>
+                    </div>
                 </div>
             </div>
-        }
+        </div>
     </div>
-}
-else
-{
-    <p>No listings available.</p>
-}
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index", "Listings", null, new { @class = "btn btn-secondary mx-2" })
-</p>
+
+    @if (listings != null && listings.Any())
+    {
+        <h3>Listings</h3>
+        <div class="row">
+            @foreach (var listing in listings)
+            {
+                int maxLength = 70;
+                string description = listing.Description;
+                string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
+
+                Random random = new Random();
+                int randomIndex = 0;
+                if (listing.Images.Count > 0)
+                {
+                    randomIndex = random.Next(listing.Images.Count);
+                }
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 listing">
+                    <div class="card h-100">
+                        <a href="/Listings/Details/@listing.ID" style="text-decoration: none; color: inherit;">
+                            <img src="~/Content/Images/car_images/@listing.Images.ElementAt(randomIndex).Name" class="card-img-top" style="object-fit: cover; aspect-ratio: 4 / 3;" alt="@listing.Title" />
+                            <div class="card-body">
+                                <h5 class="card-title">@listing.Title</h5>
+                                <p class="card-text"><strong>Price:</strong> €@Html.DisplayFor(modelItem => listing.Price)</p>
+                                <p class="card-text" style="color: #B0BEC5">@truncatedDescription</p>
+                                <p class="card-text"><small class="text-muted">@listing.Created.Value.Day/@listing.Created.Value.Month/@listing.Created.Value.Year</small></p>
+                                @if (listing.User.UserName == currentUser)
+                                {
+                                    <p class="card-text"><small class="text-muted">Your Listing</small></p>
+                                }
+                            </div>
+                        </a>
+                        @if (User.IsInRole("Admin") || listing.User.UserName == currentUser)
+                        {
+                            <div class="card-footer text-center">
+                                @Html.ActionLink("Edit", "Edit", new { id = listing.ID }, new { @class = "btn btn-primary btn-sm mx-3" })
+                                <button data-listing-id="@listing.ID" class="btn btn-danger btn-sm js-delete mx-3">Delete</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No listings available.</p>
+    }
+    <p>
+        @if (User.IsInRole("Admin") || Model.UserName == currentUser)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary mx-2" })
+        }
+        @Html.ActionLink("Back to List", "Index", "Listings", null, new { @class = "btn btn-secondary mx-2" })
+    </p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

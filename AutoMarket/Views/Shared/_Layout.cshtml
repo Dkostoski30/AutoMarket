@@ -399,6 +399,20 @@
             });
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.carousel-item img').on('click', function () {
+                var src = $(this).attr('src');
+                $('#modalImage').attr('src', src);
+                $('#imageModal').modal('show');
+            });
+            $('.close').on('click', function () {
+                $('#imageModal').modal('hide');
+            });
+        });
+    </script>
     <!-- Terms and Conditions Modal -->
     <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -501,6 +515,21 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="declineTerms" data-dismiss="modal">Decline</button>
                     <button type="button" class="btn btn-primary" id="acceptTerms">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fullscreen Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close btn btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" src="" class="img-fluid" alt="Fullscreen Image">
                 </div>
             </div>
         </div>

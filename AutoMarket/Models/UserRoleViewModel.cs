@@ -12,6 +12,6 @@ namespace AutoMarket.Models
             this.user = user;   
         }
         public ApplicationUser user { get; set; }
-        public string role { get; set; }
+        public List<string> SelectedRoles { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Add Role";
-    var roles_selectlist = new SelectList(ViewBag.Roles);
-    var current_roles = ViewBag.CurrentRoles;
+    var roles_list = ViewBag.Roles;
+    var current_roles = ViewBag.CurrentRoles as List<string>; // Assuming CurrentRoles contains a list of role IDs
 }
 
 <head>
@@ -26,14 +26,51 @@
                 margin-bottom: 20px;
             }
 
-            .add-role-container select {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #37474F; /* Dark Grey Border */
-                border-radius: 4px;
-                background-color: #37474F; /* Dark Grey Background */
-                color: #E0E0E0; /* Light Grey Text */
+                .add-role-container .form-group label {
+                    display: block;
+                    margin-bottom: 5px;
+                }
+
+            .add-role-container input[type="checkbox"] {
+                display: none;
             }
+
+                .add-role-container input[type="checkbox"] + label {
+                    position: relative;
+                    padding-left: 35px;
+                    cursor: pointer;
+                    user-select: none;
+                }
+
+                    .add-role-container input[type="checkbox"] + label:before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 25px;
+                        height: 25px;
+                        border: 2px solid #18BC9C;
+                        border-radius: 4px;
+                        background: #263238;
+                        transition: background 0.3s, border-color 0.3s;
+                    }
+
+                .add-role-container input[type="checkbox"]:checked + label:before {
+                    background: #18BC9C; /* Emerald Green */
+                    border-color: #18BC9C;
+                }
+
+                .add-role-container input[type="checkbox"]:checked + label:after {
+                    content: "";
+                    position: absolute;
+                    left: 9px;
+                    top: 5px;
+                    width: 8px;
+                    height: 16px;
+                    border: solid white;
+                    border-width: 0 2px 2px 0;
+                    transform: rotate(45deg);
+                }
 
             .add-role-container .btn-submit {
                 background-color: #18BC9C; /* Emerald Green */
@@ -95,7 +132,15 @@
         @Html.HiddenFor(m => m.user.PhoneNumber)
         @Html.HiddenFor(m => m.user.City)
         <div class="form-group">
-            @Html.DropDownListFor(m => m.role, roles_selectlist, "Select a Role", new { @class = "form-control" })
+            <label>Roles:</label>
+            @foreach (var role in roles_list)
+            {
+                var isChecked = current_roles.Contains(role.Id);
+                <div>
+                    <input type="checkbox" id="role-@role.Id" name="SelectedRoles" value="@role.Name" @(isChecked ? "checked" : "") />
+                    <label for="role-@role.Id">@role.Name</label>
+                </div>
+            }
         </div>
 
         <div class="form-group">
@@ -103,19 +148,5 @@
         </div>
     }
 
-   @* <h2>Current Roles</h2>
-    <ul>
-        @foreach (var role in current_roles)
-        {
-            <li>
-                @role.Name
-                @using (Html.BeginForm("RemoveRole", "Account", FormMethod.Post))
-                {
-                    @Html.HiddenFor(m => m.user.Id)
-                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                }
-            </li>
-        }
-    </ul>*@
-    @Html.ActionLink("Back to List", "Managment", "Home", null, new { @class = "btn btn-link" })
+    @Html.ActionLink("Back to List", "Management", "Home", null, new { @class = "btn btn-link" })
 </div>

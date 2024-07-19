@@ -66,12 +66,12 @@ namespace AutoMarket.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult AddRole(string id)
         {
-            ViewBag.Roles = db.Roles.Select(r => r.Name).ToList();
-            
+            ViewBag.Roles = db.Roles.ToList();
+
             var user = UserManager.FindById(id);
-            if(user != null)
+            if (user != null)
             {
-               // ViewBag.CurrentRoles = db.Roles.Where(r => user.Roles.Select(role => role.RoleId).Contains(r.Id)).ToList();
+                ViewBag.CurrentRoles = user.Roles.Select(ur => ur.RoleId).ToList();
                 return View(new UserRoleViewModel(user));
             }
             else
@@ -86,7 +86,16 @@ namespace AutoMarket.Controllers
             ApplicationUser user = UserManager.FindById(userId);
             if (user != null)
             {
-                UserManager.AddToRole(userId, model.role);
+                // Remove all roles first
+                var currentRoles = UserManager.GetRoles(userId);
+                UserManager.RemoveFromRoles(userId, currentRoles.ToArray());
+
+                // Add selected roles
+                if (model.SelectedRoles != null)
+                {
+                    UserManager.AddToRoles(userId, model.SelectedRoles.ToArray());
+                }
+
                 return RedirectToAction("Index", "User");
             }
             else

@@ -93,29 +93,29 @@ namespace AutoMarket.Controllers
             ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
             if (id == 1)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => l.Car.Body_Type == "SUV").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
             }
             else if (id == 2)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Sedan").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => l.Car.Body_Type == "Sedan").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }
             else if(id == 3)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Hatchback").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => l.Car.Body_Type == "Hatchback").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }else if(id == 4)
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Car.Body_Type == "Coupe").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => l.Car.Body_Type == "Coupe").Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }
             else
             {
-                var listings = db.Listings.Include(l => l.User).Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
+                var listings = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
                 return View("Index", listings);
 
             }
@@ -133,7 +133,7 @@ namespace AutoMarket.Controllers
             if (model.SelectedCities != null && model.SelectedCities.Any())
             {
                 List<string> cities = db.Cities.Where(c => model.SelectedCities.Contains(c.Id)).Select(c => c.Name).ToList();
-                var listings = db.Listings.Include(l => l.User).Where(l => cities.Contains(l.User.City)).Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(1, 8);
+                var listings = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => cities.Contains(l.User.City)).Where(l => l.Approved).OrderByDescending(l => l.Created).ToPagedList(1, 8);
                 return View("Index", listings);
             }
             else
@@ -379,7 +379,7 @@ namespace AutoMarket.Controllers
                                             .ToArray();
 
 
-            var listingsQuery = db.Listings.Include(l => l.User).Where(l => l.Approved).OrderByDescending(l => l.Created).AsQueryable();
+            var listingsQuery = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => l.Approved).OrderByDescending(l => l.Created).AsQueryable();
             listingsQuery = listingsQuery
                 .Where(l =>
                     (!selectedFuelTypes.Any() || selectedFuelTypes.Contains(l.Car.Fuel_Type)) &&
@@ -443,7 +443,7 @@ namespace AutoMarket.Controllers
             }
             else
             {
-                var listings = db.Listings.Where(l => l.Description.Contains(query) || l.Title.Contains(query)).Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize); ;
+                var listings = db.Listings.Where(l => l.Approved == true).Where(l => l.Description.Contains(query) || l.Title.Contains(query)).Include(l => l.User).OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize); ;
                 return View("Index", listings);
             }
         }

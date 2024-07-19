@@ -15,7 +15,7 @@ namespace AutoMarket.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: User
-        [Authorize(Roles = "Admin,Moderator")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             ViewBag.Roles = db.Roles.ToList();
@@ -38,7 +38,7 @@ namespace AutoMarket.Controllers
                 return HttpNotFound();
             }
             ViewBag.PageNumber = pageNumber;
-            ViewBag.Listings = db.Listings.Where(l => l.User.Email.Equals(applicationUser.Email)).OrderBy(l => l.Created).ToPagedList(pageNumber, 4);
+            ViewBag.Listings = db.Listings.Where(l => l.User.Email.Equals(applicationUser.Email) && l.Approved == true).OrderBy(l => l.Created).ToPagedList(pageNumber, 4);
             return View(applicationUser);
         }
 

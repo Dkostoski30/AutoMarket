@@ -42,7 +42,7 @@ namespace AutoMarket.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var listings = db.Listings.OrderByDescending(l => l.Created).ToList();
+            var listings = db.Listings.Where(l => l.Approved == true).OrderByDescending(l => l.Created).ToList();
             ViewBag.FuelTypes = db.Fuel_Types.Select(ft => ft.Name).ToList();
             ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
             ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();

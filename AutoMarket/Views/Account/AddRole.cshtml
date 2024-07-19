@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Add Role";
     var roles_selectlist = new SelectList(ViewBag.Roles);
+    var current_roles = ViewBag.CurrentRoles;
 }
 
 <head>
@@ -102,5 +103,19 @@
         </div>
     }
 
+   @* <h2>Current Roles</h2>
+    <ul>
+        @foreach (var role in current_roles)
+        {
+            <li>
+                @role.Name
+                @using (Html.BeginForm("RemoveRole", "Account", FormMethod.Post))
+                {
+                    @Html.HiddenFor(m => m.user.Id)
+                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                }
+            </li>
+        }
+    </ul>*@
     @Html.ActionLink("Back to List", "Managment", "Home", null, new { @class = "btn btn-link" })
 </div>

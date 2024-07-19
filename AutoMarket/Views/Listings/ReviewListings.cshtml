@@ -1,0 +1,619 @@
+﻿@model IPagedList<AutoMarket.Models.Listing>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Review Listings";
+    var currentUser = User.Identity.Name;
+    var FuelTypes = ViewBag.FuelTypes;
+    var TransmitionTypes = ViewBag.TransmitionTypes;
+    var BodyTypes = ViewBag.BodyTypes;
+    var ConditionTypes = ViewBag.ConditionTypes;
+}
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #121212; /* Very Dark Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        margin: 0;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+        background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+        padding: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5em;
+        color: #E0E0E0 !important; /* Light Grey */
+        display: flex;
+        align-items: center;
+    }
+
+        .navbar-brand span {
+            color: #1F2C38; /* Dark Blue */
+            background-color: #E0E0E0; /* Light Grey */
+            padding: 0 8px;
+            border-radius: 5px;
+        }
+
+    .nav-link {
+        color: #E0E0E0 !important;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
+
+        .nav-link:hover {
+            color: #18BC9C !important; /* Emerald Green on Hover */
+        }
+
+    .navbar-toggler {
+        border: none;
+        color: #E0E0E0;
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #E0E0E0;
+        text-align: center;
+        padding: 0 20px;
+        background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+    }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #18BC9C; /* Emerald Green */
+            color: #ffffff;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+            .hero .btn:hover {
+                background: #16A085; /* Darker Emerald Green */
+            }
+
+    /* Body Content */
+    .body-content {
+        padding: 20px;
+        background-color: #1F2C38; /* Dark Blue */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        margin-top: -50px;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Form */
+    .form {
+        max-width: 600px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #37474F; /* Dark Grey Border */
+        background-color: #263238; /* Darker Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #16A085; /* Dark Grey Border */
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            border-radius: 8px;
+        }
+
+        .form-control.d-inline-block {
+            width: auto;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+    .btn {
+        background-color: #18BC9C; /* Emerald Green */
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+
+    .btn-primary {
+        background-color: #18BC9C; /* Emerald Green */
+    }
+
+    /* Section Headings */
+    .section-heading {
+        font-size: 2em;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    /* Cards for Content */
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        transition: transform 0.2s ease;
+        margin: 20px 0;
+        background-color: #263238; /* Darker Grey Background */
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .card-img-top {
+        border-bottom: 1px solid #37474F; /* Dark Grey Border */
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.25em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    .card-text {
+        color: #B0BEC5; /* Light Grey */
+    }
+
+    /* Testimonials */
+    .testimonial {
+        padding: 20px;
+        background: #263238; /* Darker Grey */
+        border-left: 5px solid #18BC9C; /* Emerald Green */
+        margin: 20px 0;
+    }
+
+        .testimonial strong {
+            color: #E0E0E0; /* Light Grey */
+        }
+
+    /* Footer Styles */
+    footer {
+        background-color: #1F2C38; /* Dark Blue */
+        color: #E0E0E0;
+        padding: 30px 0;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .footer-links {
+        margin-bottom: 20px;
+    }
+
+        .footer-links a {
+            color: #E0E0E0;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+            .footer-links a:hover {
+                color: #18BC9C; /* Emerald Green on Hover */
+            }
+
+    .footer-text {
+        margin: 0;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        padding-left: 0;
+        list-style: none;
+        border-radius: .25rem;
+    }
+
+        .pagination li {
+            margin: 0 2px;
+        }
+
+        .pagination a, .pagination span {
+            position: relative;
+            display: block;
+            padding: .5rem .75rem;
+            margin-left: -1px;
+            line-height: 1.25;
+            color: #18BC9C; /* Emerald Green */
+            background-color: #2C3E50; /* Dark Blue */
+            border: 1px solid #37474F; /* Dark Grey Border */
+            text-decoration: none;
+            border-radius: .25rem;
+        }
+
+            .pagination a:hover, .pagination a:focus, .pagination span:hover, .pagination span:focus {
+                z-index: 2;
+                color: #ffffff;
+                background-color: #18BC9C; /* Emerald Green */
+                border-color: #18BC9C;
+            }
+
+        .pagination .active span {
+            z-index: 1;
+            color: #ffffff;
+            background-color: #18BC9C; /* Emerald Green */
+            border-color: #18BC9C;
+        }
+    .bootbox.modal .modal-body {
+        background-color: #263238; /* Darker Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+    }
+
+    .bootbox.modal .modal-footer {
+        border-top: 1px solid #37474F; /* Dark Grey Border */
+        background-color: #1F2C38; /* Dark Blue Background */
+        color: #E0E0E0; /* Light Grey Text */
+    }
+
+    {
+    }
+
+    div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button {
+        background-color: #37474F;
+        color: #E0E0E0; /* Light Grey */
+        border: 1px solid #263238;
+        border-radius: .25rem;
+        opacity: 1;
+        text-shadow: none;
+    }
+
+        div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:hover,
+        div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button:focus {
+            color: #FF035C; /* Red */
+            background-color: #37474F;
+            opacity: 1;
+        }
+
+    .bootbox.modal .btn {
+        background-color: #18BC9C; /* Emerald Green */
+        color: #ffffff; /* White Text */
+        border: none;
+        border-radius: 4px;
+        transition: background 0.3s ease;
+    }
+
+        .bootbox.modal .btn:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+
+        .bootbox.modal .btn:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+        .js-decline{
+            background-color: crimson;
+        }
+    .js-decline:hover {
+        background-color: darkred;
+    }
+</style>
+<div class="container my-5">
+    <h2 class="text-center mb-4">Filter Your Search</h2>
+    @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
+    {
+        <div class="row g-3">
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Price From", new { @class = "form-label", @for = "priceFrom" })
+                @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "€" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Price To", new { @class = "form-label", @for = "priceTo" })
+                @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "€" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Year From", new { @class = "form-label", @for = "yearFrom" })
+                @Html.TextBox("yearFrom", null, new { @class = "form-control", placeholder = "YYYY" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Year To", new { @class = "form-label", @for = "yearTo" })
+                @Html.TextBox("yearTo", null, new { @class = "form-control", placeholder = "YYYY" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilometers From", new { @class = "form-label", @for = "kilometersFrom" })
+                @Html.TextBox("kilometersFrom", null, new { @class = "form-control", placeholder = "Km" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilometers To", new { @class = "form-label", @for = "kilometersTo" })
+                @Html.TextBox("kilometersTo", null, new { @class = "form-control", placeholder = "Km" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilowatts From", new { @class = "form-label", @for = "kWFrom" })
+                @Html.TextBox("kWFrom", null, new { @class = "form-control", placeholder = "kW" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Kilowatts To", new { @class = "form-label", @for = "kWTo" })
+                @Html.TextBox("kWTo", null, new { @class = "form-control", placeholder = "kW" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Fuel Type", new { @class = "form-label", style = "font-weight: bold;" })
+                @foreach (var fuelType in FuelTypes)
+                {
+                    <div class="form-check">
+                        @Html.CheckBox("fuelTypes", false, new { id = fuelType, @class = "form-check-input", value = fuelType })
+                        <label for="@fuelType" class="form-check-label">@fuelType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Body Type", new { @class = "form-label", style = "font-weight: bold;" })
+                @for (int i = 0; i < BodyTypes.Count; i++)
+                {
+                    var bodyType = BodyTypes[i];
+                    <div class="form-check">
+                        @Html.CheckBox("bodyTypes", false, new { id = $"bodyType_{i}", @class = "form-check-input", value = bodyType })
+                        <label for="bodyType_@i" class="form-check-label">@bodyType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Condition", new { @class = "form-label", style = "font-weight: bold;" })
+                @for (int i = 0; i < ConditionTypes.Count; i++)
+                {
+                    var conditionType = ConditionTypes[i];
+                    <div class="form-check">
+                        @Html.CheckBox("conditionTypes", false, new { id = $"conditionType_{i}", @class = "form-check-input", value = conditionType })
+                        <label for="conditionType_@i" class="form-check-label">@conditionType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                @Html.Label("Transmission", new { @class = "form-label", style = "font-weight: bold;" })
+                @for (int i = 0; i < TransmitionTypes.Count; i++)
+                {
+                    var transmitionType = TransmitionTypes[i];
+                    <div class="form-check">
+                        @Html.CheckBox("transmitionTypes", false, new { id = $"transmitionType_{i}", @class = "form-check-input", value = transmitionType })
+                        <label for="transmitionType_@i" class="form-check-label">@transmitionType</label>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3 col-sm-6 form-group text-right">
+                @Html.Label("Sort By", new { @class = "form-label" })
+                @Html.DropDownList("sortBy", new SelectList(new[]
+                {
+                    new SelectListItem { Text = "Price - Low to High", Value = "price_asc" },
+                    new SelectListItem { Text = "Price - High to Low", Value = "price_desc" },
+                    new SelectListItem { Text = "Date - Old to New", Value = "date_asc" },
+                    new SelectListItem { Text = "Date - New to Old", Value = "date_desc" }
+                }, "Value", "Text"), "Sort By", new { @class = "form-control" })
+            </div>
+            <div class="col-md-3 col-sm-6 form-group">
+                <button type="submit" class="btn btn-primary w-100 mt-4">Apply Filters</button>
+            </div>
+        </div>
+    }
+</div>
+<!-- Filter Form -->
+@*
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Filter Your Search</h2>
+        @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
+    {
+
+            <div class="row">
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Price From", new { @class = "sr-only", @for = "priceFrom" })
+                    @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "€" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Price To", new { @class = "sr-only", @for = "priceTo" })
+                    @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "€" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Year From", new { @class = "sr-only", @for = "yearFrom" })
+                    @Html.TextBox("yearFrom", null, new { @class = "form-control", placeholder = "YYYY" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Year To", new { @class = "sr-only", @for = "yearTo" })
+                    @Html.TextBox("yearTo", null, new { @class = "form-control", placeholder = "YYYY" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilometers From", new { @class = "sr-only", @for = "kilometersFrom" })
+                    @Html.TextBox("kilometersFrom", null, new { @class = "form-control", placeholder = "Km" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilometers To", new { @class = "sr-only", @for = "kilometersTo" })
+                    @Html.TextBox("kilometersTo", null, new { @class = "form-control", placeholder = "Km" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilowatts From", new { @class = "sr-only", @for = "kWFrom" })
+                    @Html.TextBox("kWFrom", null, new { @class = "form-control", placeholder = "kW" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilowatts To", new { @class = "sr-only", @for = "kWTo" })
+                    @Html.TextBox("kWTo", null, new { @class = "form-control", placeholder = "kW" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Fuel Type", new { @class = "sr-only" })
+                    @foreach (var fuelType in FuelTypes)
+                    {
+                        <div>
+                            @Html.CheckBox("fuelTypes", false, new { id = fuelType, value = fuelType })
+                            <label for="@fuelType">@fuelType</label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Body Type", new { @class = "sr-only" })
+                    @for (int i = 0; i < BodyTypes.Count; i++)
+                    {
+                        var bodyType = BodyTypes[i];
+                        <div>
+                            @Html.CheckBox("bodyTypes", false, new { id = $"bodyType_{i}", value = bodyType })
+                            <label for="bodyType_@i">@bodyType</label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Condition", new { @class = "sr-only" })
+                    @for (int i = 0; i < ConditionTypes.Count; i++)
+                    {
+                        var conditionType = ConditionTypes[i];
+                        <div>
+                            @Html.CheckBox("conditionTypes", false, new { id = $"conditionType_{i}", value = conditionType })
+                            <label for="conditionType_@i">@conditionType</label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Transmission", new { @class = "sr-only" })
+                    @for (int i = 0; i < TransmitionTypes.Count; i++)
+                    {
+                        var transmitionType = TransmitionTypes[i];
+                        <div>
+                            @Html.CheckBox("transmitionTypes", false, new { id = $"transmitionType_{i}", value = transmitionType })
+                            <label for="transmitionType_@i">@transmitionType</label>
+                        </div>
+                    }
+                </div>
+
+                <div class="col-md-2 col-sm-6 form-group">
+                    <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
+                </div>
+                <div class="col-md-2 col-sm-6 form-group text-right">
+                    @Html.Label("Sort By", new { @class = "sr-only" })
+                    @Html.DropDownList("sortBy", new SelectList(new[]
+                    {
+                        new SelectListItem { Text = "Price - Low to High", Value = "price_asc" },
+                        new SelectListItem { Text = "Price - High to Low", Value = "price_desc" },
+                        new SelectListItem { Text = "Date - Old to New", Value = "date_asc" },
+                        new SelectListItem { Text = "Date - New to Old", Value = "date_desc" }
+                    }, "Value", "Text"), "Sort By", new { @class = "form-control" })
+                </div>
+            </div>
+    }
+
+    </div>*@
+
+<hr />
+
+@if (!Model.Any())
+{
+    <div class="col-md-12 text-center">
+        <h2 class="text-muted">No cars were found..</h2>
+        <a href="/Home/Index/" class="btn buttonClass col-12 col-md-3">Back Home</a>
+    </div>
+}
+
+<div class="row" id="ListingsContainer">
+    @foreach (var item in Model)
+    {
+        int maxLength = 70;
+        string description = item.Description;
+        string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
+
+
+        Random random = new Random();
+        int randomIndex = 0;
+        if (item.Images.Count > 0)
+        {
+            randomIndex = random.Next(item.Images.Count);
+        }
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4 listing">
+            <div class="card h-100">
+                <a href="/Listings/Details/@item.ID" style="text-decoration: none; color: CaptionText;">
+                    <img src="~/Content/Images/car_images/@item.Images.ElementAt(randomIndex).Name" class="card-img-top" style="object-fit: cover; aspect-ratio: 4 / 3;" alt="@item.Title" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text"><strong>Price:</strong> €@Html.DisplayFor(modelItem => item.Price)</p>
+                        <p class="card-text" style="color: #B0BEC5">@truncatedDescription</p>
+                        <p class="card-text d-inline"><small class="text-muted d-inline">@item.Created.Value.Day/@item.Created.Value.Month/@item.Created.Value.Year</small></p>
+                        @if (item.User.UserName == currentUser)
+                        {
+                            <p class="card-text d-inline"><small class="text-muted small" style="float: right">Your Listing</small></p>
+                        }
+                    </div>
+                </a>
+                @if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                {
+                    <div class="card-footer text-center">
+                                                @*@Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-sm mr-2 ml-2" })*@
+                        <button data-listing-id="@item.ID" class="btn btn-danger btn-sm js-decline mx-3">Deny</button>
+                        <button data-listing-id="@item.ID" class="btn btn-danger btn-sm js-approve mx-3">Approve</button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<div class="text-center mt-3">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
+@section scripts {
+    <script>
+            $(document).ready(function () {
+                var table = $("#ListingsContainer");
+                $("#ListingsContainer .js-approve").on("click", function () {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to approve this listing?", function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: "/Listings/Approve/" + button.attr("data-listing-id"),
+                                method: "GET",
+                                success: function () {
+                                    button.parents(".listing").remove();
+                                },
+                                error: function (err) {
+                                    console.log(err)
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        $("#ListingsContainer .js-decline").on("click", function () {
+            var button = $(this);
+            bootbox.confirm("Are you sure you want to deny this listing?", function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "/Listings/Delete/" + button.attr("data-listing-id"),
+                        method: "GET",
+                        success: function () {
+                            button.parents(".listing").remove();
+                        },
+                        error: function (err) {
+                            console.log(err)
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

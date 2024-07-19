@@ -28,6 +28,7 @@ namespace AutoMarket.Models
         public DateTime? Created { get; set; }
         public string Condition {  get; set; }
         public virtual ICollection<Image> Images { get; set; }
+        public bool Approved { get; set; }
 
     }
 }

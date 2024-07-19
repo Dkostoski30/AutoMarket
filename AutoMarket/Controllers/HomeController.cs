@@ -5,22 +5,50 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AutoMarket.Controllers
 {
+/*    public class NewsService
+    {
+        private readonly string _apiKey = "b540f019d6be48fb9e9d1aaf75668678";
+        private readonly string _baseUrl = "https://newsapi.org/v2/everything";
+
+        public async Task<List<NewsArticle>> GetCarNewsAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = $"{_baseUrl}?q=cars&apiKey={_apiKey}";
+                var response = await client.GetStringAsync(url);
+                var result = JsonConvert.DeserializeObject<NewsApiResponse>(response);
+                return result.Articles;
+            }
+        }
+    }
+*/
+
+    public class NewsApiResponse
+    {
+        public List<NewsArticle> Articles { get; set; }
+    }
+
     public class HomeController : Controller
     {
+        /*private readonly NewsService _newsService = new NewsService();*/
         private ApplicationDbContext db = new ApplicationDbContext();
 
         [AllowAnonymous]
         public ActionResult Index()
         {
             var listings = db.Listings.OrderByDescending(l => l.Created).ToList();
-            ViewBag.FuelTypes = new List<string> { "Petrol", "Diesel", "Electric", "Hybrid", "Hydrogen" };
-            ViewBag.BodyTypes = new List<string> { "Sedan", "Wagon", "SUV", "Hatchback", "Coupe", "Convertible", "Minivan" };
-            ViewBag.TransmitionTypes = new List<string> { "Manual", "Automatic", "Semi-Automatic", "CVT" };
-            ViewBag.ConditionTypes = new List<string> { "New", "Used" };
+            ViewBag.FuelTypes = db.Fuel_Types.Select(ft => ft.Name).ToList();
+            ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
+            ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
+            ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
             ViewBag.Cities = db.Cities.ToList();
+     
             return View(listings);
         }
 
@@ -34,8 +62,6 @@ namespace AutoMarket.Controllers
         [AllowAnonymous]
         public ActionResult FAQ()
         {
-            
-
             return View();
         }
         [AllowAnonymous]

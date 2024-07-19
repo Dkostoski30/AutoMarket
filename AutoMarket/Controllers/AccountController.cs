@@ -71,6 +71,7 @@ namespace AutoMarket.Controllers
             var user = UserManager.FindById(id);
             if(user != null)
             {
+               // ViewBag.CurrentRoles = db.Roles.Where(r => user.Roles.Select(role => role.RoleId).Contains(r.Id)).ToList();
                 return View(new UserRoleViewModel(user));
             }
             else
@@ -192,7 +193,9 @@ namespace AutoMarket.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { Email = model.Email, UserName = model.Email, Name = model.Name, PhoneNumber = model.PhoneNumber, City = model.City};
+               
                 var result = await UserManager.CreateAsync(user, model.Password);
+                UserManager.AddToRole(user.Id, "User");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -207,7 +210,8 @@ namespace AutoMarket.Controllers
                 }
                 AddErrors(result);
             }
-
+            var cities = db.Cities.Select(c => c.Name).ToList();
+            ViewBag.CityList = new SelectList(cities);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

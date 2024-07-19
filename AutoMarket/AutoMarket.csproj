@@ -288,6 +288,10 @@
     <Compile Include="Migrations\202407131701193_3.4.Designer.cs">
       <DependentUpon>202407131701193_3.4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202407190021248_3.5.cs" />
+    <Compile Include="Migrations\202407190021248_3.5.Designer.cs">
+      <DependentUpon>202407190021248_3.5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Body_Type.cs" />
@@ -303,6 +307,7 @@
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewsArticle.cs" />
     <Compile Include="Models\Transmission_Type.cs" />
     <Compile Include="Models\UserRoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -659,6 +664,7 @@
     <Content Include="Views\Cities\Edit.cshtml" />
     <Content Include="Views\Cities\Index.cshtml" />
     <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Listings\ReviewListings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -766,6 +772,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202407131701193_3.4.resx">
       <DependentUpon>202407131701193_3.4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202407190021248_3.5.resx">
+      <DependentUpon>202407190021248_3.5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

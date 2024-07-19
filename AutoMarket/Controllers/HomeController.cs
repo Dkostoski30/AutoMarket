@@ -75,7 +75,8 @@ namespace AutoMarket.Controllers
         public ActionResult Management()
         {
             ViewBag.PendingListings = db.Listings.Where(l => l.Approved == false).Count();
-            ViewBag.Listings = db.Listings.Where(l => l.Approved).Count();
+            ViewBag.
+            Listings = db.Listings.Where(l => l.Approved).Count();
             ViewBag.Users = db.Users.Count();
             ViewBag.CarBrands = db.Car_Brands.Count();
             ViewBag.Conditions = db.Condition_Types.Count();

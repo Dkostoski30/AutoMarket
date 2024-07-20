@@ -44,5 +44,6 @@ namespace AutoMarket.Models
         public DbSet<Car_Brand> Car_Brands{ get; set; }
 
         public System.Data.Entity.DbSet<AutoMarket.Models.City> Cities { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
     }
 }

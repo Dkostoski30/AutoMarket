@@ -8,6 +8,7 @@ using PagedList;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.UI;
 
 namespace AutoMarket.Controllers
 {
@@ -40,15 +41,18 @@ namespace AutoMarket.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
+            int pageSize = 3; // Number of blogs per page
+            int pageNumber = (page ?? 1); // Default to the first page if no page number is provided
+
             var listings = db.Listings.Where(l => l.Approved == true).OrderByDescending(l => l.Created).ToList();
             ViewBag.FuelTypes = db.Fuel_Types.Select(ft => ft.Name).ToList();
             ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
             ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
             ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
             ViewBag.Cities = db.Cities.ToList();
-     
+            ViewBag.Blogs = db.Blogs.OrderByDescending(b => b.Date).ToPagedList(pageNumber, pageSize);
             return View(listings);
         }
 

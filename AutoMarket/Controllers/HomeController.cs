@@ -92,7 +92,7 @@ namespace AutoMarket.Controllers
             ViewBag.Conditions = db.Condition_Types.Count();
             ViewBag.Transmissions = db.Transmission_Types.Count();
             ViewBag.Cities = db.Cities.Count();
-
+            ViewBag.Blogs = db.Blogs.Count();
             return View();
         }
     }

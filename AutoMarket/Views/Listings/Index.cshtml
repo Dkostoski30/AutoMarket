@@ -8,8 +8,12 @@
     var TransmitionTypes = ViewBag.TransmitionTypes;
     var BodyTypes = ViewBag.BodyTypes;
     var ConditionTypes = ViewBag.ConditionTypes;
-  
 
+
+}
+@{
+    var currentQueryString = Request.QueryString.ToString();
+    Func<int, string> generatePageUrl = page => Url.Action("ApplyFilters", new { page }) + "&" + currentQueryString;
 }
 
 <style>
@@ -235,6 +239,7 @@
     .footer-text {
         margin: 0;
     }
+
     .pagination {
         display: flex;
         justify-content: center;
@@ -273,6 +278,7 @@
             background-color: #18BC9C; /* Emerald Green */
             border-color: #18BC9C;
         }
+
     .bootbox.modal .modal-body {
         background-color: #263238; /* Darker Grey Background */
         color: #E0E0E0; /* Light Grey Text */
@@ -283,7 +289,7 @@
         background-color: #1F2C38; /* Dark Blue Background */
         color: #E0E0E0; /* Light Grey Text */
     }
- 
+
     div.bootbox.modal.fade.bootbox-confirm.show > div > div > div.modal-body > button {
         background-color: #37474F;
         color: #E0E0E0; /* Light Grey */
@@ -299,6 +305,7 @@
             background-color: #37474F;
             opacity: 1;
         }
+
     .bootbox.modal .btn {
         background-color: #18BC9C; /* Emerald Green */
         color: #ffffff; /* White Text */
@@ -325,14 +332,16 @@
             background-color: #18BC9C; /* Emerald Green */
             color: #ffffff; /* White Text */
         }
+
     .form-check-input {
-        background-color: darkslategrey; 
-            border-color: #18BC9C;
+        background-color: darkslategrey;
+        border-color: #18BC9C;
     }
-    .form-check-input:checked {
-        background-color: #18BC9C; /* Emerald Green */
-        border-color: #18BC9C; /* Emerald Green */
-    }
+
+        .form-check-input:checked {
+            background-color: #18BC9C; /* Emerald Green */
+            border-color: #18BC9C; /* Emerald Green */
+        }
 </style>
 <div class="container my-5">
     <h2 class="text-center mb-4">Filter Your Search</h2>
@@ -432,105 +441,105 @@
 </div>
 <!-- Filter Form -->
 @*
-<div class="container my-5">
-    <h2 class="text-center mb-4">Filter Your Search</h2>
-    @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
-{
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Filter Your Search</h2>
+        @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
+    {
 
-        <div class="row">
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Price From", new { @class = "sr-only", @for = "priceFrom" })
-                @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "€" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Price To", new { @class = "sr-only", @for = "priceTo" })
-                @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "€" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Year From", new { @class = "sr-only", @for = "yearFrom" })
-                @Html.TextBox("yearFrom", null, new { @class = "form-control", placeholder = "YYYY" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Year To", new { @class = "sr-only", @for = "yearTo" })
-                @Html.TextBox("yearTo", null, new { @class = "form-control", placeholder = "YYYY" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Kilometers From", new { @class = "sr-only", @for = "kilometersFrom" })
-                @Html.TextBox("kilometersFrom", null, new { @class = "form-control", placeholder = "Km" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Kilometers To", new { @class = "sr-only", @for = "kilometersTo" })
-                @Html.TextBox("kilometersTo", null, new { @class = "form-control", placeholder = "Km" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Kilowatts From", new { @class = "sr-only", @for = "kWFrom" })
-                @Html.TextBox("kWFrom", null, new { @class = "form-control", placeholder = "kW" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Kilowatts To", new { @class = "sr-only", @for = "kWTo" })
-                @Html.TextBox("kWTo", null, new { @class = "form-control", placeholder = "kW" })
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Fuel Type", new { @class = "sr-only" })
-                @foreach (var fuelType in FuelTypes)
-                {
-                    <div>
-                        @Html.CheckBox("fuelTypes", false, new { id = fuelType, value = fuelType })
-                        <label for="@fuelType">@fuelType</label>
-                    </div>
-                }
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Body Type", new { @class = "sr-only" })
-                @for (int i = 0; i < BodyTypes.Count; i++)
-                {
-                    var bodyType = BodyTypes[i];
-                    <div>
-                        @Html.CheckBox("bodyTypes", false, new { id = $"bodyType_{i}", value = bodyType })
-                        <label for="bodyType_@i">@bodyType</label>
-                    </div>
-                }
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Condition", new { @class = "sr-only" })
-                @for (int i = 0; i < ConditionTypes.Count; i++)
-                {
-                    var conditionType = ConditionTypes[i];
-                    <div>
-                        @Html.CheckBox("conditionTypes", false, new { id = $"conditionType_{i}", value = conditionType })
-                        <label for="conditionType_@i">@conditionType</label>
-                    </div>
-                }
-            </div>
-            <div class="col-md-2 col-sm-6 form-group">
-                @Html.Label("Transmission", new { @class = "sr-only" })
-                @for (int i = 0; i < TransmitionTypes.Count; i++)
-                {
-                    var transmitionType = TransmitionTypes[i];
-                    <div>
-                        @Html.CheckBox("transmitionTypes", false, new { id = $"transmitionType_{i}", value = transmitionType })
-                        <label for="transmitionType_@i">@transmitionType</label>
-                    </div>
-                }
-            </div>
+            <div class="row">
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Price From", new { @class = "sr-only", @for = "priceFrom" })
+                    @Html.TextBox("priceFrom", null, new { @class = "form-control", placeholder = "€" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Price To", new { @class = "sr-only", @for = "priceTo" })
+                    @Html.TextBox("priceTo", null, new { @class = "form-control", placeholder = "€" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Year From", new { @class = "sr-only", @for = "yearFrom" })
+                    @Html.TextBox("yearFrom", null, new { @class = "form-control", placeholder = "YYYY" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Year To", new { @class = "sr-only", @for = "yearTo" })
+                    @Html.TextBox("yearTo", null, new { @class = "form-control", placeholder = "YYYY" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilometers From", new { @class = "sr-only", @for = "kilometersFrom" })
+                    @Html.TextBox("kilometersFrom", null, new { @class = "form-control", placeholder = "Km" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilometers To", new { @class = "sr-only", @for = "kilometersTo" })
+                    @Html.TextBox("kilometersTo", null, new { @class = "form-control", placeholder = "Km" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilowatts From", new { @class = "sr-only", @for = "kWFrom" })
+                    @Html.TextBox("kWFrom", null, new { @class = "form-control", placeholder = "kW" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Kilowatts To", new { @class = "sr-only", @for = "kWTo" })
+                    @Html.TextBox("kWTo", null, new { @class = "form-control", placeholder = "kW" })
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Fuel Type", new { @class = "sr-only" })
+                    @foreach (var fuelType in FuelTypes)
+                    {
+                        <div>
+                            @Html.CheckBox("fuelTypes", false, new { id = fuelType, value = fuelType })
+                            <label for="@fuelType">@fuelType</label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Body Type", new { @class = "sr-only" })
+                    @for (int i = 0; i < BodyTypes.Count; i++)
+                    {
+                        var bodyType = BodyTypes[i];
+                        <div>
+                            @Html.CheckBox("bodyTypes", false, new { id = $"bodyType_{i}", value = bodyType })
+                            <label for="bodyType_@i">@bodyType</label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Condition", new { @class = "sr-only" })
+                    @for (int i = 0; i < ConditionTypes.Count; i++)
+                    {
+                        var conditionType = ConditionTypes[i];
+                        <div>
+                            @Html.CheckBox("conditionTypes", false, new { id = $"conditionType_{i}", value = conditionType })
+                            <label for="conditionType_@i">@conditionType</label>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-2 col-sm-6 form-group">
+                    @Html.Label("Transmission", new { @class = "sr-only" })
+                    @for (int i = 0; i < TransmitionTypes.Count; i++)
+                    {
+                        var transmitionType = TransmitionTypes[i];
+                        <div>
+                            @Html.CheckBox("transmitionTypes", false, new { id = $"transmitionType_{i}", value = transmitionType })
+                            <label for="transmitionType_@i">@transmitionType</label>
+                        </div>
+                    }
+                </div>
 
-            <div class="col-md-2 col-sm-6 form-group">
-                <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
+                <div class="col-md-2 col-sm-6 form-group">
+                    <button type="submit" class="btn btn-primary mt-4">Apply Filters</button>
+                </div>
+                <div class="col-md-2 col-sm-6 form-group text-right">
+                    @Html.Label("Sort By", new { @class = "sr-only" })
+                    @Html.DropDownList("sortBy", new SelectList(new[]
+                    {
+                        new SelectListItem { Text = "Price - Low to High", Value = "price_asc" },
+                        new SelectListItem { Text = "Price - High to Low", Value = "price_desc" },
+                        new SelectListItem { Text = "Date - Old to New", Value = "date_asc" },
+                        new SelectListItem { Text = "Date - New to Old", Value = "date_desc" }
+                    }, "Value", "Text"), "Sort By", new { @class = "form-control" })
+                </div>
             </div>
-            <div class="col-md-2 col-sm-6 form-group text-right">
-                @Html.Label("Sort By", new { @class = "sr-only" })
-                @Html.DropDownList("sortBy", new SelectList(new[]
-                {
-                    new SelectListItem { Text = "Price - Low to High", Value = "price_asc" },
-                    new SelectListItem { Text = "Price - High to Low", Value = "price_desc" },
-                    new SelectListItem { Text = "Date - Old to New", Value = "date_asc" },
-                    new SelectListItem { Text = "Date - New to Old", Value = "date_desc" }
-                }, "Value", "Text"), "Sort By", new { @class = "form-control" })
-            </div>
-        </div>
-}
+    }
 
-</div>*@
+    </div>*@
 
 <hr />
 
@@ -552,7 +561,8 @@
 
         Random random = new Random();
         int randomIndex = 0;
-        if (item.Images.Count > 0) { 
+        if (item.Images.Count > 0)
+        {
             randomIndex = random.Next(item.Images.Count);
         }
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4 listing">
@@ -583,30 +593,30 @@
     }
 </div>
 <div class="text-center mt-3">
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    @Html.PagedListPager(Model, generatePageUrl, PagedListRenderOptions.ClassicPlusFirstAndLast)
 </div>
 @section scripts {
-        <script>
-            $(document).ready(function () {
-    
-                var table = $("#ListingsContainer");
-                $("#ListingsContainer .js-delete").on("click", function () {
-                    var button = $(this);
-                    bootbox.confirm("Are you sure you want to delete this listing?", function (result) {
-                        if (result) {
-                            $.ajax({
-                                url: "/Listings/Delete/" + button.attr("data-listing-id"),
-                                method: "GET",
-                                success: function () {
-                                    button.parents(".listing").remove();
-                                },
-                                error: function (err) {
-                                    console.log(err)
-                                }
-                            });
-                        }
-                    });
+    <script>
+        $(document).ready(function () {
+
+            var table = $("#ListingsContainer");
+            $("#ListingsContainer .js-delete").on("click", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this listing?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/Listings/Delete/" + button.attr("data-listing-id"),
+                            method: "GET",
+                            success: function () {
+                                button.parents(".listing").remove();
+                            },
+                            error: function (err) {
+                                console.log(err)
+                            }
+                        });
+                    }
                 });
             });
-        </script>
-    }
+        });
+    </script>
+}

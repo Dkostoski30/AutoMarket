@@ -124,7 +124,7 @@ namespace AutoMarket.Controllers
         }
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult BrowseByCities(CitySelectionViewModel model)
+        public ActionResult BrowseByCities(CitySelectionViewModel model, int? page)
         {
             ViewBag.FuelTypes = db.Fuel_Types.Select(ft => ft.Name).ToList();
             ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
@@ -347,9 +347,12 @@ namespace AutoMarket.Controllers
         public ActionResult ApplyFilters(int? page)
         {
 
+            ViewBag.Title = "ApplyFilters";
+          
+
 
             int pageSize = 8;
-            int pageNumber = 1;
+            int pageNumber = (page ?? 1);
             ViewBag.FuelTypes =  db.Fuel_Types.Select(ft => ft.Name).ToList();
             ViewBag.BodyTypes = db.Body_Types.Select(bt => bt.Name).ToList();
             ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
@@ -377,7 +380,9 @@ namespace AutoMarket.Controllers
             var selectedTransmissionTypes = (Request.QueryString["transmitionTypes"]?.Split(',') ?? new string[0])
                                             .Where(s => !string.Equals(s, "false", StringComparison.OrdinalIgnoreCase))
                                             .ToArray();
-
+            var selectedCities = (Request.QueryString["selectedCities"]?.Split(',') ?? new string[0])
+                                      .Where(s => !string.Equals(s, "false", StringComparison.OrdinalIgnoreCase))
+                                      .ToArray();
 
             var listingsQuery = db.Listings.Where(l => l.Approved == true).Include(l => l.User).Where(l => l.Approved).OrderByDescending(l => l.Created).AsQueryable();
             listingsQuery = listingsQuery
@@ -385,7 +390,8 @@ namespace AutoMarket.Controllers
                     (!selectedFuelTypes.Any() || selectedFuelTypes.Contains(l.Car.Fuel_Type)) &&
                     (!selectedBodyTypes.Any() || selectedBodyTypes.Contains(l.Car.Body_Type)) &&
                     (!selectedConditionTypes.Any() || selectedConditionTypes.Contains(l.Condition)) &&
-                    (!selectedTransmissionTypes.Any() || selectedTransmissionTypes.Contains(l.Car.Transmition))
+                    (!selectedTransmissionTypes.Any() || selectedTransmissionTypes.Contains(l.Car.Transmition)) &&
+                    (!selectedCities.Any() || selectedCities.Contains(l.User.City))
                 );
 
             var listingsList = listingsQuery.ToList();
@@ -408,26 +414,34 @@ namespace AutoMarket.Controllers
             var comparer = new NumericStringComparer(CompareNumericStrings);
             var pagedListings = filteredListings.OrderBy(l => l.Created).ToPagedList(pageNumber, pageSize);
             string sort = Request.QueryString["sortBy"];
-            if (sort.Equals("date_asc"))
+            if (sort != null)
             {
-                //var pagedListings = filteredListings.OrderBy(l => l.Created).ToPagedList(pageNumber, pageSize);
-            }
-            else if (sort.Equals("date_desc"))
-            {
-                 pagedListings = filteredListings.OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
-            }else if (sort.Equals("price_asc"))
-            {
-                 pagedListings = filteredListings.OrderBy(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
+                if (sort.Equals("date_asc"))
+                {
+                    //var pagedListings = filteredListings.OrderBy(l => l.Created).ToPagedList(pageNumber, pageSize);
+                }
+                else if (sort.Equals("date_desc"))
+                {
+                    pagedListings = filteredListings.OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
+                }
+                else if (sort.Equals("price_asc"))
+                {
+                    pagedListings = filteredListings.OrderBy(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
+                }
+                else
+                {
+                    pagedListings = filteredListings.OrderByDescending(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
+                }
             }
             else
             {
-                 pagedListings = filteredListings.OrderByDescending(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
+                pagedListings = filteredListings.OrderByDescending(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
             }
             return View("Index", pagedListings);
         }
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Search(string SearchQuery)
+        public ActionResult Search(string SearchQuery, int? page)
         {
             
             ViewBag.FuelTypes =  db.Fuel_Types.Select(ft => ft.Name).ToList();
@@ -435,7 +449,7 @@ namespace AutoMarket.Controllers
             ViewBag.TransmitionTypes = db.Transmission_Types.Select(tt => tt.Name).ToList();
             ViewBag.ConditionTypes = db.Condition_Types.Select(ct => ct.Name).ToList();
             int pageSize = 8;
-            int pageNumber = 1;
+            int pageNumber = (page ?? 1);
             string query = SearchQuery;
             if (string.IsNullOrEmpty(query))
             {

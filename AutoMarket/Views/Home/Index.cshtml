@@ -484,13 +484,13 @@
                 Toggle Cities
             </button>
         </div>
-        @using (Html.BeginForm("BrowseByCities", "Listings", FormMethod.Get))
+        @using (Html.BeginForm("ApplyFilters", "Listings", FormMethod.Get))
         {
             <div class="row" id="citySection">
                 @foreach (var city in cities)
                 {
                     <div class="col-md-3">
-                        <input type="checkbox" id="city-@city.Id" class="city-checkbox" value="@city.Id" name="selectedCities">
+                        <input type="checkbox" id="city-@city.Id" class="city-checkbox" value="@city.Name" name="selectedCities">
                         <label for="city-@city.Id" class="city-label">
                             <div class="card city-card">
                                 <div class="card-body">

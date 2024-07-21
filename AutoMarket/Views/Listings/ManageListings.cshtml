@@ -217,7 +217,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            int maxLength = 370;
+            int maxLength = 50;
             string description = item.Description;
             string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
 

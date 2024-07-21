@@ -100,25 +100,8 @@ namespace AutoMarket.Controllers
             return View(blog);
         }
 
-        // GET: Blogs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Blog blog = db.Blogs.Find(id);
-            if (blog == null)
-            {
-                return HttpNotFound();
-            }
-            return View(blog);
-        }
-
-        // POST: Blogs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+      
+        public ActionResult Delete(int id)
         {
             Blog blog = db.Blogs.Find(id);
             db.Blogs.Remove(blog);

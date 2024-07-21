@@ -14,25 +14,6 @@
         object-fit: cover;
         cursor: pointer;
     }
-
-    .modal-body img {
-        width: 100%;
-        height: auto;
-    }
-
-    .modal-header .close {
-        margin: -1rem -1rem -1rem auto;
-        padding: 1rem;
-    }
-
-    .modal-header {
-        border-bottom: none;
-    }
-
-    .modal-content {
-        background-color: transparent;
-        border: none;
-    }
 </style>
 
 <div class="container mt-4">
@@ -156,15 +137,12 @@
             {
                 @Html.ActionLink("Edit Listing", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary mx-2" })
             }
-            <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#financeModal">Finance Calculator</button>
+            <button class="btn btn-primary mx-2 my-2" data-toggle="modal" data-target="#financeModal">Finance Calculator</button>
             @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary mx-2" })
         </div>
     </div>
 </div>
 
-
-
-<!-- Include Bootstrap JS and jQuery for the carousel -->
-@section scripts {
- 
-}
+<!-- Include jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

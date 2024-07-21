@@ -371,6 +371,16 @@
 
         /* Responsive adjustments */
         @@media (max-width: 600px) {
+            .body-content {
+                padding: 20px;
+                background-color: #ffffff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                margin-top: 15px;
+                position: relative;
+                z-index: 10;
+            }
+
             div.dataTables_wrapper {
                 width: 100%;
                 text-align: left;
@@ -547,7 +557,7 @@
                     <li><a href="/Listings/Index/">Listings</a></li>
                     <li><a href="/Listings/Create/">Sell a Car</a></li>
                     <li><a href="/Home/FAQ/">FAQ</a></li>
-                    <li><a href="/Home/ReportBug/">Report a Bug</a></li>
+                    <li><a href="/Home/ReportABug/">Report a Bug</a></li>
                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                     {
                         <li><a href="/Home/Management/">Management</a></li>

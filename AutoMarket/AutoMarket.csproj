@@ -497,6 +497,10 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\icons\category_coupe.jpg" />
+    <Content Include="Content\Images\icons\category_hatchback.jpg" />
+    <Content Include="Content\Images\icons\category_sedan.jpg" />
+    <Content Include="Content\Images\icons\category_suv.jpg" />
     <Content Include="Content\Images\icons\favicon2.png" />
     <Content Include="Content\Images\icons\banner2.png" />
     <Content Include="Content\Images\icons\user_icon.png" />

@@ -490,7 +490,37 @@
                 background-color: #2C3E50;
                 border: 2px solid #2C3E50; /* Dark Slate Blue */
             }
+        #imageModal .modal-content {
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+        }
 
+        #imageModal .modal-header {
+            border-bottom: none;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+
+            #imageModal .btn-close:focus {
+                outline: none;
+                box-shadow: none;
+            }
+
+        #imageModal .modal-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            #imageModal .modal-body img {
+                max-width: 100%;
+                max-height: 80vh;
+                border-radius: 10px;
+               
+            }
     </style>
 </head>
 <body>

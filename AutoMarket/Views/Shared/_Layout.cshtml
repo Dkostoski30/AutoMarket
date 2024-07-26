@@ -619,6 +619,41 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+        function calculateFinance() {
+            // Get input values
+            const price = parseFloat(document.getElementById('price').value);
+            const downPayment = parseFloat(document.getElementById('downPayment').value);
+            const annualInterestRate = parseFloat(document.getElementById('interestRate').value);
+            const loanTerm = parseFloat(document.getElementById('loanTerm').value);
+
+            // Validate inputs
+            if (isNaN(downPayment) || isNaN(annualInterestRate) || isNaN(loanTerm)) {
+                alert('Please enter valid values for down payment, interest rate, and loan term.');
+                return;
+            }
+
+            // Calculate loan amount
+            const loanAmount = price - downPayment;
+
+            // Calculate monthly interest rate
+            const monthlyInterestRate = annualInterestRate / 100 / 12;
+
+            // Calculate number of monthly payments
+            const numberOfPayments = loanTerm * 12;
+
+            // Calculate monthly payment using the formula
+            const monthlyPayment = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+            // Display the result
+            document.getElementById('financeResult').innerHTML = `
+            <h5>Calculation Results</h5>
+            <p>Loan Amount: $${loanAmount.toFixed(2)}</p>
+            <p>Monthly Payment: $${monthlyPayment.toFixed(2)}</p>
+        `;
+        }
+    </script>
     <script>
         $(document).ready(function() {
             // Check if the user is not logged in and hasn't accepted terms yet
@@ -791,7 +826,7 @@
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
-                
+
                 <div class="modal-body" style="background-color: #37474F; border-radius: 5px;">
                     <form id="financeForm">
                         <div class="form-group">

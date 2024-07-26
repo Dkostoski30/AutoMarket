@@ -571,7 +571,7 @@
                     <img src="~/Content/Images/car_images/@item.Images.ElementAt(randomIndex).Name" class="card-img-top" style="object-fit: cover; aspect-ratio: 4 / 3;" alt="@item.Title" />
                     <div class="card-body">
                         <h5 class="card-title">@item.Title</h5>
-                        <p class="card-text"><strong>Price:</strong> €@Html.DisplayFor(modelItem => item.Price)</p>
+                        <p class="card-text"><strong>Price:</strong> <span class="price" data-price="@item.Price">€@Html.DisplayFor(modelItem => item.Price)</span></p>
                         <p class="card-text" style="color: #B0BEC5">@truncatedDescription</p>
                         <p class="card-text d-inline"><small class="text-muted d-inline">@item.Created.Value.Day/@item.Created.Value.Month/@item.Created.Value.Year</small></p>
                         @if (item.User.UserName == currentUser)
@@ -616,6 +616,18 @@
                         });
                     }
                 });
+            });
+        });
+    </script>
+    <script>
+        function formatPrice(price) {
+            return price.toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            var prices = document.querySelectorAll(".price");
+            prices.forEach(function (priceElem) {
+                var price = parseFloat(priceElem.getAttribute("data-price"));
+                priceElem.textContent = "€" + formatPrice(price);
             });
         });
     </script>

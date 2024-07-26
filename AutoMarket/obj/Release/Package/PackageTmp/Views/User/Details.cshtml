@@ -1,0 +1,145 @@
+﻿@model AutoMarket.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+    var listings = ViewBag.Listings as IEnumerable<AutoMarket.Models.Listing>;
+    var currentUser = User.Identity.Name;
+}
+
+<head>
+    <style>
+        .user-info-card {
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+            .user-info-card h4 {
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .user-info-card .info-item {
+                margin-bottom: 15px;
+            }
+
+                .user-info-card .info-item strong {
+                    display: block;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+
+        /* Custom styles for the dl-horizontal */
+        .dl-horizontal-custom {
+            font-size: 1.2em; /* Increase font size */
+            text-align: center; /* Center the text */
+            margin: 0 auto; /* Center the entire dl element */
+            background-color: #f9f9f9; /* Light background color for contrast */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding for spacing */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+            .dl-horizontal-custom dt {
+                font-weight: bold; /* Bold the term labels */
+                margin-bottom: 10px; /* Space between terms and definitions */
+            }
+
+            .dl-horizontal-custom dd {
+                margin-bottom: 20px; /* Space between different definition entries */
+            }
+    </style>
+ 
+</head>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card user-info-card">
+                <div class="card-body">
+                    <h4 class="card-title">@Model.Name</h4>
+                    <div class="info-item">
+                        <strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong>
+                        <span>@Html.DisplayFor(model => model.PhoneNumber)</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>@Html.DisplayNameFor(model => model.City):</strong>
+                        <span>@Html.DisplayFor(model => model.City)</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>@Html.DisplayNameFor(model => model.Email):</strong>
+                        <span>@Html.DisplayFor(model => model.Email)</span>
+                    </div>
+                    <div class="info-item">
+                        <a href="tel:@Model.PhoneNumber" class="btn btn-secondary">Contact Seller</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (listings != null && listings.Any())
+    {
+        <h3>Listings</h3>
+        <div class="row">
+            @foreach (var listing in listings)
+            {
+                int maxLength = 70;
+                string description = listing.Description;
+                string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
+
+                Random random = new Random();
+                int randomIndex = 0;
+                if (listing.Images.Count > 0)
+                {
+                    randomIndex = random.Next(listing.Images.Count);
+                }
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4 listing">
+                    <div class="card h-100">
+                        <a href="/Listings/Details/@listing.ID" style="text-decoration: none; color: inherit;">
+                            <img src="~/Content/Images/car_images/@listing.Images.ElementAt(randomIndex).Name" class="card-img-top" style="object-fit: cover; aspect-ratio: 4 / 3;" alt="@listing.Title" />
+                            <div class="card-body">
+                                <h5 class="card-title">@listing.Title</h5>
+                                <p class="card-text"><strong>Price:</strong> €@Html.DisplayFor(modelItem => listing.Price)</p>
+                                <p class="card-text" style="color: #B0BEC5">@truncatedDescription</p>
+                                <p class="card-text"><small class="text-muted">@listing.Created.Value.Day/@listing.Created.Value.Month/@listing.Created.Value.Year</small></p>
+                                @if (listing.User.UserName == currentUser)
+                                {
+                                    <p class="card-text"><small class="text-muted">Your Listing</small></p>
+                                }
+                            </div>
+                        </a>
+                        @if (User.IsInRole("Admin") || listing.User.UserName == currentUser)
+                        {
+                            <div class="card-footer text-center">
+                                @Html.ActionLink("Edit", "Edit", new { id = listing.ID }, new { @class = "btn btn-primary btn-sm mx-3" })
+                                <button data-listing-id="@listing.ID" class="btn btn-danger btn-sm js-delete mx-3">Delete</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No listings available.</p>
+    }
+    <p>
+        @if (User.IsInRole("Admin") || Model.UserName == currentUser)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary mx-2" })
+        }
+        @Html.ActionLink("Back to List", "Index", "Listings", null, new { @class = "btn btn-secondary mx-2 my-2" })
+    </p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

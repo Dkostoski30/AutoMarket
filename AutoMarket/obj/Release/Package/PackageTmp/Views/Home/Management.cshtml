@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "Management";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #121212; /* Very Dark Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        margin: 0;
+    }
+
+    .navbar {
+        background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+        padding: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5em;
+        color: #E0E0E0 !important; /* Light Grey */
+        display: flex;
+        align-items: center;
+    }
+    /* Form */
+    .form {
+        max-width: 600px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #37474F; /* Dark Grey Border */
+        background-color: #263238; /* Darker Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #16A085; /* Dark Grey Border */
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            border-radius: 8px;
+        }
+
+        .form-control.d-inline-block {
+            width: auto;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+
+    .navbar-brand span {
+        color: #1F2C38; /* Dark Blue */
+        background-color: #E0E0E0; /* Light Grey */
+        padding: 0 8px;
+        border-radius: 5px;
+    }
+
+    .section-heading {
+        font-size: 2.5em;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 50px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 20px;
+    }
+
+    .important-section {
+        margin-bottom: 50px;
+    }
+
+    .card {
+        background: #1F2C38; /* Dark Blue */
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 280px;
+        text-align: center;
+        padding: 20px;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+    .card-title {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    .card-text {
+        color: #B0BEC5; /* Light Grey */
+        margin-bottom: 20px;
+    }
+
+    .btn-primary {
+        background-color: #18BC9C; /* Emerald Green */
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+        a:hover {
+            color: darkgray; /* Darker Emerald Green on Hover */
+        }
+
+    .text-yellow {
+        color: goldenrod;
+    }
+</style>
+
+<div class="container">
+    <h2 class="section-heading">@ViewBag.Title</h2>
+
+    <div class="important-section">
+        <div class="card-container">
+            <div class="card">
+                <h5 class="card-title">Manage Listings</h5>
+                <p class="card-text">Admin</p>
+                <p class="card-text text-muted">@ViewBag.Listings total listings</p>
+                <a href="/Listings/ManageListings" class="btn-primary">Manage Listings</a>
+            </div>
+            <div class="card">
+                @{
+                    string style_class;
+                    if (ViewBag.PendingListings >= 3)
+                    {
+                        style_class = "text-danger";
+                    }
+                    else if (ViewBag.PendingListings > 0 && ViewBag.PendingListings < 3)
+                    {
+                        style_class = "text-yellow";
+                    }
+                    else
+                    {
+                        style_class = "text-muted";
+                    }
+                }
+                <h5 class="card-title">Pending Listings</h5>
+                <p class="card-text">Moderator, Admin</p>
+                <p class="card-text @style_class">@ViewBag.PendingListings listings pending</p>
+                <a href="/Listings/ReviewListings" class="btn-primary">Review</a>
+            </div>
+            <div class="card">
+                <h5 class="card-title">Manage Users</h5>
+                <p class="card-text">Admin</p>
+                <p class="card-text text-muted">@ViewBag.Users total users</p>
+                <a href="/User/Index" class="btn-primary">Manage Users</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-container">
+        <div class="card">
+            <h5 class="card-title">Manage Blogs</h5>
+            <p class="card-text">Moderator, Admin</p>
+            <p class="card-text text-muted">@ViewBag.Blogs total blogs</p>
+            <a href="/Blogs/Index" class="btn-primary">Manage Blogs</a>
+        </div>
+    </div>
+<div class="card-container">
+    <div class="card">
+        <h5 class="card-title">Car Brands</h5>
+        <p class="card-text">Moderator, Admin</p>
+        <p class="card-text text-muted">@ViewBag.CarBrands total car brands</p>
+        <a href="/Car_Brand/Index" class="btn-primary">Manage Brands</a>
+    </div>
+    <div class="card">
+        <h5 class="card-title">Condition Types</h5>
+        <p class="card-text">Moderator, Admin</p>
+        <p class="card-text text-muted">@ViewBag.Conditions total conditions</p>
+        <a href="/Condition_Type/Index" class="btn-primary">Manage Conditions</a>
+    </div>
+    <div class="card">
+        <h5 class="card-title">Transmission Types</h5>
+        <p class="card-text">Moderator, Admin</p>
+        <p class="card-text text-muted">@ViewBag.Transmissions total transmissions</p>
+        <a href="/Transmission_Type/Index" class="btn-primary">Manage Transmissions</a>
+    </div>
+    <div class="card">
+        <h5 class="card-title">Cities</h5>
+        <p class="card-text">Moderator, Admin</p>
+        <p class="card-text text-muted">@ViewBag.Cities total cities</p>
+        <a href="/Cities/Index" class="btn-primary">Manage Cities</a>
+    </div>
+</div>
+        </div>

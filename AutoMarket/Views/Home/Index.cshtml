@@ -377,6 +377,7 @@
         .news-card-link:hover {
             color: #16A085; /* Darker Emerald Green */
         }
+
     .blog-card-img {
         width: 100%;
         height: 200px; /* Fixed height for images */
@@ -414,7 +415,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">@item.Title</h5>
-                            <p class="card-text">Price: €@item.Price</p>
+                            <p class="card-text"><strong>Price:</strong> <span class="price" data-price="@item.Price">€@Html.DisplayFor(modelItem => item.Price)</span></p>
                             @Html.ActionLink("Details", "Details", "Listings", new { id = item.ID }, new { @class = "btn btn-primary btn-sm" })
                         </div>
                     </div>
@@ -449,32 +450,32 @@
         </div>*@
     <!--Blog section-->
     <!-- Blog Section -->
-<div class="blog-section">
-    <h2 class="section-heading">Our Latest Blogs!</h2>
-    <div class="row">
-        @foreach (var blog in blogs)
-        {
-            int maxLength = 50;
-            string description = blog.Content;
-            string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
-            <div class="col-md-4">
-                <div class="card blog-card">
-                    <img src="~/Content/Images/blog_images/@blog.ImageUrl" class="card-img-top blog-card-img" alt="Blog Image">
-                    <div class="card-body blog-card-body">
-                        <h5 class="card-title blog-card-title">@blog.Title</h5>
-                        <p class="card-text blog-card-text">@truncatedDescription</p>
-                        <p class="blog-card-date">@blog.Date.ToString("MMMM dd, yyyy")</p>
-                        <a href="@Url.Action("Details", "Blogs", new { id = blog.ID })" class="blog-card-link">Read More</a>
+    <div class="blog-section">
+        <h2 class="section-heading">Our Latest Blogs!</h2>
+        <div class="row">
+            @foreach (var blog in blogs)
+            {
+                int maxLength = 50;
+                string description = blog.Content;
+                string truncatedDescription = description.Length <= maxLength ? description : description.Substring(0, maxLength) + "..";
+                <div class="col-md-4">
+                    <div class="card blog-card">
+                        <img src="~/Content/Images/blog_images/@blog.ImageUrl" class="card-img-top blog-card-img" alt="Blog Image">
+                        <div class="card-body blog-card-body">
+                            <h5 class="card-title blog-card-title">@blog.Title</h5>
+                            <p class="card-text blog-card-text">@truncatedDescription</p>
+                            <p class="blog-card-date">@blog.Date.ToString("MMMM dd, yyyy")</p>
+                            <a href="@Url.Action("Details", "Blogs", new { id = blog.ID })" class="blog-card-link">Read More</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-    <div class="pagination">
-        @Html.PagedListPager(blogs, page => Url.Action("Index", new { page }))
-    </div>
+            }
+        </div>
+        <div class="pagination">
+            @Html.PagedListPager(blogs, page => Url.Action("Index", new { page }))
+        </div>
 
-</div>
+    </div>
     <!-- Browse by City -->
     <div class="my-5">
         <h2 class="section-heading">Browse by City</h2>
@@ -609,6 +610,19 @@
             $('#toggleCities').click(function () {
                 $('#citySection').toggle();
                 $('#toggleIconCity').toggleClass('fa-chevron-down fa-chevron-right');
+            });
+        });
+
+    </script>
+    <script>
+        function formatPrice(price) {
+            return price.toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            var prices = document.querySelectorAll(".price");
+            prices.forEach(function (priceElem) {
+                var price = parseFloat(priceElem.getAttribute("data-price"));
+                priceElem.textContent = "€" + formatPrice(price);
             });
         });
     </script>

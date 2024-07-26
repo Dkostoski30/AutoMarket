@@ -106,7 +106,7 @@
                 <div class="col-md-7 col-12 mb-4">
                     <dl class="row">
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Price)</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Price)</dd>
+                        <dd class="col-sm-8"><p class="card-text price" data-price="@Model.Price">€ @Html.DisplayFor(modelItem => Model.Price)</p></dd>
 
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Description)</dt>
                         <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
@@ -146,3 +146,15 @@
 <!-- Include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    function formatPrice(price) {
+        return price.toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        var prices = document.querySelectorAll(".price");
+        prices.forEach(function (priceElem) {
+            var price = parseFloat(priceElem.getAttribute("data-price"));
+            priceElem.textContent = "€" + formatPrice(price);
+        });
+    });
+</script>

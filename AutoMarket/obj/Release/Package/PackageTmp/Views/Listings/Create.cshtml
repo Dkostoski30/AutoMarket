@@ -1,0 +1,494 @@
+﻿@model AutoMarket.Models.Listing
+
+@{
+    ViewBag.Title = "Create a Listing";
+}
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #121212; /* Very Dark Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        margin: 0;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+        background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+        padding: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5em;
+        color: #E0E0E0 !important; /* Light Grey */
+        display: flex;
+        align-items: center;
+    }
+
+        .navbar-brand span {
+            color: #1F2C38; /* Dark Blue */
+            background-color: #E0E0E0; /* Light Grey */
+            padding: 0 8px;
+            border-radius: 5px;
+        }
+
+    .nav-link {
+        color: #E0E0E0 !important;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
+
+        .nav-link:hover {
+            color: #18BC9C !important; /* Emerald Green on Hover */
+        }
+
+    .navbar-toggler {
+        border: none;
+        color: #E0E0E0;
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #E0E0E0;
+        text-align: center;
+        padding: 0 20px;
+        background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+    }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #18BC9C; /* Emerald Green */
+            color: #ffffff;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+            .hero .btn:hover {
+                background: #16A085; /* Darker Emerald Green */
+            }
+
+    /* Body Content */
+    .body-content {
+        padding: 20px;
+        background-color: #1F2C38; /* Dark Blue */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        margin-top: -50px;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Form */
+    .form {
+        max-width: 600px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #37474F; /* Dark Grey Border */
+        background-color: #263238; /* Darker Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #16A085; /* Dark Grey Border */
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            border-radius: 8px;
+        }
+
+        .form-control.d-inline-block {
+            width: auto;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+    .btn {
+        background-color: #18BC9C; /* Emerald Green */
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+
+    .btn-primary {
+        background-color: #18BC9C; /* Emerald Green */
+    }
+
+    /* Section Headings */
+    .section-heading {
+        font-size: 2em;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    /* Cards for Content */
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        transition: transform 0.2s ease;
+        margin: 20px 0;
+        background-color: #263238; /* Darker Grey Background */
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .card-img-top {
+        border-bottom: 1px solid #37474F; /* Dark Grey Border */
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.25em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    .card-text {
+        color: #B0BEC5; /* Light Grey */
+    }
+
+    /* Testimonials */
+    .testimonial {
+        padding: 20px;
+        background: #263238; /* Darker Grey */
+        border-left: 5px solid #18BC9C; /* Emerald Green */
+        margin: 20px 0;
+    }
+
+        .testimonial strong {
+            color: #E0E0E0; /* Light Grey */
+        }
+
+    /* Footer Styles */
+    footer {
+        background-color: #1F2C38; /* Dark Blue */
+        color: #E0E0E0;
+        padding: 30px 0;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .footer-links {
+        margin-bottom: 20px;
+    }
+
+        .footer-links a {
+            color: #E0E0E0;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+            .footer-links a:hover {
+                color: #18BC9C; /* Emerald Green on Hover */
+            }
+
+    .footer-text {
+        margin: 0;
+    }
+
+    .file-drop-area {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 100%;
+        padding: 25px;
+        border: 2px dashed #ccc;
+        border-radius: 3px;
+        transition: 0.2s;
+    }
+
+    .fake-btn {
+        flex-shrink: 0;
+        background-color: #18BC9C;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .file-msg {
+        font-size: 14px;
+        color: #aaa;
+    }
+
+    .file-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file-drop-area.is-active {
+        background-color: #f0f0f0;
+        border-color: #007bff;
+    }
+</style>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="container">
+    <h4 class="my-4">Create a Listing</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                        <div></div>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Manufacturer, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Car.Manufacturer, (SelectList)ViewBag.CarBrands, "Select a Manufacturer", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Car.Manufacturer, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Model, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Model, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Model, "", new { @class = "text-danger" })
+                    </div>
+
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Registration_Year, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Registration_Year, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Registration_Year, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.number_seats, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.number_seats, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.number_seats, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.number_doors, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.number_doors, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.number_doors, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Transmition, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Car.Transmition, (SelectList)ViewBag.TransmissionTypes, "Select Transmission Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Car.Transmition, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Kilometers, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Kilometers, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Kilometers, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Kilowatts, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Car.Kilowatts, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Car.Kilowatts, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Fuel_Type, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Car.Fuel_Type, (SelectList)ViewBag.FuelTypes, "Select Fuel Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Car.Fuel_Type, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Car.Body_Type, htmlAttributes: new { @class = "control-label" })
+                        @Html.DropDownListFor(model => model.Car.Body_Type, (SelectList)ViewBag.BodyTypes, "Select Body Type", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Car.Body_Type, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.Approved)
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="form-group">
+                @Html.Label("Condition", htmlAttributes: new { @class = "control-label" })
+                @foreach (var condition in (List<string>)ViewBag.ConditionTypes)
+                {
+                    <div class="form-check">
+                        @Html.RadioButtonFor(model => model.Condition, condition, new { @class = "form-check-input" })
+                        @Html.Label(condition, condition, htmlAttributes: new { @class = "form-check-label" })
+                    </div>
+                }
+                @Html.ValidationMessageFor(model => model.Condition, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @*   <div class="card mb-4">
+            <div class="card-body">
+                <h5>Upload Images</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            @Html.Label("Front Image", htmlAttributes: new { @class = "control-label" })
+                        </div>
+                        <input type="file" name="FrontImage" class="form-control-file" required />
+
+                        <div class="form-group mt-3">
+                            @Html.Label("Back Image", htmlAttributes: new { @class = "control-label" })
+
+                        </div>
+                        <input type="file" name="BackImage" class="form-control-file" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            @Html.Label("Side Image", htmlAttributes: new { @class = "control-label" })
+
+                        </div>
+                        <input type="file" name="SideImage" class="form-control-file" required />
+                        <div class="form-group mt-3">
+                            @Html.Label("Interior Image", htmlAttributes: new { @class = "control-label" })
+
+                        </div>
+                        <input type="file" name="InteriorImage" class="form-control-file" required />
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Upload Images</h5>
+            <div class="row">
+                <div class="file-drop-area">
+                    <span class="fake-btn">Choose files</span>
+                    <span class="file-msg">or drag and drop files here</span>
+                    <input type="file" name="CarImages" class="file-input" multiple>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-info">
+        <strong>Note:</strong> Your listing will be sent for review and posted within 24 hours.
+    </div>
+    <div class="form-group">
+        @Html.HiddenFor(m => m.Created)
+        <div class="col-md-12 text-center">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="mt-3">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+<script>
+    document.querySelectorAll('.file-drop-area').forEach(dropArea => {
+        const fileInput = dropArea.querySelector('.file-input');
+        const fakeBtn = dropArea.querySelector('.fake-btn');
+        const fileMsg = dropArea.querySelector('.file-msg');
+
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropArea.classList.add('is-active');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('is-active');
+        });
+
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropArea.classList.remove('is-active');
+            const files = event.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                updateFileMessage(fileInput, fileMsg);
+            }
+        });
+
+        fakeBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            updateFileMessage(fileInput, fileMsg);
+        });
+
+        function updateFileMessage(input, messageElement) {
+            const fileCount = input.files.length;
+            messageElement.textContent = fileCount === 1 ? '1 file selected' : `${fileCount} files selected`;
+        }
+    });
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

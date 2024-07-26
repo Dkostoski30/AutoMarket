@@ -1,0 +1,259 @@
+﻿@using Microsoft.AspNet.Identity
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #121212; /* Very Dark Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        margin: 0;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+        background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+        padding: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5em;
+        color: #E0E0E0 !important; /* Light Grey */
+        display: flex;
+        align-items: center;
+    }
+
+        .navbar-brand span {
+            color: #1F2C38; /* Dark Blue */
+            background-color: #E0E0E0; /* Light Grey */
+            padding: 0 8px;
+            border-radius: 5px;
+        }
+
+    .nav-link {
+        color: #E0E0E0 !important;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
+
+        .nav-link:hover {
+            color: #18BC9C !important; /* Emerald Green on Hover */
+        }
+
+    .navbar-toggler {
+        border: none;
+        color: #E0E0E0;
+    }
+
+    /* Hero Section */
+    .hero {
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #E0E0E0;
+        text-align: center;
+        padding: 0 20px;
+        background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+    }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #18BC9C; /* Emerald Green */
+            color: #ffffff;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+            .hero .btn:hover {
+                background: #16A085; /* Darker Emerald Green */
+            }
+
+    /* Body Content */
+    .body-content {
+        padding: 20px;
+        background-color: #1F2C38; /* Dark Blue */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        margin-top: -50px;
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Form */
+    .form {
+        max-width: 600px;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .form-control {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        border: 1px solid #37474F; /* Dark Grey Border */
+        background-color: #263238; /* Darker Grey Background */
+        color: #E0E0E0; /* Light Grey Text */
+        border-radius: 8px;
+    }
+
+        .form-control:focus {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #16A085; /* Dark Grey Border */
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            border-radius: 8px;
+        }
+
+        .form-control.d-inline-block {
+            width: auto;
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+    .btn {
+        background-color: #18BC9C; /* Emerald Green */
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .btn:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+
+    .btn-primary {
+        background-color: #18BC9C; /* Emerald Green */
+    }
+
+    /* Section Headings */
+    .section-heading {
+        font-size: 2em;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    /* Cards for Content */
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        transition: transform 0.2s ease;
+        margin: 20px 0;
+        background-color: #263238; /* Darker Grey Background */
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .card-img-top {
+        border-bottom: 1px solid #37474F; /* Dark Grey Border */
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.25em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #E0E0E0; /* Light Grey */
+    }
+
+    .card-text {
+        color: #B0BEC5; /* Light Grey */
+    }
+
+    /* Testimonials */
+    .testimonial {
+        padding: 20px;
+        background: #263238; /* Darker Grey */
+        border-left: 5px solid #18BC9C; /* Emerald Green */
+        margin: 20px 0;
+    }
+
+        .testimonial strong {
+            color: #E0E0E0; /* Light Grey */
+        }
+
+    /* Footer Styles */
+    footer {
+        background-color: #1F2C38; /* Dark Blue */
+        color: #E0E0E0;
+        padding: 30px 0;
+        text-align: center;
+        margin-top: 20px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .footer-links {
+        margin-bottom: 20px;
+    }
+
+        .footer-links a {
+            color: #E0E0E0;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+            .footer-links a:hover {
+                color: #18BC9C; /* Emerald Green on Hover */
+            }
+
+    .footer-text {
+        margin: 0;
+    }
+</style>
+@{ 
+
+}
+@if (Request.IsAuthenticated)
+{
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()<ul class="navbar-nav navbar-right">
+                                <li>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        @Html.ActionLink("Hello Admin!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                    }
+                                    else if (User.IsInRole("Moderator"))
+                                    {
+                                        @Html.ActionLink("Hello Moderator " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Hello " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+                                    }
+                                </li>
+        <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="nav-link" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="nav-link" })</li>
+    </ul>
+}

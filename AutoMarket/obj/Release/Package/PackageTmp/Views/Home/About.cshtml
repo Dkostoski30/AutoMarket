@@ -1,0 +1,325 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Very Dark Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            margin: 0;
+        }
+        .navbar {
+            background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #E0E0E0 !important; /* Light Grey */
+            display: flex;
+            align-items: center;
+        }
+
+            .navbar-brand span {
+                color: #1F2C38; /* Dark Blue */
+                background-color: #E0E0E0; /* Light Grey */
+                padding: 0 8px;
+                border-radius: 5px;
+            }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #E0E0E0;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(90deg, #1F2C38 0%, #2C3E50 100%); /* Dark Blue Gradient */
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero .btn {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: #18BC9C; /* Emerald Green */
+            color: #ffffff;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        .hero .btn:hover {
+            background: #16A085; /* Darker Emerald Green */
+        }
+
+        /* Body Content */
+        .body-content {
+            padding: 20px;
+            background-color: #1F2C38; /* Dark Blue */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            font-size: 2em;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #E0E0E0; /* Light Grey */
+        }
+
+        /* Cards for Content */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            margin: 20px 0;
+            background-color: #263238; /* Darker Grey Background */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img-top {
+            border-bottom: 1px solid #37474F; /* Dark Grey Border */
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #E0E0E0; /* Light Grey */
+        }
+
+        .card-text {
+            color: #B0BEC5; /* Light Grey */
+        }
+
+        /* Responsive Card Grid */
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        @@media (max-width: 768px) {
+            .card-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Testimonials */
+        .testimonial {
+            padding: 20px;
+            background: #263238; /* Darker Grey */
+            border-left: 5px solid #18BC9C; /* Emerald Green */
+            margin: 20px 0;
+        }
+
+        .testimonial strong {
+            color: #E0E0E0; /* Light Grey */
+        }
+
+        /* Form */
+        #contact .form {
+            max-width: 800px; /* Increased max-width for better size */
+            margin: 20px auto;
+            background-color: #263238; /* Darker Grey Background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-control {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #37474F; /* Dark Grey Border */
+            background-color: #263238; /* Darker Grey Background */
+            color: #E0E0E0; /* Light Grey Text */
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            border-color: #16A085; /* Dark Grey Border */
+            background-color: #263238; /* Darker Grey Background */
+        }
+
+        .btn {
+            background-color: #18BC9C; /* Emerald Green */
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #16A085; /* Darker Emerald Green */
+        }
+
+        .btn-primary {
+            background-color: #18BC9C; /* Emerald Green */
+        }
+
+        /* Map Container */
+        .map-container {
+            width: 100%;
+            max-width: 100%;
+            background-color: #263238; /* Darker Grey Background */
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .map-svg {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        /* Your existing styles */
+        .modal {
+            z-index: 1050; /* Bootstrap default */
+        }
+
+        .modal-backdrop {
+            z-index: 1040; /* Bootstrap default */
+        }
+        /* Custom Scrollbar */
+        #termsModal .modal-body {
+            scrollbar-width: thin;
+            scrollbar-color: #18BC9C #2C3E50; /* Dark Slate Blue on Dark Gray */
+        }
+
+            #termsModal .modal-body::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            #termsModal .modal-body::-webkit-scrollbar-track {
+                background-color: #2C3E50; /* Dark Slate Blue */
+            }
+
+            #termsModal .modal-body::-webkit-scrollbar-thumb {
+                background-color: #2C3E50;
+                border: 2px solid #2C3E50; /* Dark Slate Blue */
+            }
+
+    </style>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <h1>About Us</h1>
+            <p>At AutoMarket, we are dedicated to connecting car buyers and sellers with a seamless and efficient experience. With a focus on trust and transparency, we strive to make every transaction smooth and satisfactory.</p>
+            <a href="#contact" class="btn">Contact Us</a>
+        </div>
+    </section>
+
+    <!-- Body Content -->
+    <div class="container body-content">
+        <!-- Our Vision Section -->
+        <div class="mb-5">
+            <h2 class="section-heading">Our Vision</h2>
+            <p style="text-align: center;">We aim to revolutionize the car buying and selling experience by providing a trustworthy platform where every transaction is transparent and user-friendly.</p>
+        </div>
+
+        <!-- Our Values Section -->
+        <div class="mb-5">
+            <h2 class="section-heading">Our Values</h2>
+            <p style="text-align: center;">Integrity, customer satisfaction, and continuous improvement are at the heart of everything we do at AutoMarket.</p>
+        </div>
+
+        <!-- Meet Our Team Section -->
+        <div class="mb-5">
+            <h2 class="section-heading">Meet Our Team</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Daniel Kostoski - CEO</h3>
+                        <p class="card-text">With over 20 years in the automotive industry, Daniel leads our company with a passion for innovation and customer satisfaction.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Petar S. - COO</h3>
+                        <p class="card-text">Petar brings his extensive experience in operations to ensure our services run smoothly and efficiently.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Darko M. - CTO</h3>
+                        <p class="card-text">Darko spearheads our technology initiatives, driving innovation and excellence in our platform development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div class="mb-5">
+            <h2 class="section-heading">Testimonials</h2>
+            <div class="testimonial">
+                <p>"AutoMarket made buying my car a breeze! The process was transparent, and the customer service was top-notch." - <strong>Krste B.</strong></p>
+            </div>
+            <div class="testimonial">
+                <p>"Selling my car through AutoMarket was quick and easy. I got a great price and the team was very supportive." - <strong>Daniel B.</strong></p>
+            </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="mb-5" id="contact">
+            <h2 class="section-heading">Contact Us</h2>
+            <form class="form container col-md-8" style="display:flex; flex-direction:column; align-items:center; justify-content: space-between">
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" style="width:100%;" class="form-control" name="name" id="name" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="4" name="message" placeholder="Enter your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-container">
+            <h2 class="section-heading">Find Us Here</h2>
+            <div class="map-svg">
+                <!-- Embed a map image or an iframe with the company's location -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3163.1610673244097!2d-122.08424968468479!3d37.42199977982562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb4e268e08b81%3A0x58e04d2e27b6b3d0!2sGoogleplex!5e0!3m2!1sen!2sus!4v1638450392381!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+

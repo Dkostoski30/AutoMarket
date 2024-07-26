@@ -435,7 +435,7 @@ namespace AutoMarket.Controllers
             }
             else
             {
-                pagedListings = filteredListings.OrderByDescending(l => l.Price, comparer).ToPagedList(pageNumber, pageSize);
+                pagedListings = filteredListings.OrderByDescending(l => l.Created).ToPagedList(pageNumber, pageSize);
             }
             return View("Index", pagedListings);
         }

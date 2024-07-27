@@ -63,6 +63,7 @@ namespace AutoMarket.Controllers
 
             return View();
         }
+        [AllowAnonymous]
         public ActionResult ReportABug()
         {
            

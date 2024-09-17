@@ -261,6 +261,34 @@ namespace AutoMarket.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(listing).State = EntityState.Modified;
+                var files = Request.Files;
+                if(files.Count != 0)
+                {
+                    var images = db.Images.Where(i => i.Listing_ID == listing.ID).ToList();
+                    foreach (var image in images)
+                    {
+                        string filePath = image.Path;
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);
+                        }
+                        db.Images.Remove(image);
+
+                    }
+                }
+                for (int i = 0; i < files.Count; i++)
+                {
+                    var file = files[i];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string filename = Path.GetFileName(file.FileName);
+                        string path = Path.Combine(Server.MapPath("~/Content/Images/car_images/"), filename);
+                        Image image = new Image(filename, path);
+                        file.SaveAs(path);
+                        listing.Images.Add(image);
+                    }
+                }
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

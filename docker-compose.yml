@@ -1,0 +1,66 @@
+version: '3.9'
+
+# ════════════════════════════════════════════════════════════════
+# AutoMarket — Local Development Stack
+# Start: docker-compose up -d
+# Backend API:  http://localhost:8080
+# Frontend:     http://localhost:4200
+# Swagger UI:   http://localhost:8080/swagger-ui.html
+# pgAdmin:      http://localhost:5050
+# MailHog:      http://localhost:8025
+# ════════════════════════════════════════════════════════════════
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: automarket-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: automarket
+      POSTGRES_USER: automarket
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U automarket"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: automarket-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: automarket-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: automarket-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@automarket.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:

@@ -1,0 +1,102 @@
+spring:
+  application:
+    name: automarket-backend
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/automarket}
+    username: ${DB_USERNAME:automarket}
+    password: ${DB_PASSWORD:secret}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+        jdbc:
+          batch_size: 25
+        order_inserts: true
+        order_updates: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+
+# AutoMarket application configuration
+automarket:
+  jwt:
+    secret: ${JWT_SECRET:change-this-secret-in-production-must-be-at-least-32-chars}
+    access-token-expiry-ms: 900000       # 15 minutes
+    refresh-token-expiry-ms: 2592000000  # 30 days
+
+  cors:
+    allowed-origins:
+      - ${FRONTEND_URL:http://localhost:4200}
+
+  storage:
+    provider: ${STORAGE_PROVIDER:local}
+    local:
+      upload-dir: ${LOCAL_UPLOAD_DIR:./uploads}
+      base-url: ${LOCAL_BASE_URL:http://localhost:8080/uploads}
+    s3:
+      bucket: ${S3_BUCKET:automarket-uploads}
+      cdn-url: ${CDN_URL:https://cdn.automarket.com}
+
+  listings:
+    max-per-free-user: 3
+    max-images-per-listing: 10
+
+  mail:
+    from: ${MAIL_FROM:noreply@automarket.com}
+
+  frontend:
+    base-url: ${FRONTEND_URL:http://localhost:4200}
+
+  features:
+    ai-recommendations: false
+    price-estimation: false
+    stripe-payments: ${STRIPE_ENABLED:false}
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# OpenAPI
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method

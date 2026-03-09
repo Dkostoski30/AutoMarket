@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    show-sql: false
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+
+automarket:
+  storage:
+    provider: s3
+  features:
+    stripe-payments: true
+
+logging:
+  level:
+    com.automarket: INFO
+    root: WARN

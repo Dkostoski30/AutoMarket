@@ -1,0 +1,47 @@
+version: '3.9'
+
+# ════════════════════════════════════════════════════════════════
+# AutoMarket — Production Stack Override
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# All secrets must be provided via environment variables or Docker secrets.
+# ════════════════════════════════════════════════════════════════
+
+services:
+
+  backend:
+    image: ghcr.io/automarket/backend:${IMAGE_TAG:-latest}
+    container_name: automarket-backend
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST}
+      JWT_SECRET: ${JWT_SECRET}
+      STORAGE_PROVIDER: s3
+      S3_BUCKET: ${S3_BUCKET}
+      CDN_URL: ${CDN_URL}
+      STRIPE_ENABLED: "true"
+      FRONTEND_URL: ${FRONTEND_URL}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    image: ghcr.io/automarket/frontend:${IMAGE_TAG:-latest}
+    container_name: automarket-frontend
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend

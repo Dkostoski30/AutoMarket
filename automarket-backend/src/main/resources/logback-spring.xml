@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+
+    <!-- ═══ DEV: human-readable colored console output ═══════════════════════ -->
+    <springProfile name="dev,default">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} %highlight(%-5level) [%cyan(%X{requestId:-?})] [%yellow(%X{userId:-anon})] %magenta(%logger{36}) - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+
+        <logger name="com.automarket" level="DEBUG"/>
+        <logger name="org.springframework.security" level="WARN"/>
+        <logger name="org.hibernate.SQL" level="DEBUG"/>
+    </springProfile>
+
+    <!-- ═══ PROD: structured JSON via logstash-logback-encoder ══════════════ -->
+    <springProfile name="prod,staging">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <customFields>{"app":"${appName}"}</customFields>
+                <fieldNames>
+                    <timestamp>@timestamp</timestamp>
+                    <message>message</message>
+                    <logger>logger</logger>
+                    <thread>thread</thread>
+                    <levelValue>[ignore]</levelValue>
+                </fieldNames>
+                <includeMdcKeyName>requestId</includeMdcKeyName>
+                <includeMdcKeyName>userId</includeMdcKeyName>
+                <includeMdcKeyName>method</includeMdcKeyName>
+                <includeMdcKeyName>path</includeMdcKeyName>
+                <includeMdcKeyName>status</includeMdcKeyName>
+                <includeMdcKeyName>durationMs</includeMdcKeyName>
+            </encoder>
+        </appender>
+
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+
+        <logger name="com.automarket" level="INFO"/>
+    </springProfile>
+</configuration>

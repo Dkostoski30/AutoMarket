@@ -83,6 +83,11 @@ automarket:
     price-estimation: false
     stripe-payments: ${STRIPE_ENABLED:false}
 
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY:}
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+    price-id-premium: ${STRIPE_PRICE_PREMIUM:}
+
 # Actuator
 management:
   endpoints:
